@@ -4,13 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BASDELWEB</title>
+  <script>
+    try {
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+
+      if (sessionStorage.getItem("basdelweb-intro-seen") === "true") {
+        document.documentElement.classList.add("intro-seen");
+      }
+    } catch (error) {
+      console.info("No fue posible consultar el estado de la presentación.", error);
+    }
+  </script>
   <style>
     :root {
       --color-background: #ffffff;
       --color-text: #111111;
       --color-focus: #1769e0;
       --header-padding: clamp(1rem, 4vw, 3rem);
-      --transition-duration: 850ms;
+      --transition-duration: 700ms;
+      --liquid-easing: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @font-face {
@@ -54,12 +68,13 @@
       place-items: center;
       background: var(--color-background);
       transition:
-        min-height var(--transition-duration) ease,
-        padding var(--transition-duration) ease,
-        box-shadow 250ms ease;
+        min-height var(--transition-duration) var(--liquid-easing),
+        padding var(--transition-duration) var(--liquid-easing),
+        box-shadow 400ms ease;
     }
 
     .header-content {
+      position: relative;
       display: grid;
       width: min(100%, 72rem);
       justify-items: center;
@@ -71,7 +86,188 @@
       width: min(94vw, 800px);
       height: auto;
       color: var(--color-text);
-      transition: width var(--transition-duration) cubic-bezier(0.22, 1, 0.36, 1);
+      transition:
+        width var(--transition-duration) var(--liquid-easing),
+        max-height var(--transition-duration) var(--liquid-easing);
+      animation: logo-reveal 650ms var(--liquid-easing) both;
+    }
+
+    .home-reload {
+      display: grid;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      opacity: 1;
+      place-items: center;
+      transition: opacity 500ms var(--liquid-easing);
+    }
+
+    .site-header[data-phase="loading"] .home-reload {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .welcome-sequence {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      display: flex;
+      width: min(94vw, 900px);
+      align-items: center;
+      justify-content: center;
+      gap: clamp(0.45rem, 1.5vw, 1rem);
+      color: var(--color-text);
+      font-family: "Product Sans", Arial, sans-serif;
+      font-size: clamp(2rem, 7vw, 5rem);
+      font-weight: 500;
+      line-height: 1.1;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      transition: opacity 450ms var(--liquid-easing), visibility 0s linear 450ms;
+    }
+
+    .intro-bracket {
+      width: clamp(1.5rem, 5vw, 3.5rem);
+      height: clamp(2.2rem, 8vw, 5.5rem);
+      flex: 0 0 auto;
+      overflow: visible;
+    }
+
+    .intro-bracket path {
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      stroke-width: 8;
+    }
+
+    .site-header:not([data-phase="loading"]) .welcome-sequence,
+    .intro-seen .welcome-sequence {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .typing-cursor {
+      display: inline-block;
+      width: 0.08em;
+      height: 0.9em;
+      margin-left: 0.08em;
+      background: currentColor;
+      vertical-align: -0.08em;
+      animation: cursor-blink 650ms steps(1, end) infinite;
+    }
+
+    @keyframes cursor-blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .home-reload:focus-visible {
+      border-radius: 0.5rem;
+      outline: 3px solid var(--color-focus);
+      outline-offset: 0.5rem;
+    }
+
+    @keyframes logo-reveal {
+      from {
+        opacity: 0;
+        transform: translateY(0.75rem) scale(0.98);
+        filter: blur(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    .loading-indicator {
+      position: absolute;
+      top: calc(100% + 1.25rem);
+      left: 50%;
+      display: grid;
+      width: 2rem;
+      height: 2rem;
+      border: 3px solid rgb(17 17 17 / 18%);
+      border-top-color: var(--color-text);
+      border-radius: 50%;
+      place-items: center;
+      transform: translateX(-50%);
+      animation: loading-spin 800ms linear infinite;
+      transition: opacity 350ms ease, visibility 0s linear 350ms;
+    }
+
+    .site-header:not([data-phase="loading"]) .loading-indicator {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .intro-seen .logo,
+    .intro-seen .loading-indicator {
+      animation: none;
+    }
+
+    .intro-seen .site-header,
+    .intro-seen .logo,
+    .intro-seen .home-reload,
+    .intro-seen .site-nav {
+      transition: none;
+    }
+
+    .intro-seen .logo {
+      visibility: hidden;
+    }
+
+    .intro-seen.logo-ready .logo {
+      visibility: visible;
+    }
+
+    .intro-seen .loading-indicator {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .logo.is-assembling #del-d,
+    .logo.is-assembling #del-e-top,
+    .logo.is-assembling #del-e-middle,
+    .logo.is-assembling #del-e-bottom,
+    .logo.is-assembling #del-l,
+    .logo.is-assembling #web-w,
+    .logo.is-assembling #web-e-top,
+    .logo.is-assembling #web-e-middle,
+    .logo.is-assembling #web-e-bottom,
+    .logo.is-assembling #web-b,
+    .logo.is-assembling #separator,
+    .logo.is-assembling #tagline-primary,
+    .logo.is-assembling #tagline-secondary {
+      opacity: 0 !important;
+    }
+
+    #logo-elements > * {
+      transition: opacity 550ms var(--liquid-easing);
+    }
+
+    @keyframes loading-spin {
+      to {
+        transform: translateX(-50%) rotate(360deg);
+      }
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .site-header[data-phase="final"] {
@@ -81,32 +277,51 @@
     }
 
     .site-header[data-phase="final"] .logo {
-      width: min(78vw, 560px);
+      width: min(96vw, 1000px);
+    }
+
+    .site-header[data-phase="logo"] .logo {
+      width: min(76vw, 650px);
+    }
+
+    .site-header[data-phase="expanded"] .logo,
+    .site-header[data-phase="tagline"] .logo {
+      width: min(96vw, 1000px);
+    }
+
+    .site-header[data-phase="expanded"] .logo {
+      transition-duration: 1800ms;
     }
 
     .site-nav {
+      position: absolute;
+      top: calc(100% + 2.5rem);
+      left: 50%;
       visibility: hidden;
       display: flex;
+      width: 100%;
       flex-wrap: wrap;
       justify-content: center;
       gap: 0.75rem;
       opacity: 0;
-      transform: translateY(1rem);
+      transform: translate(-50%, 1rem);
       transition:
-        opacity 450ms ease,
-        transform 450ms ease,
-        visibility 0s linear 450ms;
+        opacity 500ms var(--liquid-easing),
+        transform 500ms var(--liquid-easing),
+        visibility 0s linear 500ms;
     }
 
     .site-header[data-phase="final"] .site-nav,
-    .site-header.is-compact .site-nav {
+    .site-header.is-compact .site-nav,
+    .intro-seen .site-nav {
       visibility: visible;
       opacity: 1;
-      transform: translateY(0);
+      transform: translate(-50%, 0);
       transition-delay: 0s;
     }
 
     .site-nav a {
+      --button-offset: 0.75rem;
       display: inline-flex;
       min-height: 2.75rem;
       align-items: center;
@@ -116,8 +331,38 @@
       border-radius: 999px;
       color: var(--color-text);
       font-weight: 700;
+      opacity: 0;
       text-decoration: none;
-      transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+      transform: translateY(var(--button-offset));
+      transition:
+        background-color 180ms ease,
+        color 180ms ease,
+        opacity 500ms var(--liquid-easing),
+        transform 500ms var(--liquid-easing);
+    }
+
+    .site-header[data-phase="final"] .site-nav a,
+    .site-header.is-compact .site-nav a,
+    .intro-seen .site-nav a {
+      --button-offset: 0;
+      opacity: 1;
+    }
+
+    .site-header[data-phase="final"] .site-nav a:nth-child(1) {
+      transition-delay: 0ms;
+    }
+
+    .site-header[data-phase="final"] .site-nav a:nth-child(2) {
+      transition-delay: 160ms;
+    }
+
+    .site-header[data-phase="final"] .site-nav a:nth-child(3) {
+      transition-delay: 320ms;
+    }
+
+    .intro-seen .site-nav a {
+      transform: none;
+      transition: none;
     }
 
     .site-nav a:hover {
@@ -131,7 +376,8 @@
       outline-offset: 3px;
     }
 
-    .site-header.is-compact {
+    .site-header.is-compact,
+    .intro-seen .site-header {
       position: sticky;
       top: 0;
       min-height: 0;
@@ -139,20 +385,26 @@
       box-shadow: 0 0.35rem 1.25rem rgb(0 0 0 / 12%);
     }
 
-    .site-header.is-compact .header-content {
+    .site-header.is-compact .header-content,
+    .intro-seen .header-content {
       grid-template-columns: minmax(8rem, 20%) minmax(0, 80%);
       align-items: center;
       gap: 1rem;
     }
 
-    .site-header.is-compact .logo {
-      width: min(100%, 150px);
-      max-height: 6rem;
+    .site-header.is-compact .logo,
+    .intro-seen .logo {
+      width: min(100%, 220px);
+      max-height: 7rem;
       justify-self: start;
     }
 
-    .site-header.is-compact .site-nav {
+    .site-header.is-compact .site-nav,
+    .intro-seen .site-nav {
+      position: static;
+      width: auto;
       justify-self: end;
+      transform: none;
     }
 
     .scroll-preview {
@@ -180,8 +432,28 @@
     .logo__tagline {
       fill: currentColor;
       font-family: "Product Sans", Arial, sans-serif;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 300;
+    }
+
+    .tagline-group {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: transform 500ms var(--liquid-easing);
+    }
+
+    .site-header.is-compact .tagline-group {
+      transform: scale(1.65);
+    }
+
+    .site-header.is-compact .home-reload:focus-visible .tagline-group {
+      transform: scale(1.8);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .site-header.is-compact .home-reload:hover .tagline-group {
+        transform: scale(1.8);
+      }
     }
 
     .logo__bar,
@@ -198,19 +470,23 @@
     }
 
     @media (max-width: 700px) {
-      .site-header.is-compact .header-content {
+      .site-header.is-compact .header-content,
+      .intro-seen .header-content {
         grid-template-columns: 1fr;
         justify-items: center;
       }
 
       .site-header.is-compact .logo,
-      .site-header.is-compact .site-nav {
+      .site-header.is-compact .site-nav,
+      .intro-seen .logo,
+      .intro-seen .site-nav {
         justify-self: center;
       }
 
-      .site-header.is-compact .logo {
-        width: 90px;
-        max-height: 4.5rem;
+      .site-header.is-compact .logo,
+      .intro-seen .logo {
+        width: min(80vw, 240px);
+        max-height: 6rem;
       }
 
       .site-nav a {
@@ -227,25 +503,43 @@
 
       .site-header,
       .logo,
+      .tagline-group,
       .site-nav,
       .site-nav a {
         transition: none;
+      }
+
+      .logo,
+      .loading-indicator,
+      .typing-cursor {
+        animation: none;
       }
     }
   </style>
 </head>
 <body>
-  <header id="inicio" class="site-header" data-phase="intro">
+  <header id="inicio" class="site-header" data-phase="loading">
     <div class="header-content">
-      <svg
-        class="logo"
-        data-state="2"
-        viewBox="0 0 680 120"
-        preserveAspectRatio="xMidYMid meet"
-        role="img"
-        aria-labelledby="logo-title logo-description"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+      <div class="welcome-sequence" aria-label="Bienvenido a Básicos">
+        <svg class="intro-bracket" viewBox="0 0 30 50" aria-hidden="true">
+          <path d="M24 4 L4 25 L24 46" />
+        </svg>
+        <span id="intro-text" aria-hidden="true"></span><span class="typing-cursor" aria-hidden="true"></span>
+        <svg class="intro-bracket" viewBox="0 0 30 50" aria-hidden="true">
+          <path d="M6 4 L26 25 L6 46" />
+        </svg>
+      </div>
+
+      <button id="home-reload" class="home-reload" type="button" aria-label="Recargar la página y volver al inicio">
+        <svg
+          class="logo"
+          data-state="2"
+          viewBox="0 0 680 120"
+          preserveAspectRatio="xMidYMid meet"
+          role="img"
+          aria-labelledby="logo-title logo-description"
+          xmlns="http://www.w3.org/2000/svg"
+        >
         <title id="logo-title">BASDELWEB</title>
         <desc id="logo-description">Logotipo transformable BAS DEL WEB entre símbolos de código.</desc>
 
@@ -266,10 +560,17 @@
           <text id="web-b" class="logo__letter">B</text>
           <path id="bracket-right" class="logo__bracket" d="M0 0 L20 21 L0 42" />
           <rect id="separator" class="logo__separator" />
-          <text id="tagline-primary" class="logo__tagline">Donde la web</text>
-          <text id="tagline-secondary" class="logo__tagline">comienza con lo básico</text>
+          <g class="tagline-group">
+            <text id="tagline-primary" class="logo__tagline">Donde la web</text>
+            <text id="tagline-secondary" class="logo__tagline">comienza con lo básico</text>
+          </g>
         </g>
-      </svg>
+        </svg>
+      </button>
+
+      <div class="loading-indicator" role="status" aria-live="polite">
+        <span class="visually-hidden">Cargando presentación</span>
+      </div>
 
       <nav class="site-nav" aria-label="Navegación principal">
         <a href="#equipo">Nuestro Equipo</a>
@@ -288,6 +589,8 @@
 
     const header = document.querySelector(".site-header");
     const logo = document.querySelector(".logo");
+    const homeReload = document.getElementById("home-reload");
+    const introText = document.getElementById("intro-text");
     const elementIds = [
       "bas-b", "bas-a", "bas-s", "bracket-left", "del-d",
       "del-e-top", "del-e-middle", "del-e-bottom", "del-l", "web-w",
@@ -342,8 +645,6 @@
     let currentLayout;
     let currentViewBox = [...viewBoxes[2]];
     let animationFrame = null;
-    let introComplete = false;
-    let scrollTicking = false;
 
     function hiddenExtras(x, y) {
       return {
@@ -395,9 +696,31 @@
         }
       };
 
+      if (document.documentElement.classList.contains("intro-seen")) {
+        currentState = 4;
+        currentLayout = cloneLayout(layouts[4]);
+        currentViewBox = [...viewBoxes[4]];
+        logo.dataset.state = "4";
+        header.dataset.phase = "final";
+        header.classList.add("is-compact");
+        applyLayout(currentLayout, currentViewBox);
+        document.documentElement.classList.add("logo-ready");
+        return;
+      }
+
       currentLayout = cloneLayout(layouts[2]);
       applyLayout(currentLayout, currentViewBox);
+      logo.classList.add("is-assembling");
+      rememberIntro();
       startIntro();
+    }
+
+    function rememberIntro() {
+      try {
+        sessionStorage.setItem("basdelweb-intro-seen", "true");
+      } catch (error) {
+        console.info("No fue posible recordar el estado de la presentación.", error);
+      }
     }
 
     function interpolate(start, end, progress) {
@@ -441,7 +764,7 @@
       logo.setAttribute("viewBox", viewBox.join(" "));
     }
 
-    function animateToState(targetState) {
+    function animateToState(targetState, requestedDuration = 700) {
       if (!layouts || targetState === currentState) {
         return;
       }
@@ -455,7 +778,7 @@
       const startViewBox = [...currentViewBox];
       const targetViewBox = viewBoxes[targetState];
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const duration = reduceMotion ? 0 : 850;
+      const duration = reduceMotion ? 0 : requestedDuration;
       const startedAt = performance.now();
 
       currentState = targetState;
@@ -463,7 +786,8 @@
 
       function renderFrame(now) {
         const linearProgress = duration === 0 ? 1 : Math.min((now - startedAt) / duration, 1);
-        const easedProgress = 1 - Math.pow(1 - linearProgress, 4);
+        const easedProgress = linearProgress * linearProgress * linearProgress
+          * (linearProgress * (linearProgress * 6 - 15) + 10);
 
         currentLayout = interpolateLayout(startLayout, targetLayout, easedProgress);
         currentViewBox = startViewBox.map((value, index) => (
@@ -484,38 +808,80 @@
       animationFrame = requestAnimationFrame(renderFrame);
     }
 
-    function startIntro() {
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const firstDelay = reduceMotion ? 0 : 1200;
-      const secondDelay = reduceMotion ? 0 : 2800;
-
-      window.setTimeout(() => animateToState(3), firstDelay);
-      window.setTimeout(() => {
-        animateToState(4);
-        header.dataset.phase = "final";
-        introComplete = true;
-        updateHeaderOnScroll();
-      }, secondDelay);
+    function wait(duration) {
+      return new Promise((resolve) => window.setTimeout(resolve, duration));
     }
 
-    function updateHeaderOnScroll() {
-      scrollTicking = false;
+    async function typeText(text, delay) {
+      introText.textContent = "";
 
-      if (!introComplete) {
+      for (const character of text) {
+        introText.textContent += character;
+        await wait(delay);
+      }
+    }
+
+    async function removeLeadingText(remainingText, delay) {
+      while (introText.textContent.length > remainingText.length) {
+        introText.textContent = introText.textContent.slice(1);
+        await wait(delay);
+      }
+    }
+
+    async function removeTrailingText(remainingText, delay) {
+      while (introText.textContent.length > remainingText.length) {
+        introText.textContent = introText.textContent.slice(0, -1);
+        await wait(delay);
+      }
+    }
+
+    async function startIntro() {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (reduceMotion) {
+        currentState = 4;
+        currentLayout = cloneLayout(layouts[4]);
+        currentViewBox = [...viewBoxes[4]];
+        logo.dataset.state = "4";
+        logo.classList.remove("is-assembling");
+        header.dataset.phase = "final";
+        header.classList.add("is-compact");
+        applyLayout(currentLayout, currentViewBox);
         return;
       }
 
-      const shouldCompact = window.scrollY > 80;
-      header.classList.toggle("is-compact", shouldCompact);
-      animateToState(shouldCompact ? 1 : 4);
+      await typeText("BIENVENIDO A BÁSICOS", 42);
+      await wait(100);
+      await removeLeadingText("BÁSICOS", 20);
+      await wait(80);
+      await removeTrailingText("BÁS", 55);
+      await wait(120);
+      introText.textContent = "BAS";
+      await wait(180);
+
+      header.dataset.phase = "logo";
+      await wait(350);
+      logo.classList.remove("is-assembling");
+      await wait(550);
+
+      header.dataset.phase = "expanded";
+      animateToState(4, 1800);
+      await wait(1850);
+
+      header.dataset.phase = "final";
+      await wait(100);
+      header.classList.add("is-compact");
+      await wait(850);
     }
 
-    window.addEventListener("scroll", () => {
-      if (!scrollTicking) {
-        window.requestAnimationFrame(updateHeaderOnScroll);
-        scrollTicking = true;
-      }
-    }, { passive: true });
+    homeReload.addEventListener("click", () => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      window.location.reload();
+    });
+
+    window.addEventListener("load", () => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    }, { once: true });
 
     document.fonts.ready.then(buildLayouts);
   </script>
