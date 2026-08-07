@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BASDELWEB</title>
+  <style>
+    :root {
+      --color-background: #ffffff;
+      --color-text: #111111;
+      --color-focus: #1769e0;
+      --header-padding: clamp(1rem, 4vw, 3rem);
+      --transition-duration: 850ms;
+    }
+
+    @font-face {
+      font-family: "Product Sans";
+      src: local("Product Sans Medium"), local("ProductSans-Medium");
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Product Sans";
+      src: local("Product Sans Light"), local("ProductSans-Light");
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      background: var(--color-background);
+      color: var(--color-text);
+      font-family: Arial, sans-serif;
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      min-height: 100vh;
+      padding: var(--header-padding);
+      place-items: center;
+      background: var(--color-background);
+      transition:
+        min-height var(--transition-duration) ease,
+        padding var(--transition-duration) ease,
+        box-shadow 250ms ease;
+    }
+
+    .header-content {
+      display: grid;
+      width: min(100%, 72rem);
+      justify-items: center;
+      gap: clamp(1.5rem, 4vh, 3rem);
+    }
+
+    .logo {
+      display: block;
+      width: min(94vw, 800px);
+      height: auto;
+      color: var(--color-text);
+      transition: width var(--transition-duration) cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .site-header[data-phase="final"] {
+      align-items: start;
+      min-height: 100vh;
+      padding-top: clamp(2rem, 8vh, 5rem);
+    }
+
+    .site-header[data-phase="final"] .logo {
+      width: min(78vw, 560px);
+    }
+
+    .site-nav {
+      visibility: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      opacity: 0;
+      transform: translateY(1rem);
+      transition:
+        opacity 450ms ease,
+        transform 450ms ease,
+        visibility 0s linear 450ms;
+    }
+
+    .site-header[data-phase="final"] .site-nav,
+    .site-header.is-compact .site-nav {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0s;
+    }
+
+    .site-nav a {
+      display: inline-flex;
+      min-height: 2.75rem;
+      align-items: center;
+      justify-content: center;
+      padding: 0.7rem 1.1rem;
+      border: 2px solid var(--color-text);
+      border-radius: 999px;
+      color: var(--color-text);
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .site-nav a:hover {
+      background: var(--color-text);
+      color: var(--color-background);
+      transform: translateY(-2px);
+    }
+
+    .site-nav a:focus-visible {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    .site-header.is-compact {
+      position: sticky;
+      top: 0;
+      min-height: 0;
+      padding: 0.75rem var(--header-padding);
+      box-shadow: 0 0.35rem 1.25rem rgb(0 0 0 / 12%);
+    }
+
+    .site-header.is-compact .header-content {
+      grid-template-columns: minmax(8rem, 20%) minmax(0, 80%);
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .site-header.is-compact .logo {
+      width: min(100%, 150px);
+      max-height: 6rem;
+      justify-self: start;
+    }
+
+    .site-header.is-compact .site-nav {
+      justify-self: end;
+    }
+
+    .scroll-preview {
+      display: grid;
+      min-height: 120vh;
+      padding: 4rem var(--header-padding);
+      place-items: start center;
+    }
+
+    .scroll-preview p {
+      max-width: 42rem;
+      margin: 0;
+      color: #4b4b4b;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .logo__letter {
+      fill: currentColor;
+      font-family: "Product Sans", Arial, sans-serif;
+      font-size: 80px;
+      font-weight: 500;
+    }
+
+    .logo__tagline {
+      fill: currentColor;
+      font-family: "Product Sans", Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 300;
+    }
+
+    .logo__bar,
+    .logo__separator {
+      fill: currentColor;
+    }
+
+    .logo__bracket {
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      stroke-width: 10;
+    }
+
+    @media (max-width: 700px) {
+      .site-header.is-compact .header-content {
+        grid-template-columns: 1fr;
+        justify-items: center;
+      }
+
+      .site-header.is-compact .logo,
+      .site-header.is-compact .site-nav {
+        justify-self: center;
+      }
+
+      .site-header.is-compact .logo {
+        width: 90px;
+        max-height: 4.5rem;
+      }
+
+      .site-nav a {
+        min-height: 2.5rem;
+        padding: 0.55rem 0.8rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .site-header,
+      .logo,
+      .site-nav,
+      .site-nav a {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="inicio" class="site-header" data-phase="intro">
+    <div class="header-content">
+      <svg
+        class="logo"
+        data-state="2"
+        viewBox="0 0 680 120"
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-labelledby="logo-title logo-description"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title id="logo-title">BASDELWEB</title>
+        <desc id="logo-description">Logotipo transformable BAS DEL WEB entre símbolos de código.</desc>
+
+        <g id="logo-elements">
+          <text id="bas-b" class="logo__letter">B</text>
+          <text id="bas-a" class="logo__letter">A</text>
+          <text id="bas-s" class="logo__letter">S</text>
+          <path id="bracket-left" class="logo__bracket" d="M20 0 L0 21 L20 42" />
+          <text id="del-d" class="logo__letter">D</text>
+          <rect id="del-e-top" class="logo__bar" />
+          <rect id="del-e-middle" class="logo__bar" />
+          <rect id="del-e-bottom" class="logo__bar" />
+          <text id="del-l" class="logo__letter">L</text>
+          <text id="web-w" class="logo__letter">W</text>
+          <rect id="web-e-top" class="logo__bar" />
+          <rect id="web-e-middle" class="logo__bar" />
+          <rect id="web-e-bottom" class="logo__bar" />
+          <text id="web-b" class="logo__letter">B</text>
+          <path id="bracket-right" class="logo__bracket" d="M0 0 L20 21 L0 42" />
+          <rect id="separator" class="logo__separator" />
+          <text id="tagline-primary" class="logo__tagline">Donde la web</text>
+          <text id="tagline-secondary" class="logo__tagline">comienza con lo básico</text>
+        </g>
+      </svg>
+
+      <nav class="site-nav" aria-label="Navegación principal">
+        <a href="#equipo">Nuestro Equipo</a>
+        <a href="#proyecto">Nuestro Proyecto</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="scroll-preview" aria-label="Contenido en desarrollo">
+    <p>Las secciones de Nuestro Equipo, Nuestro Proyecto y Contacto se agregarán en las siguientes historias de usuario.</p>
+  </main>
+
+  <script>
+    "use strict";
+
+    const header = document.querySelector(".site-header");
+    const logo = document.querySelector(".logo");
+    const elementIds = [
+      "bas-b", "bas-a", "bas-s", "bracket-left", "del-d",
+      "del-e-top", "del-e-middle", "del-e-bottom", "del-l", "web-w",
+      "web-e-top", "web-e-middle", "web-e-bottom", "web-b", "bracket-right",
+      "separator", "tagline-primary", "tagline-secondary"
+    ];
+    const elements = Object.fromEntries(
+      elementIds.map((id) => [id, document.getElementById(id)])
+    );
+    const viewBoxes = Object.freeze({
+      1: [0, 0, 360, 280],
+      2: [0, 0, 680, 120],
+      3: [0, 0, 680, 135],
+      4: [0, 0, 680, 280]
+    });
+    const normalLayout = {
+      "bas-b": { x: 86.12, y: 108 },
+      "bas-a": { x: 142.42, y: 108 },
+      "bas-s": { x: 199.38, y: 108 },
+      "bracket-left": { x: 42.28, y: 126 },
+      "del-d": { x: 85.81, y: 176 },
+      "del-e-top": { x: 149.32, y: 118, width: 61.89, height: 9 },
+      "del-e-middle": { x: 149.32, y: 142.5, width: 61.89, height: 9 },
+      "del-e-bottom": { x: 149.32, y: 167, width: 61.89, height: 9 },
+      "del-l": { x: 215.45, y: 176 },
+      "web-w": { x: 91, y: 245 },
+      "web-e-top": { x: 173.31, y: 187, width: 38, height: 9 },
+      "web-e-middle": { x: 173.31, y: 211.5, width: 38, height: 9 },
+      "web-e-bottom": { x: 173.31, y: 236, width: 38, height: 9 },
+      "web-b": { x: 215.45, y: 245 },
+      "bracket-right": { x: 286.25, y: 196 }
+    };
+    const horizontalLayout = {
+      "bas-b": { x: 48, y: 90 },
+      "bas-a": { x: 104.3, y: 90 },
+      "bas-s": { x: 161.26, y: 90 },
+      "bracket-left": { x: 10, y: 40 },
+      "del-d": { x: 262.27, y: 90 },
+      "del-e-top": { x: 325.78, y: 32, width: 61.89, height: 9 },
+      "del-e-middle": { x: 325.78, y: 56.5, width: 61.89, height: 9 },
+      "del-e-bottom": { x: 325.78, y: 81, width: 61.89, height: 9 },
+      "del-l": { x: 391.91, y: 90 },
+      "web-w": { x: 434.57, y: 90 },
+      "web-e-top": { x: 516.88, y: 32, width: 38, height: 9 },
+      "web-e-middle": { x: 516.88, y: 56.5, width: 38, height: 9 },
+      "web-e-bottom": { x: 516.88, y: 81, width: 38, height: 9 },
+      "web-b": { x: 559.02, y: 90 },
+      "bracket-right": { x: 631.89, y: 40 }
+    };
+    let layouts;
+    let currentState = 2;
+    let currentLayout;
+    let currentViewBox = [...viewBoxes[2]];
+    let animationFrame = null;
+    let introComplete = false;
+    let scrollTicking = false;
+
+    function hiddenExtras(x, y) {
+      return {
+        separator: { x, y, width: 1, height: 1, opacity: 0 },
+        "tagline-primary": { x, y, opacity: 0 },
+        "tagline-secondary": { x, y, opacity: 0 }
+      };
+    }
+
+    function cloneLayout(layout) {
+      return Object.fromEntries(
+        Object.entries(layout).map(([id, values]) => [id, { ...values }])
+      );
+    }
+
+    function buildLayouts() {
+      const primaryWidth = elements["tagline-primary"].getBBox().width;
+      const secondaryWidth = elements["tagline-secondary"].getBBox().width;
+      const inlineGap = 6;
+      const inlineWidth = primaryWidth + inlineGap + secondaryWidth;
+      const inlineStart = 340 - inlineWidth / 2;
+
+      layouts = {
+        1: {
+          ...cloneLayout(normalLayout),
+          ...hiddenExtras(211.31, 236)
+        },
+        2: {
+          ...cloneLayout(horizontalLayout),
+          separator: { x: 220.44, y: 81, width: 38, height: 9, opacity: 1 },
+          "tagline-primary": { x: 258.44, y: 90, opacity: 0 },
+          "tagline-secondary": { x: 258.44, y: 90, opacity: 0 }
+        },
+        3: {
+          ...cloneLayout(horizontalLayout),
+          separator: { x: 220.44, y: 81, width: 38, height: 9, opacity: 1 },
+          "tagline-primary": { x: inlineStart, y: 116, opacity: 1 },
+          "tagline-secondary": {
+            x: inlineStart + primaryWidth + inlineGap,
+            y: 116,
+            opacity: 1
+          }
+        },
+        4: {
+          ...cloneLayout(normalLayout),
+          separator: { x: 340, y: 121, width: 9, height: 42, opacity: 1 },
+          "tagline-primary": { x: 510 - primaryWidth / 2, y: 139, opacity: 1 },
+          "tagline-secondary": { x: 510 - secondaryWidth / 2, y: 163, opacity: 1 }
+        }
+      };
+
+      currentLayout = cloneLayout(layouts[2]);
+      applyLayout(currentLayout, currentViewBox);
+      startIntro();
+    }
+
+    function interpolate(start, end, progress) {
+      return start + (end - start) * progress;
+    }
+
+    function interpolateLayout(start, end, progress) {
+      return Object.fromEntries(elementIds.map((id) => {
+        const startValues = start[id];
+        const endValues = end[id];
+        const keys = new Set([...Object.keys(startValues), ...Object.keys(endValues)]);
+        const values = {};
+
+        keys.forEach((key) => {
+          const startValue = startValues[key] ?? (key === "opacity" ? 1 : 0);
+          const endValue = endValues[key] ?? (key === "opacity" ? 1 : 0);
+          values[key] = interpolate(startValue, endValue, progress);
+        });
+
+        return [id, values];
+      }));
+    }
+
+    function applyLayout(layout, viewBox) {
+      elementIds.forEach((id) => {
+        const element = elements[id];
+        const values = layout[id];
+
+        if (element.tagName === "rect") {
+          element.setAttribute("x", values.x);
+          element.setAttribute("y", values.y);
+          element.setAttribute("width", values.width);
+          element.setAttribute("height", values.height);
+        } else {
+          element.setAttribute("transform", `translate(${values.x} ${values.y})`);
+        }
+
+        element.setAttribute("opacity", values.opacity ?? 1);
+      });
+
+      logo.setAttribute("viewBox", viewBox.join(" "));
+    }
+
+    function animateToState(targetState) {
+      if (!layouts || targetState === currentState) {
+        return;
+      }
+
+      if (animationFrame !== null) {
+        cancelAnimationFrame(animationFrame);
+      }
+
+      const startLayout = cloneLayout(currentLayout);
+      const targetLayout = layouts[targetState];
+      const startViewBox = [...currentViewBox];
+      const targetViewBox = viewBoxes[targetState];
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const duration = reduceMotion ? 0 : 850;
+      const startedAt = performance.now();
+
+      currentState = targetState;
+      logo.dataset.state = String(targetState);
+
+      function renderFrame(now) {
+        const linearProgress = duration === 0 ? 1 : Math.min((now - startedAt) / duration, 1);
+        const easedProgress = 1 - Math.pow(1 - linearProgress, 4);
+
+        currentLayout = interpolateLayout(startLayout, targetLayout, easedProgress);
+        currentViewBox = startViewBox.map((value, index) => (
+          interpolate(value, targetViewBox[index], easedProgress)
+        ));
+        applyLayout(currentLayout, currentViewBox);
+
+        if (linearProgress < 1) {
+          animationFrame = requestAnimationFrame(renderFrame);
+        } else {
+          currentLayout = cloneLayout(targetLayout);
+          currentViewBox = [...targetViewBox];
+          animationFrame = null;
+          applyLayout(currentLayout, currentViewBox);
+        }
+      }
+
+      animationFrame = requestAnimationFrame(renderFrame);
+    }
+
+    function startIntro() {
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const firstDelay = reduceMotion ? 0 : 1200;
+      const secondDelay = reduceMotion ? 0 : 2800;
+
+      window.setTimeout(() => animateToState(3), firstDelay);
+      window.setTimeout(() => {
+        animateToState(4);
+        header.dataset.phase = "final";
+        introComplete = true;
+        updateHeaderOnScroll();
+      }, secondDelay);
+    }
+
+    function updateHeaderOnScroll() {
+      scrollTicking = false;
+
+      if (!introComplete) {
+        return;
+      }
+
+      const shouldCompact = window.scrollY > 80;
+      header.classList.toggle("is-compact", shouldCompact);
+      animateToState(shouldCompact ? 1 : 4);
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(updateHeaderOnScroll);
+        scrollTicking = true;
+      }
+    }, { passive: true });
+
+    document.fonts.ready.then(buildLayouts);
+  </script>
+</body>
+</html>
