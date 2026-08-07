@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 360" role="img" aria-labelledby="title description">
+  <title id="title">BASDELWEB</title>
+  <desc id="description">Versión vertical del logotipo BASDELWEB sobre un cuadro blanco.</desc>
+  <rect width="360" height="360" fill="#ffffff" />
+  <g transform="translate(0 40)" fill="#000000">
+    <g font-family="Product Sans, Arial, sans-serif" font-size="80" font-weight="500">
+      <text x="86.12" y="108">B</text>
+      <text x="142.42" y="108">A</text>
+      <text x="199.38" y="108">S</text>
+      <text x="85.81" y="176">D</text>
+      <text x="215.45" y="176">L</text>
+      <text x="91" y="245">W</text>
+      <text x="215.45" y="245">B</text>
+    </g>
+    <g>
+      <rect x="149.32" y="118" width="61.89" height="9" />
+      <rect x="149.32" y="142.5" width="61.89" height="9" />
+      <rect x="149.32" y="167" width="61.89" height="9" />
+      <rect x="173.31" y="187" width="38" height="9" />
+      <rect x="173.31" y="211.5" width="38" height="9" />
+      <rect x="173.31" y="236" width="38" height="9" />
+    </g>
+    <g fill="none" stroke="#000000" stroke-linecap="square" stroke-linejoin="miter" stroke-width="10">
+      <path d="M62.28 126 42.28 147 62.28 168" />
+      <path d="M286.25 196 306.25 217 286.25 238" />
+    </g>
+  </g>
+</svg>
