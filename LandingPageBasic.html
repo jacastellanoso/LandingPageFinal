@@ -5,62 +5,189 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Landing del Equipo</title>
   <style>
+    :root {
+      --ink: #0e1626;
+      --ink2: #141d33;
+      --line: #233049;
+      --gold: #f0c049;
+      --cyan: #5fd3e0;
+      --mist: #a8bbd6;
+      --white: #f7f7ff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      color: #333;
+      font-family: 'Inter', Arial, sans-serif;
+      background: radial-gradient(circle at top, rgba(95,211,224,.12), transparent 35%), var(--ink);
+      color: var(--mist);
+      line-height: 1.5;
     }
-    header, section, footer {
-      padding: 40px;
-      text-align: center;
+
+    header,
+    section,
+    footer {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 50px 28px;
     }
+
     header {
-      background: #222;
-      color: #fff;
+      text-align: center;
+      padding-top: 70px;
+      padding-bottom: 60px;
     }
-    .integrantes {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 5vw, 4.4rem);
+      letter-spacing: -0.04em;
+      color: var(--white);
     }
-    .card {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      width: 200px;
-      padding: 15px;
+
+    header p {
+      margin: 16px auto 0;
+      max-width: 720px;
+      color: var(--mist);
+      font-size: 1.1rem;
     }
-    .card img {
-      width: 100%;
-      border-radius: 8px;
+
+    section {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(95,211,224,.15);
+      border-radius: 24px;
+      margin-bottom: 24px;
+      padding: 38px 34px;
     }
+
+    section h2 {
+      margin: 0 0 14px;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--white);
+      font-size: clamp(2rem, 4vw, 2.6rem);
+    }
+
+    section p {
+      margin: 0 0 24px;
+      max-width: 760px;
+      color: var(--mist);
+      font-size: 1rem;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) 1.2fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .project-summary {
+      background: rgba(95,211,224,.08);
+      border: 1px solid rgba(95,211,224,.25);
+      border-radius: 20px;
+      padding: 26px;
+    }
+
+    .project-summary h3 {
+      margin: 0 0 10px;
+      color: var(--white);
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .project-summary p {
+      margin: 0;
+      color: var(--mist);
+      font-size: 0.97rem;
+    }
+
     .tecnologias {
       display: flex;
-      justify-content: center;
-      gap: 10px;
       flex-wrap: wrap;
+      gap: 12px;
+      justify-content: flex-start;
     }
+
     .tag {
-      background: #eee;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(95,211,224,.25);
+      background: rgba(95,211,224,.06);
+      color: var(--white);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
     }
+
+    .project-highlights {
+      display: grid;
+      gap: 18px;
+    }
+
+    .highlight {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 18px 20px;
+    }
+
+    .highlight::before {
+      content: '✓';
+      color: var(--gold);
+      font-size: 1.15rem;
+      line-height: 1;
+      margin-top: 3px;
+    }
+
+    .highlight span {
+      color: var(--mist);
+      font-size: 0.99rem;
+    }
+
     footer {
-      background: #222;
-      color: #fff;
+      text-align: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      color: var(--mist);
     }
+
     footer a {
-      color: #0ff;
-      margin: 0 10px;
+      color: var(--cyan);
       text-decoration: none;
+      margin: 0 10px;
     }
-    @media (max-width: 768px) {
-      .integrantes {
-        flex-direction: column;
-        align-items: center;
+
+    @media (max-width: 860px) {
+      section,
+      header,
+      footer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .project-summary,
+      .highlight {
+        padding: 18px;
+      }
+
+      .tag {
+        width: 100%;
+        justify-content: center;
       }
     }
   </style>
@@ -70,12 +197,13 @@
   <!-- HU-1 Encabezado -->
   <header>
     <h1>Nombre del Equipo</h1>
-    <p>Lema inspirador del equipo</p>
+    <p>Somos un equipo que construye experiencias web claras, modernas y adaptables para cualquier pantalla.</p>
   </header>
 
   <!-- HU-2 Integrantes -->
   <section>
     <h2>Conoce al equipo</h2>
+    <p>Presentamos a cada integrante con su rol para que sepas quién está detrás del proyecto.</p>
     <div class="integrantes">
       <div class="card">
         <img src="foto1.jpg" alt="Integrante 1">
@@ -94,12 +222,29 @@
   <!-- HU-3 Qué hacemos -->
   <section>
     <h2>Nuestro proyecto</h2>
-    <p>Breve descripción del proyecto del equipo.</p>
-    <div class="tecnologias">
+    <p>Como visitante, quiero ver qué construye el equipo y con qué tecnologías, para entender a qué se dedican.</p>
+
+    <div class="project-grid">
+      <!-- Resumen del proyecto -->
+      <div class="project-summary">
+        <h3>Diseño Web Básico y Funcional</h3>
+        <p>Estamos creando una landing responsive con un look moderno y una experiencia clara que funcione en computadoras y celulares.</p>
+      </div>
+
+      <!-- Puntos destacados -->
+      <div class="project-highlights">
+        <div class="highlight"><span>Título + descripción corta clara y directa.</span></div>
+        <div class="highlight"><span>Lista de tecnologías mostrada como etiquetas.</span></div>
+      </div>
+    </div>
+
+    <!-- Tecnologías -->
+    <div class="tecnologias" style="margin-top: 28px; justify-content: flex-start;">
       <span class="tag">HTML</span>
       <span class="tag">CSS</span>
       <span class="tag">JavaScript</span>
-      <!-- Agregar más tecnologías -->
+      <span class="tag">Responsive Design</span>
+      <span class="tag">Accesibilidad</span>
     </div>
   </section>
 
