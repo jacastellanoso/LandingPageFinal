@@ -924,16 +924,12 @@
       overflow: hidden;
       background: #fff;
       box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 8%);
-      transition:
-        transform 350ms ease,
-        box-shadow 350ms ease,
-        border-color 350ms ease;
+      transition: box-shadow 280ms ease, border-color 280ms ease;
       animation: cardReveal 700ms ease both;
     }
 
     .proyecto-minimalista:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 2rem 4.5rem rgb(0 0 0 / 14%);
+      box-shadow: 0 2rem 4.5rem rgb(0 0 0 / 12%);
       border-color: #000;
     }
 
@@ -941,7 +937,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 2rem;
+      gap: 1.5rem;
       padding: clamp(2rem, 5vw, 4rem);
       animation: contentFade 850ms ease 120ms both;
     }
@@ -1002,7 +998,7 @@
 
     .proyecto-minimalista__descripcion {
       max-width: 58ch;
-      margin: 0 0 1.5rem;
+      margin: 0;
       color: #2b2b2b;
       font-size: clamp(0.98rem, 1.4vw, 1.12rem);
       line-height: 1.75;
@@ -1010,7 +1006,7 @@
 
     .proyecto-minimalista__tecnologias {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 0.75rem;
       width: 100%;
       margin: 0;
@@ -1018,14 +1014,16 @@
 
     .proyecto-tech {
       position: relative;
-      display: grid;
-      grid-template-columns: auto 1fr;
+      display: flex;
       align-items: center;
+      justify-content: center;
       gap: 0.7rem;
-      min-height: 2.95rem;
-      padding: 0.8rem 0.9rem;
+      width: 100%;
+      min-width: 0;
+      min-height: 52px;
+      padding: 0.85rem 1rem;
       border: 1px solid #111111;
-      border-radius: 0.65rem;
+      border-radius: 0.55rem;
       background: #ffffff;
       color: #111111;
       font-family: "Product Sans", Arial, sans-serif;
@@ -1033,30 +1031,47 @@
       font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      text-align: left;
+      text-align: center;
       cursor: pointer;
       overflow: hidden;
       isolation: isolate;
-      transition:
-        background-color 240ms var(--liquid-easing),
-        color 240ms var(--liquid-easing),
-        border-color 240ms var(--liquid-easing),
-        transform 180ms ease,
-        box-shadow 240ms ease;
+      transition: background-color 220ms var(--liquid-easing), color 220ms var(--liquid-easing), border-color 220ms var(--liquid-easing), box-shadow 220ms var(--liquid-easing), opacity 220ms ease;
+    }
+
+    .proyecto-tech--wide {
+      grid-column: span 2;
+    }
+
+    /* Asegurar que el texto se vea completo */
+    .proyecto-tech__label {
+      white-space: nowrap;
+      overflow: visible;
+      text-overflow: clip;
+    }
+
+    /* Si quieres un poco más de aire interno */
+    .proyecto-tech {
+      min-height: 46px;
+      padding-inline: 0.9rem;
+    }
+
+    /* En pantallas pequeñas vuelve a tamaño normal */
+    @media (max-width: 700px) {
+      .proyecto-tech--wide {
+        grid-column: span 1;
+      }
     }
 
     .proyecto-tech__mesh {
       position: absolute;
+      inset: 0;
       z-index: 0;
-      inset: -2px;
-      width: calc(100% + 4px);
-      height: calc(100% + 4px);
+      width: 100%;
+      height: 100%;
       color: currentColor;
-      opacity: 0.12;
+      opacity: 0.14;
       pointer-events: none;
-      transform: scale(1.04);
-      transform-origin: center;
-      transition: opacity 240ms ease, transform 280ms var(--liquid-easing);
+      transition: opacity 220ms ease;
     }
 
     .proyecto-tech__mesh path {
@@ -1083,24 +1098,24 @@
       position: relative;
       z-index: 1;
       white-space: nowrap;
+      overflow: visible;
+      text-overflow: clip;
     }
 
     .proyecto-tech.is-active {
       background: #111111;
       color: #ffffff;
       border-color: #111111;
-      box-shadow: 0 12px 24px rgb(0 0 0 / 12%);
+      box-shadow: 0 10px 22px rgb(0 0 0 / 12%);
     }
 
     .proyecto-tech.is-active .proyecto-tech__mesh {
       opacity: 0.2;
-      transform: translate3d(0.24rem, -0.12rem, 0) scale(1.08);
     }
 
     @media (hover: hover) and (pointer: fine) {
       .proyecto-tech:hover {
         background: #f3f3f3;
-        transform: translateY(-2px);
       }
 
       .proyecto-tech.is-active:hover {
@@ -1116,12 +1131,12 @@
     .proyecto-minimalista__detalle {
       position: relative;
       width: 100%;
-      padding: 1.15rem 1.25rem 1.2rem;
+      min-height: 10.5rem;
+      padding: 1.1rem 1.25rem;
       border: 1px solid rgb(17 17 17 / 18%);
       border-radius: 0.8rem;
       background: #ffffff;
       overflow: hidden;
-      transition: opacity 220ms ease, transform 220ms ease;
     }
 
     .proyecto-minimalista__detalle::before {
@@ -1135,18 +1150,19 @@
       opacity: 0.9;
     }
 
-    .proyecto-minimalista__detalle-codigo {
-      display: block;
-      margin-bottom: 0.6rem;
-      color: rgb(17 17 17 / 48%);
-      font-family: monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .proyecto-minimalista__detalle-contenido {
+      display: grid;
+      gap: 0.5rem;
+      opacity: 1;
+      transition: opacity 160ms ease;
+    }
+
+    .proyecto-minimalista__detalle-contenido.is-changing {
+      opacity: 0;
     }
 
     .proyecto-minimalista__detalle-titulo {
-      margin: 0 0 0.45rem;
+      margin: 0;
       color: #111111;
       font-family: "Product Sans", Arial, sans-serif;
       font-size: clamp(1rem, 1.6vw, 1.2rem);
@@ -1159,20 +1175,6 @@
       color: #555555;
       font-size: clamp(0.85rem, 1.15vw, 0.95rem);
       line-height: 1.6;
-    }
-
-    .proyecto-minimalista__detalle.is-changing {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-
-    .proyecto-minimalista__visual.is-reacting {
-      transform: translate3d(0, -3px, 0) scale(1.005);
-    }
-
-    .proyecto-minimalista__visual.is-reacting::before {
-      transform: translate3d(0, -2px, 0) scale(1.01);
-      opacity: 0.3;
     }
 
     @media (max-width: 850px) {
@@ -1191,6 +1193,10 @@
 
       .proyecto-minimalista__tecnologias {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .proyecto-tech {
+        min-height: 50px;
       }
 
       .proyecto-minimalista__visual {
@@ -1225,7 +1231,7 @@
       }
 
       .proyecto-tech {
-        min-height: 2.8rem;
+        min-height: 3rem;
         padding: 0.72rem 0.8rem;
         font-size: 0.68rem;
       }
@@ -1236,6 +1242,16 @@
 
       .proyecto-minimalista__detalle {
         padding: 1rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .proyecto-minimalista,
+      .proyecto-tech,
+      .proyecto-tech__mesh,
+      .proyecto-minimalista__detalle-contenido {
+        transition: none;
+        animation: none;
       }
     }
   </style>
@@ -1386,8 +1402,8 @@
               data-tech="html"
               aria-pressed="true">
               <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M10 12 H210 M10 48 H210 M10 12 V48 M210 12 V48" />
-                <path d="M60 12 L60 48 M160 12 L160 48" />
+                <path d="M8 8 H212 M8 52 H212 M8 8 V52 M212 8 V52 M48 8 V52 M172 8 V52" />
+                <path d="M48 8 L132 20 L172 8 M48 52 L132 40 L172 52 M92 20 L92 52 M132 20 L132 40" />
               </svg>
               <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M4 5h16l-1.5 14-6.5 3-6.5-3L4 5z" />
@@ -1401,8 +1417,8 @@
               data-tech="css"
               aria-pressed="false">
               <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M10 12 H210 M10 48 H210 M10 12 V48 M210 12 V48" />
-                <path d="M72 12 L72 48 M148 12 L148 48" />
+                <path d="M8 8 H212 M8 52 H212 M8 8 V52 M212 8 V52 M44 8 V52 M176 8 V52" />
+                <path d="M44 8 L110 18 L176 8 M44 52 L110 42 L176 52 M70 20 L70 42 M148 20 L148 42 M110 18 L110 42" />
               </svg>
               <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6 6h12l-1 12-5 2-5-2L6 6z" />
@@ -1416,8 +1432,8 @@
               data-tech="javascript"
               aria-pressed="false">
               <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M10 12 H210 M10 48 H210 M10 12 V48 M210 12 V48" />
-                <path d="M71 12 L71 48 M149 12 L149 48" />
+                <path d="M8 8 H212 M8 52 H212 M8 8 V52 M212 8 V52 M48 8 V52 M172 8 V52" />
+                <path d="M48 8 L92 20 L172 8 M48 52 L92 40 L172 52 M92 20 L92 40 M132 20 L132 40" />
               </svg>
               <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M8 5h8" />
@@ -1432,8 +1448,8 @@
               data-tech="git"
               aria-pressed="false">
               <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M10 12 H210 M10 48 H210 M10 12 V48 M210 12 V48" />
-                <path d="M92 12 L92 48 M128 12 L128 48" />
+                <path d="M8 8 H212 M8 52 H212 M8 8 V52 M212 8 V52 M92 8 V52 M128 8 V52" />
+                <path d="M92 8 L128 20 L168 8 M92 52 L128 40 L168 52 M56 20 L92 20 M128 20 L168 20 M56 40 L92 40 M128 40 L168 40" />
               </svg>
               <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 4v16" />
@@ -1444,12 +1460,12 @@
             </button>
             <button
               type="button"
-              class="proyecto-tech"
+              class="proyecto-tech proyecto-tech--wide"
               data-tech="arquitectura"
               aria-pressed="false">
               <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M10 12 H210 M10 48 H210 M10 12 V48 M210 12 V48" />
-                <path d="M63 12 L63 48 M157 12 L157 48" />
+                <path d="M8 8 H212 M8 52 H212 M8 8 V52 M212 8 V52 M54 8 V52 M166 8 V52" />
+                <path d="M54 8 L110 18 L166 8 M54 52 L110 42 L166 52 M84 20 L84 42 M136 20 L136 42" />
               </svg>
               <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 8h14" />
@@ -1461,32 +1477,25 @@
             </button>
           </div>
 
-
           <div
             class="proyecto-minimalista__detalle"
             id="detalle-tecnologia"
             aria-live="polite"
           >
+            <div class="proyecto-minimalista__detalle-contenido" id="detalle-contenido">
+              <h4
+                class="proyecto-minimalista__detalle-titulo"
+                id="detalle-titulo">
+                Estructura semántica
+              </h4>
 
-            <span
-              class="proyecto-minimalista__detalle-codigo"
-              id="detalle-codigo">
-              // HTML5
-            </span>
-
-            <h4
-              class="proyecto-minimalista__detalle-titulo"
-              id="detalle-titulo">
-              Estructura semántica
-            </h4>
-
-            <p
-              class="proyecto-minimalista__detalle-texto"
-              id="detalle-texto">
-              Utilizamos HTML5 para organizar el contenido de la landing mediante
-              una estructura clara, semántica y accesible.
-            </p>
-
+              <p
+                class="proyecto-minimalista__detalle-texto"
+                id="detalle-texto">
+                Utilizamos HTML5 para organizar el contenido de la landing mediante
+                una estructura clara, semántica y accesible.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -2247,63 +2256,43 @@
   <script>
   const tecnologiasProyecto = {
     html: {
-      codigo: "// HTML5",
       titulo: "Estructura semántica",
       texto:
         "Utilizamos HTML5 para organizar el contenido de la landing mediante una estructura clara, semántica y accesible."
     },
 
     css: {
-      codigo: "// CSS3",
       titulo: "Diseño y adaptación",
       texto:
         "CSS3 define la identidad visual de BASDELWEB, las animaciones y el diseño responsive para adaptar la experiencia a diferentes pantallas."
     },
 
     javascript: {
-      codigo: "// JAVASCRIPT",
       titulo: "Interacción",
       texto:
         "JavaScript añade comportamiento e interacción a la landing, permitiendo crear una experiencia más dinámica para quien visita la página."
     },
 
     git: {
-      codigo: "// GIT / GITHUB",
       titulo: "Trabajo colaborativo",
       texto:
         "Git y GitHub nos permiten trabajar en ramas independientes, controlar los cambios y posteriormente integrar cada historia de usuario mediante Pull Requests."
     },
 
     arquitectura: {
-      codigo: "// ARQUITECTURA WEB",
       titulo: "Construcción organizada",
       texto:
         "Organizamos la landing en componentes y secciones independientes para mantener una estructura clara, escalable y fácil de mantener."
     }
   };
 
-
-  const botonesTecnologia =
-    document.querySelectorAll(".proyecto-tech");
-
-  const detalleTecnologia =
-    document.querySelector("#detalle-tecnologia");
-
-  const detalleCodigo =
-    document.querySelector("#detalle-codigo");
-
-  const detalleTitulo =
-    document.querySelector("#detalle-titulo");
-
-  const detalleTexto =
-    document.querySelector("#detalle-texto");
-
-  const visualProyecto =
-    document.querySelector(".proyecto-minimalista__visual");
+  const botonesTecnologia = document.querySelectorAll(".proyecto-tech");
+  const detalleContenido = document.querySelector("#detalle-contenido");
+  const detalleTitulo = document.querySelector("#detalle-titulo");
+  const detalleTexto = document.querySelector("#detalle-texto");
 
   const activarTecnologia = (boton) => {
-    const tecnologia =
-      tecnologiasProyecto[boton.dataset.tech];
+    const tecnologia = tecnologiasProyecto[boton.dataset.tech];
 
     if (!tecnologia) {
       return;
@@ -2317,26 +2306,18 @@
     boton.classList.add("is-active");
     boton.setAttribute("aria-pressed", "true");
 
-    detalleTecnologia.classList.add("is-changing");
-
-    if (visualProyecto) {
-      visualProyecto.classList.remove("is-reacting");
-      void visualProyecto.offsetWidth;
-      visualProyecto.classList.add("is-reacting");
+    if (detalleContenido) {
+      detalleContenido.classList.add("is-changing");
     }
 
     window.setTimeout(() => {
-      detalleCodigo.textContent = tecnologia.codigo;
       detalleTitulo.textContent = tecnologia.titulo;
       detalleTexto.textContent = tecnologia.texto;
-      detalleTecnologia.classList.remove("is-changing");
 
-      if (visualProyecto) {
-        window.setTimeout(() => {
-          visualProyecto.classList.remove("is-reacting");
-        }, 320);
+      if (detalleContenido) {
+        detalleContenido.classList.remove("is-changing");
       }
-    }, 180);
+    }, 140);
   };
 
   botonesTecnologia.forEach((boton) => {
