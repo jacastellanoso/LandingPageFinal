@@ -125,6 +125,108 @@
       letter-spacing: 0.01em;
     }
 
+    /* =========================================
+       Estilos específicos para HU-3 (Blanco y Negro)
+       ========================================= */
+    .seccion-minimalista {
+      background-color: #ffffff; /* Fondo blanco puro */
+      color: #000000; /* Texto negro sólido */
+      border: 3px solid #000000;
+      border-radius: 0; /* Bordes cuadrados, más técnicos */
+      padding: 60px 40px;
+      text-align: center;
+      box-shadow: 8px 8px 0px rgba(0,0,0,1); /* Sombra dura estilo brutalista/tech */
+      margin-top: 40px;
+      max-width: 980px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .seccion-minimalista .logo-texto {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      color: #000000;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .seccion-minimalista .slogan {
+      font-family: 'Inter', sans-serif;
+      color: #000000;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      font-weight: 400;
+      margin-top: 5px;
+      margin-bottom: 35px;
+      letter-spacing: 0.05em;
+    }
+
+    .seccion-minimalista .descripcion-proyecto {
+      color: #222222;
+      max-width: 800px;
+      margin: 0 auto 40px auto;
+      font-size: 1.15rem;
+      line-height: 1.7;
+    }
+
+    .tecnologias-bw {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .tag-bw {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 24px;
+      background-color: #ffffff;
+      color: #000000;
+      border: 2px solid #000000;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+      cursor: default;
+      user-select: none;
+    }
+
+    .tag-bw:hover {
+      background-color: #000000;
+      color: #ffffff;
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    }
+
+    @media (max-width: 760px) {
+      .seccion-minimalista {
+        padding: 50px 24px;
+      }
+
+      .tecnologias-bw {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .seccion-minimalista {
+        padding: 32px 18px;
+      }
+
+      .tecnologias-bw {
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .tag-bw {
+        width: 100%;
+        padding: 12px 16px;
+      }
+    }
+
     .project-highlights {
       display: grid;
       gap: 18px;
@@ -220,31 +322,23 @@
   </section>
 
   <!-- HU-3 Qué hacemos -->
-  <section>
-    <h2>Nuestro proyecto</h2>
-    <p>Como visitante, quiero ver qué construye el equipo y con qué tecnologías, para entender a qué se dedican.</p>
+  <section class="seccion-minimalista">
+    <!-- Título basado en la imagen -->
+    <h2 class="logo-texto">&lt; BAS_D=LWEB &gt;</h2>
+    <p class="slogan">Donde la web comienza con lo básico</p>
 
-    <div class="project-grid">
-      <!-- Resumen del proyecto -->
-      <div class="project-summary">
-        <h3>Diseño Web Básico y Funcional</h3>
-        <p>Estamos creando una landing responsive con un look moderno y una experiencia clara que funcione en computadoras y celulares.</p>
-      </div>
+    <!-- Descripción corta -->
+    <p class="descripcion-proyecto">
+      Como estudiantes de Ingeniería en Informática y Sistemas de la Universidad Rafael Landívar, construimos esta plataforma enfocándonos en un código semántico, estructurado y de alto rendimiento. Nuestro objetivo es dominar la arquitectura frontend asegurando escalabilidad y diseño responsivo.
+    </p>
 
-      <!-- Puntos destacados -->
-      <div class="project-highlights">
-        <div class="highlight"><span>Título + descripción corta clara y directa.</span></div>
-        <div class="highlight"><span>Lista de tecnologías mostrada como etiquetas.</span></div>
-      </div>
-    </div>
-
-    <!-- Tecnologías -->
-    <div class="tecnologias" style="margin-top: 28px; justify-content: flex-start;">
-      <span class="tag">HTML</span>
-      <span class="tag">CSS</span>
-      <span class="tag">JavaScript</span>
-      <span class="tag">Responsive Design</span>
-      <span class="tag">Accesibilidad</span>
+    <!-- Lista de tecnologías (etiquetas) -->
+    <div class="tecnologias-bw">
+      <span class="tag-bw">HTML5</span>
+      <span class="tag-bw">CSS3</span>
+      <span class="tag-bw">JavaScript</span>
+      <span class="tag-bw">Git / GitHub</span>
+      <span class="tag-bw">Arquitectura Web</span>
     </div>
   </section>
 
