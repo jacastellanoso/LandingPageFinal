@@ -865,6 +865,379 @@
         animation: none;
       }
     }
+
+    @keyframes cardReveal {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes contentFade {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes meshFloat {
+      from {
+        transform: scale(1.02) translate3d(-8px, -6px, 0);
+      }
+      to {
+        transform: scale(1.08) translate3d(10px, 8px, 0);
+      }
+    }
+
+    /* ================================
+       HU-3 · QUÉ HACEMOS
+    ================================ */
+
+    #proyecto {
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: clamp(2rem, 5vw, 4rem);
+      min-height: auto;
+      padding-block: clamp(4rem, 8vw, 7rem);
+      overflow: hidden;
+    }
+
+    #proyecto .band-title {
+      width: 100%;
+    }
+
+    .proyecto-minimalista {
+      width: min(100%, 72rem);
+      display: grid;
+      grid-template-columns: minmax(18rem, 0.9fr) minmax(0, 1.1fr);
+      border: 1px solid #111;
+      border-radius: 1rem;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 8%);
+      transition:
+        transform 350ms ease,
+        box-shadow 350ms ease,
+        border-color 350ms ease;
+      animation: cardReveal 700ms ease both;
+    }
+
+    .proyecto-minimalista:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 2rem 4.5rem rgb(0 0 0 / 14%);
+      border-color: #000;
+    }
+
+    .proyecto-minimalista__contenido {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2rem;
+      padding: clamp(2rem, 5vw, 4rem);
+      animation: contentFade 850ms ease 120ms both;
+    }
+
+    .proyecto-minimalista__visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: clamp(24rem, 42vw, 34rem);
+      background: #0a0a0a;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    
+
+    .proyecto-minimalista__visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.22;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-image: url("data:image/svg+xml;utf8,\ <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800' fill='none'>\ <g stroke='white' stroke-width='1'>\ <path d='M0 70 L120 20 L230 110 L340 40 L480 130 L610 45 L800 140'/>\ <path d='M0 240 L120 20'/>\ <path d='M0 240 L230 110 L320 250 L480 130 L610 260 L800 140'/>\ <path d='M230 110 L480 130'/>\ <path d='M320 250 L610 260'/>\ <path d='M610 45 L610 260'/>\ <path d='M90 390 L220 310 L360 420 L500 290 L680 410 L800 320'/>\ <path d='M0 520 L220 310'/>\ <path d='M0 520 L360 420 L500 290 L680 410 L800 600'/>\ <path d='M220 310 L500 290'/>\ <path d='M360 420 L680 410'/>\ <path d='M120 650 L250 560 L390 700 L560 590 L720 690'/>\ <path d='M0 760 L250 560'/>\ <path d='M250 560 L560 590'/>\ <path d='M390 700 L720 690'/>\ </g></svg>");
+      animation: meshFloat 12s ease-in-out infinite alternate;
+    }
+
+
+    .proyecto-minimalista__visual::after {
+      position: absolute;
+      right: 1.25rem;
+      bottom: 1.25rem;
+      color: white;
+      font-family: monospace;
+      font-size: 0.72rem;
+      opacity: 0.55;
+    }
+
+    .proyecto-minimalista__icon {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: min(66%, 18rem);
+      max-height: 18rem;
+      object-fit: contain;
+      filter: invert(1) grayscale(1);
+    }
+
+    .proyecto-minimalista__content {
+      grid-area: content;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(2rem, 5vw, 4rem);
+    }
+
+    .proyecto-minimalista__descripcion {
+      max-width: 58ch;
+      margin: 0 0 1.5rem;
+      color: #2b2b2b;
+      font-size: clamp(0.98rem, 1.4vw, 1.12rem);
+      line-height: 1.75;
+    }
+
+    .proyecto-minimalista__tecnologias {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+      gap: 0.75rem;
+      width: 100%;
+      margin: 0;
+    }
+
+    .proyecto-tech {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 0.7rem;
+      min-height: 2.95rem;
+      padding: 0.8rem 0.9rem;
+      border: 1px solid #111111;
+      border-radius: 0.65rem;
+      background: #ffffff;
+      color: #111111;
+      font-family: "Product Sans", Arial, sans-serif;
+      font-size: 0.76rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: left;
+      cursor: pointer;
+      overflow: hidden;
+      isolation: isolate;
+      transition:
+        background-color 240ms var(--liquid-easing),
+        color 240ms var(--liquid-easing),
+        border-color 240ms var(--liquid-easing),
+        transform 180ms ease,
+        box-shadow 240ms ease;
+    }
+
+    .proyecto-tech__mesh {
+      position: absolute;
+      z-index: 0;
+      inset: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      color: currentColor;
+      opacity: 0.12;
+      pointer-events: none;
+      transform: scale(1.04);
+      transform-origin: center;
+      transition: opacity 240ms ease, transform 280ms var(--liquid-easing);
+    }
+
+    .proyecto-tech__mesh path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 0.8;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .proyecto-tech__icon {
+      position: relative;
+      z-index: 1;
+      width: 1rem;
+      height: 1rem;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.6;
+    }
+
+    .proyecto-tech__label {
+      position: relative;
+      z-index: 1;
+      white-space: nowrap;
+    }
+
+    .proyecto-tech.is-active {
+      background: #111111;
+      color: #ffffff;
+      border-color: #111111;
+      box-shadow: 0 12px 24px rgb(0 0 0 / 12%);
+    }
+
+    .proyecto-tech.is-active .proyecto-tech__mesh {
+      opacity: 0.2;
+      transform: translate3d(0.24rem, -0.12rem, 0) scale(1.08);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .proyecto-tech:hover {
+        background: #f3f3f3;
+        transform: translateY(-2px);
+      }
+
+      .proyecto-tech.is-active:hover {
+        background: #202020;
+      }
+    }
+
+    .proyecto-tech:focus-visible {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    .proyecto-minimalista__detalle {
+      position: relative;
+      width: 100%;
+      padding: 1.15rem 1.25rem 1.2rem;
+      border: 1px solid rgb(17 17 17 / 18%);
+      border-radius: 0.8rem;
+      background: #ffffff;
+      overflow: hidden;
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .proyecto-minimalista__detalle::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, #111111 0%, rgb(17 17 17 / 18%) 70%, transparent 100%);
+      opacity: 0.9;
+    }
+
+    .proyecto-minimalista__detalle-codigo {
+      display: block;
+      margin-bottom: 0.6rem;
+      color: rgb(17 17 17 / 48%);
+      font-family: monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .proyecto-minimalista__detalle-titulo {
+      margin: 0 0 0.45rem;
+      color: #111111;
+      font-family: "Product Sans", Arial, sans-serif;
+      font-size: clamp(1rem, 1.6vw, 1.2rem);
+      font-weight: 500;
+    }
+
+    .proyecto-minimalista__detalle-texto {
+      max-width: 50ch;
+      margin: 0;
+      color: #555555;
+      font-size: clamp(0.85rem, 1.15vw, 0.95rem);
+      line-height: 1.6;
+    }
+
+    .proyecto-minimalista__detalle.is-changing {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .proyecto-minimalista__visual.is-reacting {
+      transform: translate3d(0, -3px, 0) scale(1.005);
+    }
+
+    .proyecto-minimalista__visual.is-reacting::before {
+      transform: translate3d(0, -2px, 0) scale(1.01);
+      opacity: 0.3;
+    }
+
+    @media (max-width: 850px) {
+      #proyecto {
+        padding-block: clamp(2.75rem, 8vw, 4.5rem);
+      }
+
+      .proyecto-minimalista {
+        grid-template-columns: 1fr;
+      }
+
+      .proyecto-minimalista__contenido {
+        gap: 1.25rem;
+        padding: clamp(1.5rem, 5vw, 2.25rem);
+      }
+
+      .proyecto-minimalista__tecnologias {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .proyecto-minimalista__visual {
+        min-height: clamp(14rem, 48vw, 20rem);
+        border-bottom: 1px solid #111;
+      }
+
+      .proyecto-minimalista__icon {
+        width: min(42vw, 12rem);
+      }
+    }
+
+    @media (max-width: 520px) {
+      #proyecto {
+        padding-inline: 1rem;
+      }
+
+      .proyecto-minimalista__contenido {
+        padding: 1.25rem;
+      }
+
+      .proyecto-minimalista__descripcion {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.65;
+      }
+
+      .proyecto-minimalista__tecnologias {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .proyecto-tech {
+        min-height: 2.8rem;
+        padding: 0.72rem 0.8rem;
+        font-size: 0.68rem;
+      }
+
+      .proyecto-tech__label {
+        white-space: normal;
+      }
+
+      .proyecto-minimalista__detalle {
+        padding: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -997,6 +1370,126 @@
         <span>Nuestro Proyecto</span>
         <svg class="band-title__bracket" viewBox="0 0 20 42" aria-hidden="true"><path d="M0 0 L20 21 L0 42" /></svg>
       </h2>
+
+      <div class="proyecto-minimalista">
+        <div class="proyecto-minimalista__visual">
+          <img src="favicon.svg" alt="Logo BASDELWEB" class="proyecto-minimalista__icon">
+        </div>
+        <div class="proyecto-minimalista__contenido">
+          <p class="proyecto-minimalista__descripcion">
+            Como estudiantes de Ingeniería en Informática y Sistemas de la Universidad Rafael Landívar, construimos esta plataforma enfocándonos en un código semántico, estructurado y de alto rendimiento. Nuestro objetivo es dominar la arquitectura frontend asegurando escalabilidad y diseño responsive.
+          </p>
+          <div class="proyecto-minimalista__tecnologias">
+            <button
+              type="button"
+              class="proyecto-tech is-active"
+              data-tech="html"
+              aria-pressed="true">
+              <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M10 12 H210 M10 48 H210 M10 12 V48 M210 12 V48" />
+                <path d="M60 12 L60 48 M160 12 L160 48" />
+              </svg>
+              <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 5h16l-1.5 14-6.5 3-6.5-3L4 5z" />
+                <path d="M8 9h8" />
+              </svg>
+              <span class="proyecto-tech__label">HTML5</span>
+            </button>
+            <button
+              type="button"
+              class="proyecto-tech"
+              data-tech="css"
+              aria-pressed="false">
+              <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M10 12 H210 M10 48 H210 M10 12 V48 M210 12 V48" />
+                <path d="M72 12 L72 48 M148 12 L148 48" />
+              </svg>
+              <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 6h12l-1 12-5 2-5-2L6 6z" />
+                <path d="M8 10h8" />
+              </svg>
+              <span class="proyecto-tech__label">CSS3</span>
+            </button>
+            <button
+              type="button"
+              class="proyecto-tech"
+              data-tech="javascript"
+              aria-pressed="false">
+              <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M10 12 H210 M10 48 H210 M10 12 V48 M210 12 V48" />
+                <path d="M71 12 L71 48 M149 12 L149 48" />
+              </svg>
+              <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5h8" />
+                <path d="M8 19h8" />
+                <path d="M12 5v14" />
+              </svg>
+              <span class="proyecto-tech__label">JavaScript</span>
+            </button>
+            <button
+              type="button"
+              class="proyecto-tech"
+              data-tech="git"
+              aria-pressed="false">
+              <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M10 12 H210 M10 48 H210 M10 12 V48 M210 12 V48" />
+                <path d="M92 12 L92 48 M128 12 L128 48" />
+              </svg>
+              <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 4v16" />
+                <path d="M7 7l10 10" />
+                <path d="M17 7L7 17" />
+              </svg>
+              <span class="proyecto-tech__label">Git / GitHub</span>
+            </button>
+            <button
+              type="button"
+              class="proyecto-tech"
+              data-tech="arquitectura"
+              aria-pressed="false">
+              <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M10 12 H210 M10 48 H210 M10 12 V48 M210 12 V48" />
+                <path d="M63 12 L63 48 M157 12 L157 48" />
+              </svg>
+              <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 8h14" />
+                <path d="M8 8v10" />
+                <path d="M16 8v10" />
+                <path d="M5 18h14" />
+              </svg>
+              <span class="proyecto-tech__label">Arquitectura Web</span>
+            </button>
+          </div>
+
+
+          <div
+            class="proyecto-minimalista__detalle"
+            id="detalle-tecnologia"
+            aria-live="polite"
+          >
+
+            <span
+              class="proyecto-minimalista__detalle-codigo"
+              id="detalle-codigo">
+              // HTML5
+            </span>
+
+            <h4
+              class="proyecto-minimalista__detalle-titulo"
+              id="detalle-titulo">
+              Estructura semántica
+            </h4>
+
+            <p
+              class="proyecto-minimalista__detalle-texto"
+              id="detalle-texto">
+              Utilizamos HTML5 para organizar el contenido de la landing mediante
+              una estructura clara, semántica y accesible.
+            </p>
+
+          </div>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -1750,5 +2243,108 @@
     initializeLogoWireframe();
     document.fonts.ready.then(buildLayouts);
   </script>
+  
+  <script>
+  const tecnologiasProyecto = {
+    html: {
+      codigo: "// HTML5",
+      titulo: "Estructura semántica",
+      texto:
+        "Utilizamos HTML5 para organizar el contenido de la landing mediante una estructura clara, semántica y accesible."
+    },
+
+    css: {
+      codigo: "// CSS3",
+      titulo: "Diseño y adaptación",
+      texto:
+        "CSS3 define la identidad visual de BASDELWEB, las animaciones y el diseño responsive para adaptar la experiencia a diferentes pantallas."
+    },
+
+    javascript: {
+      codigo: "// JAVASCRIPT",
+      titulo: "Interacción",
+      texto:
+        "JavaScript añade comportamiento e interacción a la landing, permitiendo crear una experiencia más dinámica para quien visita la página."
+    },
+
+    git: {
+      codigo: "// GIT / GITHUB",
+      titulo: "Trabajo colaborativo",
+      texto:
+        "Git y GitHub nos permiten trabajar en ramas independientes, controlar los cambios y posteriormente integrar cada historia de usuario mediante Pull Requests."
+    },
+
+    arquitectura: {
+      codigo: "// ARQUITECTURA WEB",
+      titulo: "Construcción organizada",
+      texto:
+        "Organizamos la landing en componentes y secciones independientes para mantener una estructura clara, escalable y fácil de mantener."
+    }
+  };
+
+
+  const botonesTecnologia =
+    document.querySelectorAll(".proyecto-tech");
+
+  const detalleTecnologia =
+    document.querySelector("#detalle-tecnologia");
+
+  const detalleCodigo =
+    document.querySelector("#detalle-codigo");
+
+  const detalleTitulo =
+    document.querySelector("#detalle-titulo");
+
+  const detalleTexto =
+    document.querySelector("#detalle-texto");
+
+  const visualProyecto =
+    document.querySelector(".proyecto-minimalista__visual");
+
+  const activarTecnologia = (boton) => {
+    const tecnologia =
+      tecnologiasProyecto[boton.dataset.tech];
+
+    if (!tecnologia) {
+      return;
+    }
+
+    botonesTecnologia.forEach((item) => {
+      item.classList.remove("is-active");
+      item.setAttribute("aria-pressed", "false");
+    });
+
+    boton.classList.add("is-active");
+    boton.setAttribute("aria-pressed", "true");
+
+    detalleTecnologia.classList.add("is-changing");
+
+    if (visualProyecto) {
+      visualProyecto.classList.remove("is-reacting");
+      void visualProyecto.offsetWidth;
+      visualProyecto.classList.add("is-reacting");
+    }
+
+    window.setTimeout(() => {
+      detalleCodigo.textContent = tecnologia.codigo;
+      detalleTitulo.textContent = tecnologia.titulo;
+      detalleTexto.textContent = tecnologia.texto;
+      detalleTecnologia.classList.remove("is-changing");
+
+      if (visualProyecto) {
+        window.setTimeout(() => {
+          visualProyecto.classList.remove("is-reacting");
+        }, 320);
+      }
+    }, 180);
+  };
+
+  botonesTecnologia.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      activarTecnologia(boton);
+    });
+  });
+</script>
+
 </body>
 </html>
