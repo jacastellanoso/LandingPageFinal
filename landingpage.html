@@ -1832,6 +1832,194 @@
         display: none;
       }
     }
+    /* ================================
+       HU-4 · CONTACTO
+    ================================ */
+
+    .contact-link.is-copied {
+      background: #3ddc84;
+      color: #000000;
+      border-color: #3ddc84;
+    }
+
+    .contact-content {
+      display: flex;
+      width: 100%;
+      max-width: 62rem;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(2rem, 5vw, 3.5rem);
+    }
+
+    .contact-grid {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: clamp(1rem, 2.5vw, 1.75rem);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .contact-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      padding: clamp(1.25rem, 2.5vw, 1.75rem);
+      border: 1px solid rgb(255 255 255 / 18%);
+      border-radius: 0.85rem;
+      background: rgb(255 255 255 / 3%);
+      overflow: hidden;
+      isolation: isolate;
+      animation: cardReveal 650ms var(--liquid-easing) both;
+      animation-delay: var(--contact-delay, 0ms);
+      transition:
+        border-color 280ms var(--liquid-easing),
+        background-color 280ms var(--liquid-easing);
+    }
+
+    .contact-card__mesh {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      color: #ffffff;
+      opacity: 0.08;
+      pointer-events: none;
+      transform: scale(1.04);
+      transition: opacity 280ms ease, transform 650ms var(--liquid-easing);
+    }
+
+    .contact-card__mesh path {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 0.7;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .contact-card__status {
+      position: relative;
+      z-index: 1;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: #3ddc84;
+      animation: contact-pulse 2.4s ease-in-out infinite;
+    }
+
+    .contact-card__name {
+      position: relative;
+      z-index: 1;
+      color: #ffffff;
+      font-family: "Product Sans", Arial, sans-serif;
+      font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+      font-weight: 500;
+      line-height: 1.25;
+    }
+
+    .contact-card__role {
+      position: relative;
+      z-index: 1;
+      color: rgb(255 255 255 / 58%);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .contact-card__links {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      margin-top: 0.35rem;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.75rem;
+      border: 1px solid rgb(255 255 255 / 30%);
+      border-radius: 999px;
+      color: #ffffff;
+      font-family: "Product Sans", Arial, sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition:
+        background-color 220ms var(--liquid-easing),
+        color 220ms var(--liquid-easing),
+        border-color 220ms var(--liquid-easing),
+        transform 150ms ease;
+    }
+
+    .contact-link__icon {
+      width: 0.9rem;
+      height: 0.9rem;
+      flex: 0 0 auto;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.6;
+    }
+
+    .contact-link:active {
+      transform: scale(0.96);
+    }
+
+    .contact-link:focus-visible {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 3px;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .contact-card:hover {
+        border-color: rgb(255 255 255 / 45%);
+        background: rgb(255 255 255 / 6%);
+      }
+
+      .contact-card:hover .contact-card__mesh {
+        opacity: 0.16;
+        transform: scale(1.1) translate3d(0.3rem, -0.2rem, 0);
+      }
+
+      .contact-link:hover {
+        background: #ffffff;
+        color: #000000;
+        border-color: #ffffff;
+      }
+    }
+
+    @keyframes contact-pulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgb(61 220 132 / 55%);
+      }
+      50% {
+        box-shadow: 0 0 0 0.35rem rgb(61 220 132 / 0%);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .contact-card,
+      .contact-card__mesh,
+      .contact-link,
+      .contact-card__status {
+        animation: none;
+        transition: none;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2249,11 +2437,112 @@
   <footer id="contacto" class="work-band work-band--dark contact-footer" aria-labelledby="titulo-contacto">
     <div id="footer-logo-container" class="footer-logo-container"></div>
     <div class="contact-workspace">
-      <h2 id="titulo-contacto" class="band-title">
-        <svg class="band-title__bracket" viewBox="0 0 20 42" aria-hidden="true"><path d="M20 0 L0 21 L20 42" /></svg>
-        <span>Contacto</span>
-        <svg class="band-title__bracket" viewBox="0 0 20 42" aria-hidden="true"><path d="M0 0 L20 21 L0 42" /></svg>
-      </h2>
+      <div class="contact-content">
+        <h2 id="titulo-contacto" class="band-title">
+          <svg class="band-title__bracket" viewBox="0 0 20 42" aria-hidden="true"><path d="M20 0 L0 21 L20 42" /></svg>
+          <span>Contacto</span>
+          <svg class="band-title__bracket" viewBox="0 0 20 42" aria-hidden="true"><path d="M0 0 L20 21 L0 42" /></svg>
+        </h2>
+
+        <ul class="contact-grid" aria-label="Contacto de cada integrante del equipo">
+
+          <li class="contact-card" style="--contact-delay: 0ms;">
+            <svg class="contact-card__mesh" viewBox="0 0 260 140" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
+            </svg>
+            <span class="contact-card__status" aria-hidden="true"></span>
+            <span class="contact-card__name">Javier Castellanos</span>
+            <span class="contact-card__role">UX/UI Designer</span>
+            <span class="contact-card__links">
+              <a class="contact-link" href="https://github.com/jacastellanoso" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Javier Castellanos">
+                <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
+                <span>GitHub</span>
+              </a>
+              <a class="contact-link" href="mailto::jacastellanoso@correo.url.edu.gt" aria-label="Correo de Javier Castellanos">
+                <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM22 6l-10 7L2 6" /></svg>
+                <span>Correo</span>
+              </a>
+            </span>
+          </li>
+
+          <li class="contact-card" style="--contact-delay: 90ms;">
+            <svg class="contact-card__mesh" viewBox="0 0 260 140" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
+            </svg>
+            <span class="contact-card__status" aria-hidden="true"></span>
+            <span class="contact-card__name">Gerardo Ávila</span>
+            <span class="contact-card__role">Frontend Developer</span>
+            <span class="contact-card__links">
+              <a class="contact-link" href="https://github.com/gjavila1" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Gerardo Ávila">
+                <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
+                <span>GitHub</span>
+              </a>
+              <a class="contact-link" href="mailto:gjavila@correo.url.edu.gt" aria-label="Correo de Gerardo Ávila">
+                <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM22 6l-10 7L2 6" /></svg>
+                <span>Correo</span>
+              </a>
+            </span>
+          </li>
+
+          <li class="contact-card" style="--contact-delay: 180ms;">
+            <svg class="contact-card__mesh" viewBox="0 0 260 140" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
+            </svg>
+            <span class="contact-card__status" aria-hidden="true"></span>
+            <span class="contact-card__name">Adrián Esteban Escalón Illescas</span>
+            <span class="contact-card__role">Project Manager / Product Owner</span>
+            <span class="contact-card__links">
+              <a class="contact-link" href="https://github.com/AdrianE111" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Adrián Esteban Escalón Illescas">
+                <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
+                <span>GitHub</span>
+              </a>
+              <a class="contact-link" href="mailto:aeescalon@correo.url.edu.gt" aria-label="Correo de Adrián Esteban Escalón Illescas">
+                <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM22 6l-10 7L2 6" /></svg>
+                <span>Correo</span>
+              </a>
+            </span>
+          </li>
+
+          <li class="contact-card" style="--contact-delay: 270ms;">
+            <svg class="contact-card__mesh" viewBox="0 0 260 140" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
+            </svg>
+            <span class="contact-card__status" aria-hidden="true"></span>
+            <span class="contact-card__name">José Carlos Mendizábal Huertas</span>
+            <span class="contact-card__role">Backend Developer</span>
+            <span class="contact-card__links">
+              <a class="contact-link" href="https://github.com/JCMENDI" target="_blank" rel="noopener noreferrer" aria-label="GitHub de José Carlos Mendizábal Huertas">
+                <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
+                <span>GitHub</span>
+              </a>
+              <a class="contact-link" href="mailto:jcmendizabalh@correo.url.edu.gt" aria-label="Correo de José Carlos Mendizábal Huertas">
+                <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM22 6l-10 7L2 6" /></svg>
+                <span>Correo</span>
+              </a>
+            </span>
+          </li>
+
+          <li class="contact-card" style="--contact-delay: 360ms;">
+            <svg class="contact-card__mesh" viewBox="0 0 260 140" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
+            </svg>
+            <span class="contact-card__status" aria-hidden="true"></span>
+            <span class="contact-card__name">Esteban Maldonado</span>
+            <span class="contact-card__role">QA Tester</span>
+            <span class="contact-card__links">
+              <a class="contact-link" href="https://github.com/Ejmaldonadov" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Esteban Maldonado">
+                <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
+                <span>GitHub</span>
+              </a>
+              <a class="contact-link" href="mailto:ejmaldonadov@correo.url.edu.gt " aria-label="Correo de Esteban Maldonado">
+                <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM22 6l-10 7L2 6" /></svg>
+                <span>Correo</span>
+              </a>
+            </span>
+          </li>
+
+        </ul>
+      </div>
     </div>
   </footer>
 
@@ -3151,6 +3440,28 @@
     }
   });
 </script>
+<script>
+  document.querySelectorAll('a[href^="mailto:"]').forEach((enlace) => {
+    enlace.addEventListener("click", async () => {
+      const correo = enlace.href.replace("mailto:", "").split("?")[0];
+      const etiqueta = enlace.querySelector(".contact-link__label") || enlace.querySelector("span");
+      const textoOriginal = etiqueta.textContent;
 
+      try {
+        await navigator.clipboard.writeText(correo);
+      } catch (error) {
+        console.info("No fue posible copiar el correo automáticamente.", error);
+      }
+
+      enlace.classList.add("is-copied");
+      etiqueta.textContent = "¡Copiado!";
+
+      window.setTimeout(() => {
+        enlace.classList.remove("is-copied");
+        etiqueta.textContent = textoOriginal;
+      }, 1800);
+    });
+  });
+</script>
 </body>
 </html>
