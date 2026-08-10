@@ -1852,9 +1852,10 @@
     }
 
     .contact-grid {
-      display: grid;
+      display: flex;
       width: 100%;
-      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      flex-wrap: wrap;
+      justify-content: center;
       gap: clamp(1rem, 2.5vw, 1.75rem);
       margin: 0;
       padding: 0;
@@ -1877,6 +1878,8 @@
       transition:
         border-color 280ms var(--liquid-easing),
         background-color 280ms var(--liquid-easing);
+      flex: 1 1 15rem;  /* nueva linea */
+      max-width: 18rem;  /* nueva linea */  
     }
 
     .contact-card__mesh {
@@ -2008,6 +2011,10 @@
     @media (max-width: 700px) {
       .contact-grid {
         grid-template-columns: 1fr;
+      }
+      .contact-card {
+        flex: 1 1 100%;
+        max-width: 100%;
       }
     }
 
@@ -2470,7 +2477,7 @@
               <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
             </svg>
             <span class="contact-card__status" aria-hidden="true"></span>
-            <span class="contact-card__name">Gerardo Ávila</span>
+            <span class="contact-card__name">Gerardo Avila</span>
             <span class="contact-card__role">Frontend Developer</span>
             <span class="contact-card__links">
               <a class="contact-link" href="https://github.com/gjavila1" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Gerardo Ávila">
@@ -2489,7 +2496,7 @@
               <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
             </svg>
             <span class="contact-card__status" aria-hidden="true"></span>
-            <span class="contact-card__name">Adrián Esteban Escalón Illescas</span>
+            <span class="contact-card__name">Adrián Escalón</span>
             <span class="contact-card__role">Project Manager / Product Owner</span>
             <span class="contact-card__links">
               <a class="contact-link" href="https://github.com/AdrianE111" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Adrián Esteban Escalón Illescas">
@@ -2508,7 +2515,7 @@
               <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
             </svg>
             <span class="contact-card__status" aria-hidden="true"></span>
-            <span class="contact-card__name">José Carlos Mendizábal Huertas</span>
+            <span class="contact-card__name">José Carlos Mendizábal</span>
             <span class="contact-card__role">Backend Developer</span>
             <span class="contact-card__links">
               <a class="contact-link" href="https://github.com/JCMENDI" target="_blank" rel="noopener noreferrer" aria-label="GitHub de José Carlos Mendizábal Huertas">
