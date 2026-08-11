@@ -13,8 +13,11 @@
 
       if (sessionStorage.getItem("basdelweb-intro-seen") === "true") {
         document.documentElement.classList.add("intro-seen");
+      } else {
+        document.documentElement.classList.add("intro-running");
       }
     } catch (error) {
+      document.documentElement.classList.add("intro-running");
       console.info("No fue posible consultar el estado de la presentación.", error);
     }
   </script>
@@ -78,7 +81,16 @@
         color 500ms var(--liquid-easing);
     }
 
-    html:not(.intro-seen) .site-header:not(.is-compact) {
+    html.intro-running,
+    html.intro-running body {
+      overflow: hidden;
+    }
+
+    html.intro-running body {
+      background: #ffffff;
+    }
+
+    html.intro-running .site-header:not(.is-compact) {
       position: fixed;
       z-index: 1000;
       inset: 0;
@@ -87,8 +99,13 @@
       overflow: hidden;
     }
 
-    html:not(.intro-seen) .site-header:not(.is-compact) ~ main,
-    html:not(.intro-seen) .site-header:not(.is-compact) ~ footer {
+    html.intro-running .site-header.is-compact {
+      position: fixed;
+      inset: 0 0 auto;
+    }
+
+    html.intro-running main,
+    html.intro-running footer {
       display: none;
     }
 
@@ -129,56 +146,52 @@
       opacity: 0;
     }
 
-    .welcome-sequence {
-      position: absolute;
-      z-index: 2;
-      top: 50%;
-      left: 50%;
-      display: flex;
-      width: min(94vw, 900px);
-      align-items: center;
-      justify-content: center;
-      gap: clamp(0.25rem, 1vw, 0.75rem);
-      color: var(--color-text);
+    .intro-only {
+      display: none;
+    }
+
+    html.intro-running .logo .intro-only {
+      display: block;
+    }
+
+    .intro-temporary-text {
+      fill: currentColor;
       font-family: "Product Sans", Arial, sans-serif;
-      font-size: clamp(0.85rem, 4vw, 3rem);
+      font-size: 80px;
       font-weight: 500;
-      line-height: 1.1;
-      text-align: center;
-      transform: translate(-50%, -50%);
-      transition: opacity 450ms var(--liquid-easing), visibility 0s linear 450ms;
-      white-space: nowrap;
+      white-space: pre;
     }
 
-    .intro-bracket {
-      width: clamp(0.75rem, 2.5vw, 1.875rem);
-      height: clamp(1.575rem, 5.25vw, 3.9375rem);
-      flex: 0 0 auto;
-      overflow: visible;
-    }
-
-    .intro-bracket path {
+    .intro-accent {
       fill: none;
       stroke: currentColor;
-      stroke-linecap: square;
-      stroke-linejoin: miter;
-      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-width: 6;
     }
 
-    .site-header:not([data-phase="loading"]) .welcome-sequence,
-    .intro-seen .welcome-sequence {
-      visibility: hidden;
-      opacity: 0;
-    }
-
-    .typing-cursor {
-      display: inline-block;
-      width: 0.08em;
-      height: 0.9em;
-      margin-left: 0.08em;
-      background: currentColor;
-      vertical-align: -0.08em;
+    .intro-cursor {
+      fill: currentColor;
       animation: cursor-blink 650ms steps(1, end) infinite;
+    }
+
+    html.intro-running .site-header[data-phase="loading"] .home-reload {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    html.intro-running .logo {
+      width: min(94vw, 62rem);
+    }
+
+    .site-header.is-measuring-compact .logo {
+      transition: none !important;
+    }
+
+    html.intro-running .site-nav {
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
     }
 
     @keyframes cursor-blink {
@@ -636,6 +649,87 @@
       color: #ffffff;
     }
 
+    .footer-logo-column {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+  margin-left: 2.4rem;
+}
+
+.copyright-bar {
+  width: 100%;
+  min-height: clamp(24px, 4vw, 32px);
+  padding: 6px 16px;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  color: #000000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Product Sans", Arial, sans-serif;
+  font-size: clamp(0.55rem, 1.5vw, 0.7rem);
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.copyright-bar__text {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 0.28em;
+  row-gap: 0.1em;
+}
+
+.copyright-bar__group {
+  display: inline-flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.copyright-bar__symbol {
+  display: inline-block;
+  flex: 0 0 auto;
+  font-family: Arial, "Segoe UI Symbol", "Noto Sans Symbols 2", sans-serif;
+  font-size: 1em;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: baseline;
+}
+
+.footer-nav a {
+  color: rgb(255 255 255 / 58%);
+  font-family: "Product Sans", Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    color 220ms var(--liquid-easing),
+    transform 220ms var(--liquid-easing);
+}
+
+.footer-nav a:hover {
+  color: #ffffff;
+  transform: translateX(0.3rem);
+}
+
     .footer-logo {
       display: block;
       width: 100%;
@@ -819,17 +913,17 @@
         min-height: auto;
         padding-block: clamp(1.5rem, 7vw, 2.5rem);
       }
-
-      #logo-oficial {
+      /*Cambio: Reduccion del espacio de arriba del titulo */
+     #logo-oficial {
         height: auto;
         min-height: auto;
         padding-block:
-          clamp(1.5rem, 7vw, 2.5rem)
+          clamp(0.25rem, 1.5vw, 0.75rem)
           clamp(3.75rem, 16vw, 6rem);
       }
 
       .official-logo-container {
-        width: min(90vw, 38rem);
+        width: min(74vw, 30rem);
       }
 
       .contact-footer {
@@ -840,6 +934,14 @@
       .footer-logo-container {
         width: min(88vw, 28rem);
         justify-self: center;
+      }
+
+      .footer-nav {
+        display: none;
+      }
+
+      .footer-logo-column {
+        align-items: center;
       }
     }
 
@@ -861,7 +963,8 @@
 
       .logo,
       .loading-indicator,
-      .typing-cursor {
+      .typing-cursor,
+      .intro-cursor {
         animation: none;
       }
     }
@@ -978,6 +1081,7 @@
       opacity: 0.55;
     }
 
+/*Cambio*/
     .proyecto-minimalista__icon {
       position: relative;
       z-index: 1;
@@ -986,6 +1090,9 @@
       max-height: 18rem;
       object-fit: contain;
       filter: invert(1) grayscale(1);
+      -webkit-user-drag: none;
+      user-select: none;
+      pointer-events: none
     }
 
     .proyecto-minimalista__content {
@@ -1013,30 +1120,38 @@
     }
 
     .proyecto-tech {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.7rem;
-      width: 100%;
-      min-width: 0;
-      min-height: 52px;
-      padding: 0.85rem 1rem;
-      border: 1px solid #111111;
-      border-radius: 0.55rem;
-      background: #ffffff;
-      color: #111111;
-      font-family: "Product Sans", Arial, sans-serif;
-      font-size: 0.76rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-align: center;
-      cursor: pointer;
-      overflow: hidden;
-      isolation: isolate;
-      transition: background-color 220ms var(--liquid-easing), color 220ms var(--liquid-easing), border-color 220ms var(--liquid-easing), box-shadow 220ms var(--liquid-easing), opacity 220ms ease;
-    }
+  --button-background: #ffffff;
+  --button-foreground: #111111;
+  --mesh-opacity: 0.15;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.35rem, 0.8vw, 0.55rem);
+  width: 100%;
+  min-width: 0;
+  min-height: clamp(2.45rem, 4.5vw, 2.9rem);
+  padding: clamp(0.5rem, 1vw, 0.65rem) clamp(0.65rem, 1.4vw, 0.95rem);
+  border: 1px solid #111111;
+  border-radius: 0.55rem;
+  background: var(--button-background);
+  color: var(--button-foreground);
+  font-family: "Product Sans", Arial, sans-serif;
+  font-size: clamp(0.61rem, 1.05vw, 0.76rem);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    background-color 280ms var(--liquid-easing),
+    color 280ms var(--liquid-easing),
+    border-color 280ms var(--liquid-easing),
+    transform 150ms ease;
+}
 
     .proyecto-tech--wide {
       grid-column: span 2;
@@ -1069,23 +1184,25 @@
       width: 100%;
       height: 100%;
       color: currentColor;
-      opacity: 0.14;
+      opacity: var(--mesh-opacity);
+      transform: scale(1.04);
+      transform-origin: center;
       pointer-events: none;
-      transition: opacity 220ms ease;
+      transition: opacity 280ms ease, transform 650ms var(--liquid-easing);
     }
 
     .proyecto-tech__mesh path {
       fill: none;
       stroke: currentColor;
-      stroke-width: 0.8;
+      stroke-width: 0.7;
       vector-effect: non-scaling-stroke;
     }
 
     .proyecto-tech__icon {
       position: relative;
       z-index: 1;
-      width: 1rem;
-      height: 1rem;
+      width: clamp(0.9rem, 1.5vw, 1.1rem);
+      height: clamp(0.9rem, 1.5vw, 1.1rem);
       flex: 0 0 auto;
       fill: none;
       stroke: currentColor;
@@ -1103,24 +1220,33 @@
     }
 
     .proyecto-tech.is-active {
-      background: #111111;
+      --button-background: #000000;
+      --button-foreground: #ffffff;
+      --mesh-opacity: 0.22;
+      background: var(--button-background);
       color: #ffffff;
       border-color: #111111;
-      box-shadow: 0 10px 22px rgb(0 0 0 / 12%);
-    }
-
-    .proyecto-tech.is-active .proyecto-tech__mesh {
-      opacity: 0.2;
     }
 
     @media (hover: hover) and (pointer: fine) {
       .proyecto-tech:hover {
-        background: #f3f3f3;
+        --button-background: #ededed;
+        --mesh-opacity: 0.28;
+        color: #000000;
+      }
+
+      .proyecto-tech:hover .proyecto-tech__mesh {
+        transform: translate3d(0.3rem, -0.12rem, 0) scale(1.1);
       }
 
       .proyecto-tech.is-active:hover {
-        background: #202020;
+        --button-background: #202020;
+        color: #ffffff;
       }
+    }
+
+    .proyecto-tech:active {
+      transform: scale(0.975);
     }
 
     .proyecto-tech:focus-visible {
@@ -1311,16 +1437,18 @@
       z-index: 1;
       display: grid;
       width: 100%;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 4fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr);
     }
 
     .equipo-grid {
+      --equipo-grid-gap: clamp(0.9rem, 1.55vw, 1.4rem);
+      --equipo-grid-half-gap: clamp(0.45rem, 0.775vw, 0.7rem);
       display: grid;
-      width: 100%;
-      max-width: 80rem;
-      grid-column: 2;
+      width: min(100%, 112rem);
+      max-width: none;
+      grid-column: 1;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap: clamp(0.9rem, 1.55vw, 1.4rem);
+      gap: var(--equipo-grid-gap);
       justify-self: center;
       align-items: stretch;
       perspective: 1800px;
@@ -1332,12 +1460,12 @@
       z-index: 1;
       display: block;
       width: 100%;
-      max-width: 15rem;
+      max-width: clamp(16rem, 18vw, 21rem);
       min-width: 0;
       border-radius: var(--equipo-card-radius);
       background: transparent;
       color: inherit;
-      aspect-ratio: 3 / 6.35;
+      aspect-ratio: 4 / 7;
       perspective: 1400px;
       perspective-origin: center;
       transform: translate3d(0, 0, 0);
@@ -1465,6 +1593,9 @@
         filter 700ms ease-in-out,
         transform 700ms ease-in-out;
       will-change: filter, transform;
+      -webkit-user-drag: none;
+      user-select: none;
+      pointer-events: none;
     }
 
     .equipo-card__photo-fallback {
@@ -1499,6 +1630,7 @@
       padding:
         clamp(0.45rem, 0.9vw, 0.75rem)
         clamp(0.65rem, 1.25vw, 0.95rem);
+      padding-bottom: clamp(0.75rem, 1.2vw, 1rem);
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
@@ -1738,22 +1870,24 @@
       }
     }
 
-    @media (max-width: 1050px) {
+    @media (max-width: 1100px) {
       .equipo-layout {
-        grid-template-columns: minmax(0, 0.5fr) minmax(0, 5fr) minmax(0, 0.5fr);
+        grid-template-columns: minmax(0, 1fr);
       }
 
       .equipo-grid {
-        width: min(100%, 42rem);
+        width: min(100%, 52rem);
+        grid-column: 1;
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .equipo-card {
-        aspect-ratio: 3 / 5.3;
+        max-width: 24rem;
+        aspect-ratio: 4 / 7;
       }
 
       .equipo-card:last-child {
-        width: min(100%, 15rem);
+        width: min(calc(50% - var(--equipo-grid-half-gap)), 24rem);
         grid-column: 1 / -1;
         justify-self: center;
       }
@@ -1769,6 +1903,7 @@
       }
 
       .equipo-grid {
+        --equipo-grid-half-gap: clamp(0.375rem, 1.5vw, 0.55rem);
         width: 100%;
         grid-column: 1;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1777,17 +1912,22 @@
       }
 
       .equipo-card:last-child {
-        width: min(calc(50% - 0.55rem), 15rem);
+        width: calc(50% - var(--equipo-grid-half-gap));
+      }
+
+      .equipo-card {
+        max-width: none;
+        aspect-ratio: 3 / 6.4;
       }
     }
 
     @media (max-width: 430px) {
       .equipo-card {
-        aspect-ratio: 3 / 6.35;
+        aspect-ratio: 3 / 6.4;
       }
     }
 
-    @media (max-width: 380px) {
+    @media (max-width: 350px) {
       .equipo-grid {
         width: min(100%, 20rem);
         grid-template-columns: minmax(0, 1fr);
@@ -1798,11 +1938,12 @@
       .equipo-card:last-child {
         width: min(100%, 20rem);
         grid-column: auto;
-        aspect-ratio: 3 / 4.9;
+        aspect-ratio: 3 / 5.2;
       }
 
       .equipo-card__information {
-        padding-block: 0.25rem;
+        padding-top: 0.25rem;
+        padding-bottom: clamp(0.75rem, 4vw, 1rem);
         gap: 0.2rem;
       }
 
@@ -1866,6 +2007,8 @@
       position: relative;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      text-align: center;
       gap: 0.65rem;
       padding: clamp(1.25rem, 2.5vw, 1.75rem);
       border: 1px solid rgb(255 255 255 / 18%);
@@ -1902,14 +2045,17 @@
       vector-effect: non-scaling-stroke;
     }
 
-    .contact-card__status {
+    .contact-card__icon {
       position: relative;
       z-index: 1;
-      width: 0.5rem;
-      height: 0.5rem;
-      border-radius: 50%;
-      background: #3ddc84;
-      animation: contact-pulse 2.4s ease-in-out infinite;
+      align-self: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      fill: none;
+      stroke: #ffffff;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.6;
     }
 
     .contact-card__name {
@@ -1920,21 +2066,38 @@
       font-size: clamp(0.95rem, 1.3vw, 1.05rem);
       font-weight: 500;
       line-height: 1.25;
+      text-align: center;
     }
 
     .contact-card__role {
-      position: relative;
-      z-index: 1;
-      color: rgb(255 255 255 / 58%);
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  color: rgb(255 255 255 / 58%);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.contact-card__role-icon {
+  width: 0.72rem;
+  height: 0.72rem;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 
     .contact-card__links {
       position: relative;
       z-index: 1;
       display: flex;
+      justify-content: center;
       margin-top: 0.35rem;
       gap: 0.6rem;
       flex-wrap: wrap;
@@ -2033,17 +2196,11 @@
   <header id="inicio" class="site-header" data-phase="loading">
     <h1 class="visually-hidden">BASDELWEB</h1>
     <div class="header-content">
-      <div class="welcome-sequence" aria-label="Bienvenido a Básicos">
-        <svg class="intro-bracket" viewBox="0 0 20 42" aria-hidden="true">
-          <path d="M20 0 L0 21 L20 42" />
-        </svg>
-        <span id="intro-text" aria-hidden="true"></span><span class="typing-cursor" aria-hidden="true"></span>
-        <svg class="intro-bracket" viewBox="0 0 20 42" aria-hidden="true">
-          <path d="M0 0 L20 21 L0 42" />
-        </svg>
+      <div class="welcome-sequence visually-hidden" aria-live="polite" aria-atomic="true">
+        <span id="intro-text">Bienvenido a Básicos</span>
       </div>
 
-      <button id="home-reload" class="home-reload" type="button" aria-label="Recargar la página y volver al inicio">
+      <button id="home-reload" class="home-reload" type="button" aria-label="Recargar la página y volver al inicio" disabled>
         <svg
           class="logo"
           data-state="2"
@@ -2057,6 +2214,12 @@
         <desc id="logo-description">Logotipo transformable BAS DEL WEB entre símbolos de código.</desc>
 
         <g id="logo-elements">
+          <g id="intro-elements" class="intro-only" aria-hidden="true">
+            <text id="intro-prefix" class="intro-temporary-text"></text>
+            <path id="intro-accent" class="intro-accent" d="M0 0 L12 -13" />
+            <text id="intro-suffix" class="intro-temporary-text"></text>
+            <rect id="intro-cursor" class="intro-cursor" width="5" height="76" rx="2" />
+          </g>
           <text id="bas-b" class="logo__letter">B</text>
           <text id="bas-a" class="logo__letter">A</text>
           <text id="bas-s" class="logo__letter">S</text>
@@ -2163,7 +2326,7 @@
               </svg>
               <span class="equipo-card__photo">
                 <span class="equipo-card__photo-fallback" aria-hidden="true">Fotografía pendiente</span>
-                <img src="images/equipo/persona-01.webp" alt="Fotografía de Nombre persona uno" loading="lazy" decoding="async">
+                <img src="images/equipo/persona-01.webp" alt="Fotografía de Nombre persona uno" draggable="false" loading="lazy" decoding="async">
               </span>
               <span class="equipo-card__information">
                 <span class="equipo-card__name">Javier Castellanos</span>
@@ -2195,7 +2358,7 @@
               </svg>
               <span class="equipo-card__photo">
                 <span class="equipo-card__photo-fallback" aria-hidden="true">Fotografía pendiente</span>
-                <img src="images/equipo/persona-02.webp" alt="Fotografía de Nombre persona dos" loading="lazy" decoding="async">
+                <img src="images/equipo/persona-02.webp" alt="Fotografía de Nombre persona dos" draggable="false" loading="lazy" decoding="async">
               </span>
               <span class="equipo-card__information">
                 <span class="equipo-card__name">Gerardo Avila</span>
@@ -2227,11 +2390,11 @@
               </svg>
               <span class="equipo-card__photo">
                 <span class="equipo-card__photo-fallback" aria-hidden="true">Fotografía pendiente</span>
-                <img src="images/equipo/persona-03.webp" alt="Fotografía de Nombre persona tres" loading="lazy" decoding="async">
+                <img src="images/equipo/persona-03.webp" alt="Fotografía de Nombre persona tres" draggable="false" loading="lazy" decoding="async">
               </span>
               <span class="equipo-card__information">
                 <span class="equipo-card__name">Adrián Escalón</span>
-                <span class="equipo-card__role">Project Manager / Product Owner</span>
+                <span class="equipo-card__role">Project Manager</span>
                 <button class="equipo-card__toggle equipo-card__toggle--front" type="button" data-equipo-toggle aria-controls="equipo-reverso-03" aria-expanded="false" aria-label="Ver frase de Nombre persona tres">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 0-14.9-4M4 4v4h4M4 12a8 8 0 0 0 14.9 4M20 20v-4h-4" /></svg>
                   <span>Ver frase</span>
@@ -2259,7 +2422,7 @@
               </svg>
               <span class="equipo-card__photo">
                 <span class="equipo-card__photo-fallback" aria-hidden="true">Fotografía pendiente</span>
-                <img src="images/equipo/persona-04.webp" alt="Fotografía de Nombre persona cuatro" loading="lazy" decoding="async">
+                <img src="images/equipo/persona-04.webp" alt="Fotografía de Nombre persona cuatro" draggable="false" loading="lazy" decoding="async">
               </span>
               <span class="equipo-card__information">
                 <span class="equipo-card__name">Carlos Mendizábal</span>
@@ -2291,7 +2454,7 @@
               </svg>
               <span class="equipo-card__photo">
                 <span class="equipo-card__photo-fallback" aria-hidden="true">Fotografía pendiente</span>
-                <img src="images/equipo/persona-05.webp" alt="Fotografía de Nombre persona cinco" loading="lazy" decoding="async">
+                <img src="images/equipo/persona-05.webp" alt="Fotografía de Nombre persona cinco" draggable="false" loading="lazy" decoding="async">
               </span>
               <span class="equipo-card__information">
                 <span class="equipo-card__name">Esteban Maldonado</span>
@@ -2327,7 +2490,7 @@
 
       <div class="proyecto-minimalista">
         <div class="proyecto-minimalista__visual">
-          <img src="favicon.svg" alt="Logo BASDELWEB" class="proyecto-minimalista__icon">
+          <img src="favicon.svg" alt="Logo BASDELWEB" class="proyecto-minimalista__icon" draggable="false">
         </div>
         <div class="proyecto-minimalista__contenido">
           <p class="proyecto-minimalista__descripcion">
@@ -2339,9 +2502,8 @@
               class="proyecto-tech is-active"
               data-tech="html"
               aria-pressed="true">
-              <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M8 8 H212 M8 52 H212 M8 8 V52 M212 8 V52 M48 8 V52 M172 8 V52" />
-                <path d="M48 8 L132 20 L172 8 M48 52 L132 40 L172 52 M92 20 L92 52 M132 20 L132 40" />
+              <svg class="proyecto-tech__mesh" viewBox="0 0 180 54" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M-8 8 L25 1 L49 19 L79 -5 L109 15 L145 3 L188 24 M-5 43 L25 1 M-5 43 L49 19 L75 50 L109 15 L137 46 L188 24 M49 19 L109 15 M75 50 L137 46 M145 3 L137 46" />
               </svg>
               <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M4 5h16l-1.5 14-6.5 3-6.5-3L4 5z" />
@@ -2354,9 +2516,8 @@
               class="proyecto-tech"
               data-tech="css"
               aria-pressed="false">
-              <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M8 8 H212 M8 52 H212 M8 8 V52 M212 8 V52 M44 8 V52 M176 8 V52" />
-                <path d="M44 8 L110 18 L176 8 M44 52 L110 42 L176 52 M70 20 L70 42 M148 20 L148 42 M110 18 L110 42" />
+              <svg class="proyecto-tech__mesh" viewBox="0 0 180 54" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M-8 8 L25 1 L49 19 L79 -5 L109 15 L145 3 L188 24 M-5 43 L25 1 M-5 43 L49 19 L75 50 L109 15 L137 46 L188 24 M49 19 L109 15 M75 50 L137 46 M145 3 L137 46" />
               </svg>
               <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M6 6h12l-1 12-5 2-5-2L6 6z" />
@@ -2369,9 +2530,8 @@
               class="proyecto-tech"
               data-tech="javascript"
               aria-pressed="false">
-              <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M8 8 H212 M8 52 H212 M8 8 V52 M212 8 V52 M48 8 V52 M172 8 V52" />
-                <path d="M48 8 L92 20 L172 8 M48 52 L92 40 L172 52 M92 20 L92 40 M132 20 L132 40" />
+              <svg class="proyecto-tech__mesh" viewBox="0 0 180 54" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M-8 8 L25 1 L49 19 L79 -5 L109 15 L145 3 L188 24 M-5 43 L25 1 M-5 43 L49 19 L75 50 L109 15 L137 46 L188 24 M49 19 L109 15 M75 50 L137 46 M145 3 L137 46" />
               </svg>
               <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M8 5h8" />
@@ -2385,9 +2545,8 @@
               class="proyecto-tech"
               data-tech="git"
               aria-pressed="false">
-              <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M8 8 H212 M8 52 H212 M8 8 V52 M212 8 V52 M92 8 V52 M128 8 V52" />
-                <path d="M92 8 L128 20 L168 8 M92 52 L128 40 L168 52 M56 20 L92 20 M128 20 L168 20 M56 40 L92 40 M128 40 L168 40" />
+              <svg class="proyecto-tech__mesh" viewBox="0 0 180 54" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M-8 8 L25 1 L49 19 L79 -5 L109 15 L145 3 L188 24 M-5 43 L25 1 M-5 43 L49 19 L75 50 L109 15 L137 46 L188 24 M49 19 L109 15 M75 50 L137 46 M145 3 L137 46" />
               </svg>
               <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M12 4v16" />
@@ -2401,9 +2560,8 @@
               class="proyecto-tech proyecto-tech--wide"
               data-tech="arquitectura"
               aria-pressed="false">
-              <svg class="proyecto-tech__mesh" viewBox="0 0 220 60" preserveAspectRatio="none" aria-hidden="true">
-                <path d="M8 8 H212 M8 52 H212 M8 8 V52 M212 8 V52 M54 8 V52 M166 8 V52" />
-                <path d="M54 8 L110 18 L166 8 M54 52 L110 42 L166 52 M84 20 L84 42 M136 20 L136 42" />
+              <svg class="proyecto-tech__mesh" viewBox="0 0 180 54" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M-8 8 L25 1 L49 19 L79 -5 L109 15 L145 3 L188 24 M-5 43 L25 1 M-5 43 L49 19 L75 50 L109 15 L137 46 L188 24 M49 19 L109 15 M75 50 L137 46 M145 3 L137 46" />
               </svg>
               <svg class="proyecto-tech__icon" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 8h14" />
@@ -2442,7 +2600,14 @@
   </main>
 
   <footer id="contacto" class="work-band work-band--dark contact-footer" aria-labelledby="titulo-contacto">
-    <div id="footer-logo-container" class="footer-logo-container"></div>
+    <div class="footer-logo-column">
+      <div id="footer-logo-container" class="footer-logo-container"></div>
+      <nav class="footer-nav" aria-label="Navegación del pie de página">
+        <a href="#equipo">NUESTRO EQUIPO</a>
+        <a href="#proyecto">NUESTRO PROYECTO</a>
+        <a href="#contacto">CONTACTO</a>
+      </nav>
+    </div>
     <div class="contact-workspace">
       <div class="contact-content">
         <h2 id="titulo-contacto" class="band-title">
@@ -2457,9 +2622,14 @@
             <svg class="contact-card__mesh" viewBox="0 0 260 140" preserveAspectRatio="none" aria-hidden="true">
               <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
             </svg>
-            <span class="contact-card__status" aria-hidden="true"></span>
             <span class="contact-card__name">Javier Castellanos</span>
-            <span class="contact-card__role">UX/UI Designer</span>
+            <span class="contact-card__role">
+              <svg class="contact-card__role-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 4h16v16H4z" />
+                <path d="M8 8h8v8H8z" />
+              </svg>
+              <span>UX/UI Designer</span>
+            </span>
             <span class="contact-card__links">
               <a class="contact-link" href="https://github.com/jacastellanoso" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Javier Castellanos">
                 <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
@@ -2476,9 +2646,15 @@
             <svg class="contact-card__mesh" viewBox="0 0 260 140" preserveAspectRatio="none" aria-hidden="true">
               <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
             </svg>
-            <span class="contact-card__status" aria-hidden="true"></span>
             <span class="contact-card__name">Gerardo Avila</span>
-            <span class="contact-card__role">Frontend Developer</span>
+            <span class="contact-card__role">
+              <svg class="contact-card__role-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m8 9-4 3 4 3" />
+                <path d="m16 9 4 3-4 3" />
+                <path d="m14 5-4 14" />
+              </svg>
+              <span>Frontend Developer</span>
+            </span>
             <span class="contact-card__links">
               <a class="contact-link" href="https://github.com/gjavila1" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Gerardo Ávila">
                 <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
@@ -2495,9 +2671,14 @@
             <svg class="contact-card__mesh" viewBox="0 0 260 140" preserveAspectRatio="none" aria-hidden="true">
               <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
             </svg>
-            <span class="contact-card__status" aria-hidden="true"></span>
             <span class="contact-card__name">Adrián Escalón</span>
-            <span class="contact-card__role">Project Manager / Product Owner</span>
+            <span class="contact-card__role">
+              <svg class="contact-card__role-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8" />
+                <path d="M12 7v5l3 2" />
+              </svg>
+              <span>Project Manager</span>
+            </span>
             <span class="contact-card__links">
               <a class="contact-link" href="https://github.com/AdrianE111" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Adrián Esteban Escalón Illescas">
                 <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
@@ -2514,9 +2695,15 @@
             <svg class="contact-card__mesh" viewBox="0 0 260 140" preserveAspectRatio="none" aria-hidden="true">
               <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
             </svg>
-            <span class="contact-card__status" aria-hidden="true"></span>
             <span class="contact-card__name">José Carlos Mendizábal</span>
-            <span class="contact-card__role">Backend Developer</span>
+           <span class="contact-card__role">
+              <svg class="contact-card__role-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <ellipse cx="12" cy="6" rx="7" ry="3" />
+                <path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6" />
+                <path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" />
+              </svg>
+              <span>Backend Developer</span>
+            </span>
             <span class="contact-card__links">
               <a class="contact-link" href="https://github.com/JCMENDI" target="_blank" rel="noopener noreferrer" aria-label="GitHub de José Carlos Mendizábal Huertas">
                 <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
@@ -2533,9 +2720,14 @@
             <svg class="contact-card__mesh" viewBox="0 0 260 140" preserveAspectRatio="none" aria-hidden="true">
               <path d="M-10 20 L60 5 L110 40 L170 10 L270 35 M-10 110 L60 90 L120 125 L190 85 L270 115 M60 5 L60 90 M170 10 L190 85" />
             </svg>
-            <span class="contact-card__status" aria-hidden="true"></span>
             <span class="contact-card__name">Esteban Maldonado</span>
-            <span class="contact-card__role">QA Tester</span>
+            <span class="contact-card__role">
+              <svg class="contact-card__role-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="3" />
+                <path d="m7 12 3 3 7-7" />
+              </svg>
+              <span>QA Tester</span>
+            </span>
             <span class="contact-card__links">
               <a class="contact-link" href="https://github.com/Ejmaldonadov" target="_blank" rel="noopener noreferrer" aria-label="GitHub de Esteban Maldonado">
                 <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6M16 6l6 6-6 6" /></svg>
@@ -2552,7 +2744,13 @@
       </div>
     </div>
   </footer>
-
+  <div class="copyright-bar">
+    <span class="copyright-bar__text">
+      <span>Todos los derechos reservados</span>
+      <span class="copyright-bar__group"><span class="copyright-bar__symbol">&copy;</span>&nbsp;2026</span>
+      <span class="copyright-bar__group">- BASDELWEB<span class="copyright-bar__symbol">&reg;</span></span>
+    </span>
+  </div>
   <script>
     "use strict";
 
@@ -2560,6 +2758,11 @@
     const logo = document.querySelector(".logo");
     const homeReload = document.getElementById("home-reload");
     const introText = document.getElementById("intro-text");
+    const introElements = document.getElementById("intro-elements");
+    const introPrefix = document.getElementById("intro-prefix");
+    const introSuffix = document.getElementById("intro-suffix");
+    const introAccent = document.getElementById("intro-accent");
+    const introCursor = document.getElementById("intro-cursor");
     const officialLogoContainer = document.getElementById("official-logo-container");
     const footerLogoContainer = document.getElementById("footer-logo-container");
     const menuToggle = document.getElementById("menu-toggle");
@@ -2590,6 +2793,7 @@
       3: [0, 0, 680, 135],
       4: [0, 0, 680, 280]
     });
+    const introViewBox = Object.freeze([0, 0, 1000, 140]);
     const normalLayout = {
       "bas-b": { x: 86.12, y: 108 },
       "bas-a": { x: 142.42, y: 108 },
@@ -2644,6 +2848,109 @@
       );
     }
 
+    function measureSvgText(element) {
+      return element.textContent ? element.getComputedTextLength() : 0;
+    }
+
+    function renderIntroFrame({ prefix, basCount, suffix, accented, cursorVisible }) {
+      introPrefix.textContent = prefix;
+      introSuffix.textContent = suffix;
+
+      const layout = cloneLayout(layouts[2]);
+      elementIds.forEach((id) => {
+        layout[id].opacity = 0;
+      });
+
+      const baseline = 100;
+      const bracketY = 43;
+      const bracketScale = 1.35;
+      const bracketWidth = 20 * bracketScale;
+      const outerGap = 16;
+      const wordGap = 12;
+      const cursorGap = cursorVisible ? 9 : 0;
+      const cursorWidth = cursorVisible ? 5 : 0;
+      const prefixWidth = measureSvgText(introPrefix);
+      const suffixWidth = measureSvgText(introSuffix);
+      const letterIds = ["bas-b", "bas-a", "bas-s"];
+      const letterWidths = letterIds.map((id) => elements[id].getBBox().width);
+      const visibleLetterWidth = letterWidths
+        .slice(0, basCount)
+        .reduce((total, width) => total + width, 0);
+      const internalLetterGaps = Math.max(0, basCount - 1) * 2;
+      const prefixGap = prefix && basCount > 0 ? wordGap : 0;
+      const suffixGap = suffix && basCount > 0 ? 2 : 0;
+      const contentWidth = prefixWidth + prefixGap + visibleLetterWidth
+        + internalLetterGaps + suffixGap + suffixWidth;
+      const totalWidth = bracketWidth * 2 + outerGap * 2 + contentWidth
+        + cursorGap + cursorWidth;
+      let x = (introViewBox[2] - totalWidth) / 2;
+
+      layout["bracket-left"] = {
+        ...layout["bracket-left"],
+        x,
+        y: bracketY,
+        scale: bracketScale,
+        opacity: 1
+      };
+      x += bracketWidth + outerGap;
+
+      introPrefix.setAttribute("x", x);
+      introPrefix.setAttribute("y", baseline);
+      introPrefix.setAttribute("opacity", prefix ? "1" : "0");
+      x += prefixWidth + prefixGap;
+
+      letterIds.forEach((id, index) => {
+        const isVisible = index < basCount;
+        layout[id] = {
+          ...layout[id],
+          x,
+          y: baseline,
+          scale: 1,
+          opacity: isVisible ? 1 : 0
+        };
+
+        if (isVisible) {
+          if (id === "bas-a") {
+            introAccent.setAttribute(
+              "transform",
+              `translate(${x + letterWidths[index] * 0.48} ${baseline - 62})`
+            );
+          }
+          x += letterWidths[index] + (index < basCount - 1 ? 2 : 0);
+        }
+      });
+
+      introAccent.setAttribute("opacity", accented && basCount >= 2 ? "1" : "0");
+      x += suffixGap;
+      introSuffix.setAttribute("x", x);
+      introSuffix.setAttribute("y", baseline);
+      introSuffix.setAttribute("opacity", suffix ? "1" : "0");
+      x += suffixWidth;
+
+      introCursor.setAttribute("x", x + cursorGap);
+      introCursor.setAttribute("y", 27);
+      introCursor.setAttribute("opacity", cursorVisible ? "1" : "0");
+      x += cursorGap + cursorWidth + outerGap;
+
+      layout["bracket-right"] = {
+        ...layout["bracket-right"],
+        x,
+        y: bracketY,
+        scale: bracketScale,
+        opacity: 1
+      };
+
+      currentLayout = layout;
+      currentViewBox = [...introViewBox];
+      logo.dataset.state = "intro";
+      applyLayout(currentLayout, currentViewBox);
+
+      const visibleBas = ["B", accented && basCount >= 2 ? "Á" : "A", "S"]
+        .slice(0, basCount)
+        .join("");
+      introText.textContent = `< ${prefix}${visibleBas}${suffix} >`;
+    }
+
     function buildLayouts() {
       const primaryWidth = elements["tagline-primary"].getBBox().width;
       const secondaryWidth = elements["tagline-secondary"].getBBox().width;
@@ -2689,17 +2996,25 @@
         logo.dataset.state = "1";
         header.dataset.phase = "final";
         header.classList.add("is-compact");
+        homeReload.disabled = false;
+        document.documentElement.classList.remove("intro-running");
         applyLayout(currentLayout, currentViewBox);
         updateActiveNavigation();
         document.documentElement.classList.add("logo-ready");
         return;
       }
 
-      currentLayout = cloneLayout(layouts[2]);
-      applyLayout(currentLayout, currentViewBox);
+      currentState = 0;
       logo.classList.add("is-assembling");
       writtenLogoGroups.flat().forEach((id) => {
         elements[id].classList.add("logo-part-pending");
+      });
+      renderIntroFrame({
+        prefix: "",
+        basCount: 0,
+        suffix: "",
+        accented: false,
+        cursorVisible: true
       });
       rememberIntro();
       startIntro();
@@ -2725,8 +3040,9 @@
         const values = {};
 
         keys.forEach((key) => {
-          const startValue = startValues[key] ?? (key === "opacity" ? 1 : 0);
-          const endValue = endValues[key] ?? (key === "opacity" ? 1 : 0);
+          const defaultValue = key === "opacity" || key === "scale" ? 1 : 0;
+          const startValue = startValues[key] ?? defaultValue;
+          const endValue = endValues[key] ?? defaultValue;
           values[key] = interpolate(startValue, endValue, progress);
         });
 
@@ -2745,7 +3061,10 @@
           element.setAttribute("width", values.width);
           element.setAttribute("height", values.height);
         } else {
-          element.setAttribute("transform", `translate(${values.x} ${values.y})`);
+          element.setAttribute(
+            "transform",
+            `translate(${values.x} ${values.y}) scale(${values.scale ?? 1})`
+          );
         }
 
         element.setAttribute("opacity", values.opacity ?? 1);
@@ -2792,7 +3111,7 @@
 
     function animateToState(targetState, requestedDuration = 700) {
       if (!layouts || targetState === currentState) {
-        return;
+        return Promise.resolve();
       }
 
       if (animationFrame !== null) {
@@ -2810,54 +3129,142 @@
       currentState = targetState;
       logo.dataset.state = String(targetState);
 
-      function renderFrame(now) {
-        const linearProgress = duration === 0 ? 1 : Math.min((now - startedAt) / duration, 1);
-        const easedProgress = linearProgress * linearProgress * linearProgress
-          * (linearProgress * (linearProgress * 6 - 15) + 10);
+      return new Promise((resolve) => {
+        function renderFrame(now) {
+          const linearProgress = duration === 0 ? 1 : Math.min((now - startedAt) / duration, 1);
+          const easedProgress = linearProgress * linearProgress * linearProgress
+            * (linearProgress * (linearProgress * 6 - 15) + 10);
 
-        currentLayout = interpolateLayout(startLayout, targetLayout, easedProgress);
-        currentViewBox = startViewBox.map((value, index) => (
-          interpolate(value, targetViewBox[index], easedProgress)
-        ));
-        applyLayout(currentLayout, currentViewBox);
-
-        if (linearProgress < 1) {
-          animationFrame = requestAnimationFrame(renderFrame);
-        } else {
-          currentLayout = cloneLayout(targetLayout);
-          currentViewBox = [...targetViewBox];
-          animationFrame = null;
+          currentLayout = interpolateLayout(startLayout, targetLayout, easedProgress);
+          currentViewBox = startViewBox.map((value, index) => (
+            interpolate(value, targetViewBox[index], easedProgress)
+          ));
           applyLayout(currentLayout, currentViewBox);
-        }
-      }
 
-      animationFrame = requestAnimationFrame(renderFrame);
+          if (linearProgress < 1) {
+            animationFrame = requestAnimationFrame(renderFrame);
+          } else {
+            currentLayout = cloneLayout(targetLayout);
+            currentViewBox = [...targetViewBox];
+            animationFrame = null;
+            applyLayout(currentLayout, currentViewBox);
+            resolve();
+          }
+        }
+
+        animationFrame = requestAnimationFrame(renderFrame);
+      });
     }
 
     function wait(duration) {
       return new Promise((resolve) => window.setTimeout(resolve, duration));
     }
 
-    async function typeText(text, delay) {
-      introText.textContent = "";
+    async function typeIntroPrefix(text, delay) {
+      let prefix = "";
 
       for (const character of text) {
-        introText.textContent += character;
+        prefix += character;
+        renderIntroFrame({ prefix, basCount: 0, suffix: "", accented: false, cursorVisible: true });
+        await wait(delay);
+      }
+
+      return prefix;
+    }
+
+    async function revealIntroBas(prefix, delay) {
+      for (let basCount = 1; basCount <= 3; basCount += 1) {
+        renderIntroFrame({
+          prefix,
+          basCount,
+          suffix: "",
+          accented: basCount >= 2,
+          cursorVisible: true
+        });
         await wait(delay);
       }
     }
 
-    async function removeLeadingText(remainingText, delay) {
-      while (introText.textContent.length > remainingText.length) {
-        introText.textContent = introText.textContent.slice(1);
+    async function typeIntroSuffix(prefix, text, delay) {
+      let suffix = "";
+
+      for (const character of text) {
+        suffix += character;
+        renderIntroFrame({ prefix, basCount: 3, suffix, accented: true, cursorVisible: true });
+        await wait(delay);
+      }
+
+      return suffix;
+    }
+
+    async function removeIntroPrefix(prefix, suffix, delay) {
+      let remainingPrefix = prefix;
+
+      while (remainingPrefix) {
+        remainingPrefix = remainingPrefix.slice(1);
+        renderIntroFrame({
+          prefix: remainingPrefix,
+          basCount: 3,
+          suffix,
+          accented: true,
+          cursorVisible: true
+        });
         await wait(delay);
       }
     }
 
-    async function removeTrailingText(remainingText, delay) {
-      while (introText.textContent.length > remainingText.length) {
-        introText.textContent = introText.textContent.slice(0, -1);
+    async function removeIntroSuffix(suffix, delay) {
+      let remainingSuffix = suffix;
+
+      while (remainingSuffix) {
+        remainingSuffix = remainingSuffix.slice(0, -1);
+        renderIntroFrame({
+          prefix: "",
+          basCount: 3,
+          suffix: remainingSuffix,
+          accented: true,
+          cursorVisible: true
+        });
         await wait(delay);
+      }
+    }
+
+    async function moveLogoToCompactHeader() {
+      const duration = 1500;
+      const firstRect = logo.getBoundingClientRect();
+
+      header.classList.add("is-measuring-compact");
+      header.dataset.phase = "final";
+      header.classList.add("is-compact");
+      const lastRect = logo.getBoundingClientRect();
+      header.classList.remove("is-measuring-compact");
+
+      const deltaX = firstRect.left - lastRect.left;
+      const deltaY = firstRect.top - lastRect.top;
+      const scaleX = firstRect.width / Math.max(lastRect.width, 1);
+      const scaleY = firstRect.height / Math.max(lastRect.height, 1);
+      const layoutAnimation = animateToState(1, duration);
+
+      if (typeof logo.animate === "function") {
+        const positionAnimation = logo.animate(
+          [
+            { transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})` },
+            { transform: "translate(0, 0) scale(1, 1)" }
+          ],
+          {
+            duration,
+            easing: "cubic-bezier(0.16, 1, 0.3, 1)",
+            fill: "both"
+          }
+        );
+
+        await Promise.all([
+          layoutAnimation,
+          positionAnimation.finished.catch(() => undefined)
+        ]);
+        positionAnimation.cancel();
+      } else {
+        await layoutAnimation;
       }
     }
 
@@ -3210,10 +3617,10 @@
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       if (reduceMotion) {
-        currentState = 4;
-        currentLayout = cloneLayout(layouts[4]);
-        currentViewBox = [...viewBoxes[4]];
-        logo.dataset.state = "4";
+        currentState = 1;
+        currentLayout = cloneLayout(layouts[1]);
+        currentViewBox = [...viewBoxes[1]];
+        logo.dataset.state = "1";
         logo.classList.remove("is-assembling");
         writtenLogoGroups.flat().forEach((id) => {
           elements[id].classList.remove("logo-part-pending", "logo-part-written");
@@ -3221,33 +3628,51 @@
         header.dataset.phase = "final";
         header.classList.add("is-compact");
         applyLayout(currentLayout, currentViewBox);
+        homeReload.disabled = false;
+        document.documentElement.classList.remove("intro-running");
+        document.documentElement.classList.add("intro-complete");
+        updateActiveNavigation();
         return;
       }
 
-      await typeText("BIENVENIDO A BÁSICOS", 42);
-      await wait(100);
-      await removeLeadingText("BÁSICOS", 20);
-      await wait(80);
-      await removeTrailingText("BÁS", 55);
+      const prefix = await typeIntroPrefix("BIENVENIDO A ", 42);
+      await revealIntroBas(prefix, 75);
+      const suffix = await typeIntroSuffix(prefix, "ICOS", 58);
+      await wait(140);
+      await removeIntroPrefix(prefix, suffix, 24);
+      await wait(90);
+      await removeIntroSuffix(suffix, 58);
       await wait(120);
-      introText.textContent = "BAS";
+      renderIntroFrame({
+        prefix: "",
+        basCount: 3,
+        suffix: "",
+        accented: false,
+        cursorVisible: true
+      });
       await wait(180);
+      renderIntroFrame({
+        prefix: "",
+        basCount: 3,
+        suffix: "",
+        accented: false,
+        cursorVisible: false
+      });
+      introElements.style.display = "none";
 
       header.dataset.phase = "logo";
-      await wait(350);
+      await animateToState(2, 1100);
       await writeRemainingLogo();
-      await wait(250);
-
+      await animateToState(3, 1150);
       header.dataset.phase = "expanded";
-      animateToState(4, 2400);
-      await wait(2450);
+      await animateToState(4, 2100);
+      await moveLogoToCompactHeader();
 
-      header.dataset.phase = "final";
-      await wait(100);
-      header.classList.add("is-compact");
-      animateToState(1, 850);
+      introText.textContent = "Presentación completada";
+      homeReload.disabled = false;
+      document.documentElement.classList.remove("intro-running");
+      document.documentElement.classList.add("intro-complete");
       updateActiveNavigation();
-      await wait(850);
     }
 
     homeReload.addEventListener("click", () => {
@@ -3445,6 +3870,9 @@
           .focus({ preventScroll: true });
       }
     }
+  });
+  document.querySelectorAll(".equipo-card__photo img").forEach((imagen) => {
+    imagen.addEventListener("contextmenu", (event) => event.preventDefault());
   });
 </script>
 <script>
