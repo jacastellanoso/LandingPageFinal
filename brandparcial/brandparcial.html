@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Versiones oficiales del logotipo de Comedor La Placita.">
+  <title>Logo oficial | Comedor La Placita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+  <style>
+    /* Fuentes ------------------------------------------------------------- */
+    /*
+      Product Sans no tiene una API web pública para uso general. Estas
+      declaraciones cargan todas las variantes que estén instaladas legalmente
+      en el dispositivo y usan una alternativa del sistema si no existen.
+    */
+    @font-face {
+      font-family: "Product Sans Local";
+      src: local("Product Sans Thin"), local("ProductSans-Thin");
+      font-style: normal;
+      font-weight: 100;
+    }
+
+    @font-face {
+      font-family: "Product Sans Local";
+      src: local("Product Sans Light"), local("ProductSans-Light");
+      font-style: normal;
+      font-weight: 300;
+    }
+
+    @font-face {
+      font-family: "Product Sans Local";
+      src: local("Product Sans"), local("ProductSans-Regular");
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    @font-face {
+      font-family: "Product Sans Local";
+      src: local("Product Sans Medium"), local("ProductSans-Medium");
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    @font-face {
+      font-family: "Product Sans Local";
+      src: local("Product Sans Bold"), local("ProductSans-Bold");
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    @font-face {
+      font-family: "Product Sans Local";
+      src: local("Product Sans Black"), local("ProductSans-Black");
+      font-style: normal;
+      font-weight: 900;
+    }
+
+    @font-face {
+      font-family: "Product Sans Local";
+      src: local("Product Sans Italic"), local("ProductSans-Italic");
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    @font-face {
+      font-family: "Product Sans Local";
+      src: local("Product Sans Bold Italic"), local("ProductSans-BoldItalic");
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    /* Variables de marca -------------------------------------------------- */
+    :root {
+      --placita-vino: #5f0403;
+      --placita-blanco: #fdffed;
+      --placita-negro: #000000;
+      --fuente-comedor: "Product Sans Local", Arial, sans-serif;
+      --fuente-placita: "Luckiest Guy", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--placita-blanco);
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      background: var(--placita-blanco);
+      color: var(--placita-vino);
+      font-family: var(--fuente-comedor);
+    }
+
+    /* Layout -------------------------------------------------------------- */
+    main {
+      display: grid;
+      min-height: 100svh;
+    }
+
+    .version {
+      display: grid;
+      min-height: 33.333svh;
+      place-items: center;
+      padding: clamp(1.5rem, 5vw, 4rem);
+    }
+
+    .version--negra {
+      background: var(--placita-blanco);
+      color: var(--placita-negro);
+    }
+
+    .version--vino {
+      background: var(--placita-blanco);
+      color: var(--placita-vino);
+    }
+
+    .version--invertida {
+      background: var(--placita-vino);
+      color: var(--placita-vino);
+    }
+
+    /* Logo ---------------------------------------------------------------- */
+    .logo {
+      display: block;
+      width: min(94vw, 62.5rem);
+      max-width: 100%;
+      height: auto;
+      overflow: visible;
+      color: inherit;
+    }
+
+    .logo__comedor {
+      fill: currentColor;
+      font-family: var(--fuente-comedor);
+      font-size: 74px;
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .logo__letra {
+      fill: currentColor;
+      font-family: var(--fuente-placita);
+      font-size: 144px;
+      font-style: normal;
+      font-weight: 400;
+      text-anchor: middle;
+    }
+
+    .logo--compacto {
+      width: min(94vw, 62.5rem);
+    }
+
+    .logo--compacto .logo-outline .logo__letra {
+      fill: var(--placita-blanco);
+      stroke: var(--placita-blanco);
+      stroke-width: 28px;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      paint-order: stroke fill;
+    }
+
+    .logo--compacto .logo-fill .logo__letra {
+      fill: var(--placita-vino);
+      stroke: none;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Responsive ---------------------------------------------------------- */
+    @media (max-width: 36rem) {
+      .version {
+        min-height: 33.333svh;
+        padding-inline: 0.75rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main aria-labelledby="titulo-pagina">
+    <h1 id="titulo-pagina" class="visually-hidden">
+      Versiones oficiales del logo de Comedor La Placita
+    </h1>
+
+    <section class="version version--negra" aria-label="Versión negra">
+      <svg
+        class="logo"
+        viewBox="0 0 900 310"
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-labelledby="logo-negro-titulo logo-negro-descripcion"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title id="logo-negro-titulo">Comedor La Placita en negro</title>
+        <desc id="logo-negro-descripcion">
+          Logotipo negro de Comedor La Placita sobre el blanco oficial de la marca.
+        </desc>
+
+        <text class="logo__comedor" x="450" y="112" text-anchor="middle">COMEDOR</text>
+
+        <!-- Cada letra posee una coordenada propia para reproducir el kerning. -->
+        <g aria-hidden="true">
+          <text class="logo__letra" x="70"  y="242" transform="rotate(2 70 242)">L</text>
+          <text class="logo__letra" x="165" y="242" transform="rotate(-1 165 242)">A</text>
+          <text class="logo__letra" x="310" y="242" transform="rotate(0.5 310 242)">P</text>
+          <text class="logo__letra" x="405" y="242" transform="rotate(1.5 405 242)">L</text>
+          <text class="logo__letra" x="500" y="242" transform="rotate(-1 500 242)">A</text>
+          <text class="logo__letra" x="595" y="242" transform="rotate(0.5 595 242)">C</text>
+          <text class="logo__letra" x="670" y="242">I</text>
+          <text class="logo__letra" x="735" y="242">T</text>
+          <text class="logo__letra" x="830" y="242" transform="rotate(-1 830 242)">A</text>
+        </g>
+
+      </svg>
+    </section>
+
+    <section class="version version--vino" aria-label="Versión color vino">
+      <svg
+        class="logo"
+        viewBox="0 0 900 310"
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-labelledby="logo-vino-titulo logo-vino-descripcion"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title id="logo-vino-titulo">Comedor La Placita en color vino</title>
+        <desc id="logo-vino-descripcion">
+          Logotipo color vino de Comedor La Placita sobre el blanco oficial de la marca.
+        </desc>
+
+        <text class="logo__comedor" x="450" y="112" text-anchor="middle">COMEDOR</text>
+
+        <g aria-hidden="true">
+          <text class="logo__letra" x="70"  y="242" transform="rotate(2 70 242)">L</text>
+          <text class="logo__letra" x="165" y="242" transform="rotate(-1 165 242)">A</text>
+          <text class="logo__letra" x="310" y="242" transform="rotate(0.5 310 242)">P</text>
+          <text class="logo__letra" x="405" y="242" transform="rotate(1.5 405 242)">L</text>
+          <text class="logo__letra" x="500" y="242" transform="rotate(-1 500 242)">A</text>
+          <text class="logo__letra" x="595" y="242" transform="rotate(0.5 595 242)">C</text>
+          <text class="logo__letra" x="670" y="242">I</text>
+          <text class="logo__letra" x="735" y="242">T</text>
+          <text class="logo__letra" x="830" y="242" transform="rotate(-1 830 242)">A</text>
+        </g>
+
+      </svg>
+    </section>
+
+    <section class="version version--invertida" aria-label="Versión compacta sobre fondo vino">
+      <svg
+        class="logo logo--compacto"
+        viewBox="0 70 900 230"
+        preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-labelledby="logo-compacto-titulo logo-compacto-descripcion"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title id="logo-compacto-titulo">La Placita sobre fondo vino</title>
+        <desc id="logo-compacto-descripcion">
+          Versión compacta del logotipo La Placita con relleno vino y contorno blanco institucional.
+        </desc>
+
+        <!-- La silueta completa se renderiza antes que cualquier relleno. -->
+        <g class="logo-outline" aria-hidden="true">
+          <text class="logo__letra" x="70"  y="242" transform="rotate(2 70 242)">L</text>
+          <text class="logo__letra" x="165" y="242" transform="rotate(-1 165 242)">A</text>
+          <text class="logo__letra" x="310" y="242" transform="rotate(0.5 310 242)">P</text>
+          <text class="logo__letra" x="405" y="242" transform="rotate(1.5 405 242)">L</text>
+          <text class="logo__letra" x="500" y="242" transform="rotate(-1 500 242)">A</text>
+          <text class="logo__letra" x="595" y="242" transform="rotate(0.5 595 242)">C</text>
+          <text class="logo__letra" x="670" y="242">I</text>
+          <text class="logo__letra" x="735" y="242">T</text>
+          <text class="logo__letra" x="830" y="242" transform="rotate(-1 830 242)">A</text>
+        </g>
+
+        <!-- Todas las letras delanteras cubren juntas el interior del stroke. -->
+        <g class="logo-fill" aria-hidden="true">
+          <text class="logo__letra" x="70"  y="242" transform="rotate(2 70 242)">L</text>
+          <text class="logo__letra" x="165" y="242" transform="rotate(-1 165 242)">A</text>
+          <text class="logo__letra" x="310" y="242" transform="rotate(0.5 310 242)">P</text>
+          <text class="logo__letra" x="405" y="242" transform="rotate(1.5 405 242)">L</text>
+          <text class="logo__letra" x="500" y="242" transform="rotate(-1 500 242)">A</text>
+          <text class="logo__letra" x="595" y="242" transform="rotate(0.5 595 242)">C</text>
+          <text class="logo__letra" x="670" y="242">I</text>
+          <text class="logo__letra" x="735" y="242">T</text>
+          <text class="logo__letra" x="830" y="242" transform="rotate(-1 830 242)">A</text>
+        </g>
+      </svg>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,212 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="GalerÃ­a de iconos vectoriales para Comedor La Placita.">
+  <title>Iconos del comedor</title>
+  <style>
+    @font-face {
+      font-family: "Product Sans Local";
+      src: local("Product Sans"), local("ProductSans-Regular");
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    @font-face {
+      font-family: "Product Sans Local";
+      src: local("Product Sans Medium"), local("ProductSans-Medium");
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    :root {
+      --vino: #5f0403;
+      --claro: #fdffed;
+      --blanco: #ffffff;
+      --fuente: "Product Sans Local", Arial, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      padding: clamp(1rem, 4vw, 3rem);
+      background: var(--vino);
+      color: var(--claro);
+      font-family: var(--fuente);
+    }
+
+    .encabezado {
+      width: min(100%, 72rem);
+      margin: 0 auto clamp(1.5rem, 4vw, 2.5rem);
+      text-align: center;
+    }
+
+    .encabezado h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 5vw, 2.75rem);
+      line-height: 1.1;
+    }
+
+    .encabezado p {
+      max-width: 42rem;
+      margin: 0.65rem auto 0;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      line-height: 1.5;
+      opacity: 0.82;
+    }
+
+    .galeria {
+      width: min(100%, 72rem);
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr));
+      gap: clamp(0.75rem, 2vw, 1.25rem);
+    }
+
+    .icono-card {
+      min-width: 0;
+      margin: 0;
+      padding: 1rem 0.75rem 0.8rem;
+      display: grid;
+      place-items: center;
+      gap: 0.65rem;
+      border: 1px solid rgb(253 255 237 / 18%);
+      border-radius: 1.25rem;
+      background: rgb(253 255 237 / 6%);
+    }
+
+    .icono-card svg {
+      display: block;
+      width: clamp(4rem, 9vw, 5.25rem);
+      height: auto;
+      overflow: visible;
+    }
+
+    .icono-card figcaption {
+      max-width: 100%;
+      font-size: 0.78rem;
+      font-weight: 500;
+      line-height: 1.25;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    .icono-sticker {
+      fill: none;
+      stroke: var(--blanco);
+      stroke-width: 2.25;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .relleno-claro {
+      fill: var(--blanco);
+    }
+
+    @media (max-width: 30rem) {
+      .galeria {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .icono-card {
+        padding-inline: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" width="0" height="0" style="position:absolute;overflow:hidden">
+    <defs>
+      <symbol id="icono-menu" viewBox="0 0 64 64"><rect x="14" y="9" width="36" height="46" rx="5"/><path d="M22 20h20M22 29h20M22 38h13M22 47h16"/></symbol>
+      <symbol id="icono-cubiertos" viewBox="0 0 64 64"><path d="M18 8v13M12 8v13c0 5 12 5 12 0V8M18 25v31M42 8v48M42 8c8 7 10 17 0 25"/></symbol>
+      <symbol id="icono-cuchara" viewBox="0 0 64 64"><ellipse cx="32" cy="17" rx="9" ry="12"/><path d="M32 29v27"/></symbol>
+      <symbol id="icono-tenedor" viewBox="0 0 64 64"><path d="M23 8v14M32 8v14M41 8v14M23 17h18v5c0 6-4 9-9 9v25M32 31c-5 0-9-3-9-9"/></symbol>
+      <symbol id="icono-cuchillo" viewBox="0 0 64 64"><path d="M20 8v48M20 35h9V8c9 8 13 18 13 27H20Z"/></symbol>
+      <symbol id="icono-taza" viewBox="0 0 64 64"><path d="M12 19h35v19c0 9-7 15-17 15S12 47 12 38V19Z"/><path d="M47 24h3c8 0 8 14 0 14h-3M22 12c-3-3 3-5 0-8M34 12c-3-3 3-5 0-8"/></symbol>
+      <symbol id="icono-vaso" viewBox="0 0 64 64"><path d="M15 9h34l-4 46H19L15 9Z"/><path d="M18 19h28M25 29c4-4 10-4 14 0"/></symbol>
+      <symbol id="icono-plato" viewBox="0 0 64 64"><circle cx="32" cy="32" r="25"/><circle cx="32" cy="32" r="16"/></symbol>
+      <symbol id="icono-tazon" viewBox="0 0 64 64"><path d="M8 23h48c-1 18-10 29-24 29S9 41 8 23Z"/><path d="M14 52h36M18 17c-3-3 3-5 0-9M31 17c-3-3 3-5 0-9M44 17c-3-3 3-5 0-9"/></symbol>
+      <symbol id="icono-bandeja" viewBox="0 0 64 64"><path d="M7 45h50M11 45c2-16 9-24 21-24s19 8 21 24M27 15a5 5 0 0 1 10 0"/><path d="M20 52h24"/></symbol>
+      <symbol id="icono-cucharon" viewBox="0 0 64 64"><path d="M39 9 25 34M25 34l-7 13"/><ellipse cx="17" cy="49" rx="9" ry="7" transform="rotate(-58 17 49)"/></symbol>
+      <symbol id="icono-campana" viewBox="0 0 64 64"><path d="M7 45h50M11 45c2-16 9-24 21-24s19 8 21 24M27 15a5 5 0 0 1 10 0M18 52h28"/></symbol>
+      <symbol id="icono-desayuno" viewBox="0 0 64 64"><circle cx="25" cy="32" r="18"/><circle cx="25" cy="32" r="7"/><path d="M43 15h10v26c0 7-4 11-10 11M43 15c-4 8-4 17 0 26"/></symbol>
+      <symbol id="icono-almuerzo" viewBox="0 0 64 64"><circle cx="32" cy="34" r="22"/><path d="M20 37c6-10 18-10 24 0M17 17l-6-6M32 10V3M47 17l6-6"/><circle cx="24" cy="31" r="2" class="relleno-claro"/><circle cx="40" cy="31" r="2" class="relleno-claro"/></symbol>
+      <symbol id="icono-cena" viewBox="0 0 64 64"><path d="M42 9c-15 2-22 17-14 29 5 8 16 11 25 6-4 9-13 14-23 12C17 53 9 40 12 27 15 15 28 7 42 9Z"/><path d="M45 18h8M49 14v8"/></symbol>
+      <symbol id="icono-bebidas" viewBox="0 0 64 64"><path d="M13 17h24l-3 39H16l-3-39ZM18 9h24l8 47H34M25 17l8-9M16 30h19M39 25h8"/></symbol>
+      <symbol id="icono-postres" viewBox="0 0 64 64"><path d="M12 52h40L45 25H19l-7 27ZM19 25c3-10 9-15 13-15s10 5 13 15"/><path d="M20 39h26M32 10V5M32 5c5 0 8 2 9 5"/></symbol>
+      <symbol id="icono-sopa" viewBox="0 0 64 64"><path d="M8 26h48c-1 17-10 27-24 27S9 43 8 26Z"/><path d="M15 53h34M19 19c-4-4 4-6 0-11M32 19c-4-4 4-6 0-11M45 19c-4-4 4-6 0-11"/></symbol>
+      <symbol id="icono-ensalada" viewBox="0 0 64 64"><path d="M9 28h46c-2 16-10 25-23 25S11 44 9 28Z"/><path d="M18 28c-5-8 2-14 9-9-1-8 10-11 14-4 8-3 13 5 8 13M26 28l-7-11M35 28l5-16M42 28l9-10"/></symbol>
+      <symbol id="icono-caliente" viewBox="0 0 64 64"><path d="M10 29h44c-1 15-9 24-22 24S11 44 10 29Z"/><path d="M20 22c-5-5 5-8 0-15M32 22c-5-5 5-8 0-15M44 22c-5-5 5-8 0-15"/></symbol>
+      <symbol id="icono-horario" viewBox="0 0 64 64"><circle cx="32" cy="34" r="23"/><path d="M32 20v15l10 7M24 7h16M32 7v4"/></symbol>
+      <symbol id="icono-ubicacion" viewBox="0 0 64 64"><path d="M32 57S13 40 13 25a19 19 0 0 1 38 0c0 15-19 32-19 32Z"/><circle cx="32" cy="25" r="7"/></symbol>
+      <symbol id="icono-telefono" viewBox="0 0 64 64"><path d="M19 8l9 12-7 7c5 9 9 13 18 18l7-7 11 9c-3 9-9 11-16 8-17-7-27-17-33-34C5 14 10 9 19 8Z"/></symbol>
+      <symbol id="icono-pedidos" viewBox="0 0 64 64"><rect x="13" y="12" width="38" height="44" rx="5"/><path d="M24 12c0-8 16-8 16 0M21 25h22M21 35h14M21 45h18"/></symbol>
+      <symbol id="icono-entrega" viewBox="0 0 64 64"><path d="M7 18h30v28H7V18ZM37 29h10l8 9v8H37V29Z"/><circle cx="18" cy="49" r="5"/><circle cx="46" cy="49" r="5"/><path d="M13 26h17M13 34h12"/></symbol>
+      <symbol id="icono-reservacion" viewBox="0 0 64 64"><rect x="9" y="13" width="46" height="42" rx="5"/><path d="M9 25h46M20 8v10M44 8v10M21 39l7 7 15-16"/></symbol>
+      <symbol id="icono-pago" viewBox="0 0 64 64"><rect x="7" y="14" width="50" height="36" rx="6"/><path d="M7 25h50M15 41h12M43 36h7"/></symbol>
+      <symbol id="icono-promociones" viewBox="0 0 64 64"><path d="M8 34 34 8h17l5 5v17L30 56 8 34Z"/><circle cx="43" cy="20" r="3"/><path d="M23 40 41 22M24 25h1M40 41h1"/></symbol>
+      <symbol id="icono-chef" viewBox="0 0 64 64"><path d="M18 28c-8-2-9-14 0-17 4-10 15-7 16-2 8-6 17 2 13 9 8 2 7 12-1 13v21H18V28Z"/><path d="M18 39h28M25 46h14"/></symbol>
+      <symbol id="icono-ingredientes" viewBox="0 0 64 64"><path d="M32 54c-15 0-22-10-20-22 3-13 15-21 20-22 5 1 17 9 20 22 2 12-5 22-20 22Z"/><path d="M32 10c-1-5 2-8 7-8M32 10c-5-5-10-4-13-1M20 31c7-7 17-7 24 0M32 20v25"/></symbol>
+      <symbol id="icono-higiene" viewBox="0 0 64 64"><path d="M12 25h40v28H12V25ZM20 25V13h25v12M28 13V8h10v5"/><path d="M24 39c5 5 11 5 16 0M49 11h7M53 7v8"/></symbol>
+      <symbol id="icono-servicio" viewBox="0 0 64 64"><path d="M8 45h48M12 45c2-15 9-23 20-23s18 8 20 23M27 16a5 5 0 0 1 10 0"/><path d="M20 53h24"/></symbol>
+      <symbol id="icono-clientes" viewBox="0 0 64 64"><circle cx="24" cy="22" r="9"/><circle cx="44" cy="25" r="7"/><path d="M7 54c1-14 7-21 17-21s16 7 17 21M37 38c11-4 18 3 20 16"/></symbol>
+      <symbol id="icono-favorito" viewBox="0 0 64 64"><path d="M32 55 10 34C-2 22 8 7 21 12c5 2 8 7 11 11 3-4 6-9 11-11 13-5 23 10 11 22L32 55Z"/></symbol>
+      <symbol id="icono-informacion" viewBox="0 0 64 64"><circle cx="32" cy="32" r="25"/><path d="M32 28v18M32 18h.01"/></symbol>
+      <symbol id="icono-cocina" viewBox="0 0 64 64"><rect x="9" y="18" width="46" height="38" rx="4"/><path d="M9 31h46M20 39v9M32 39v9M44 39v9M16 11h32M22 11V6M42 11V6"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="encabezado">
+    <h1>Iconos del comedor</h1>
+  </header>
+
+  <main class="galeria" aria-label="GalerÃ­a de iconos del comedor">
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="MenÃº" viewBox="0 0 64 64"><use href="#icono-menu"/></svg><figcaption>icono-menu</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Cubiertos" viewBox="0 0 64 64"><use href="#icono-cubiertos"/></svg><figcaption>icono-cubiertos</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Cuchara" viewBox="0 0 64 64"><use href="#icono-cuchara"/></svg><figcaption>icono-cuchara</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Tenedor" viewBox="0 0 64 64"><use href="#icono-tenedor"/></svg><figcaption>icono-tenedor</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Cuchillo" viewBox="0 0 64 64"><use href="#icono-cuchillo"/></svg><figcaption>icono-cuchillo</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Taza" viewBox="0 0 64 64"><use href="#icono-taza"/></svg><figcaption>icono-taza</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Vaso" viewBox="0 0 64 64"><use href="#icono-vaso"/></svg><figcaption>icono-vaso</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Plato" viewBox="0 0 64 64"><use href="#icono-plato"/></svg><figcaption>icono-plato</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="TazÃ³n" viewBox="0 0 64 64"><use href="#icono-tazon"/></svg><figcaption>icono-tazon</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Bandeja" viewBox="0 0 64 64"><use href="#icono-bandeja"/></svg><figcaption>icono-bandeja</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="CucharÃ³n" viewBox="0 0 64 64"><use href="#icono-cucharon"/></svg><figcaption>icono-cucharon</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Campana de servicio" viewBox="0 0 64 64"><use href="#icono-campana"/></svg><figcaption>icono-campana</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Desayuno" viewBox="0 0 64 64"><use href="#icono-desayuno"/></svg><figcaption>icono-desayuno</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Almuerzo" viewBox="0 0 64 64"><use href="#icono-almuerzo"/></svg><figcaption>icono-almuerzo</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Cena" viewBox="0 0 64 64"><use href="#icono-cena"/></svg><figcaption>icono-cena</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Bebidas" viewBox="0 0 64 64"><use href="#icono-bebidas"/></svg><figcaption>icono-bebidas</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Postres" viewBox="0 0 64 64"><use href="#icono-postres"/></svg><figcaption>icono-postres</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Sopa" viewBox="0 0 64 64"><use href="#icono-sopa"/></svg><figcaption>icono-sopa</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Ensalada" viewBox="0 0 64 64"><use href="#icono-ensalada"/></svg><figcaption>icono-ensalada</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Comida caliente" viewBox="0 0 64 64"><use href="#icono-caliente"/></svg><figcaption>icono-caliente</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Horario" viewBox="0 0 64 64"><use href="#icono-horario"/></svg><figcaption>icono-horario</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="UbicaciÃ³n" viewBox="0 0 64 64"><use href="#icono-ubicacion"/></svg><figcaption>icono-ubicacion</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="TelÃ©fono" viewBox="0 0 64 64"><use href="#icono-telefono"/></svg><figcaption>icono-telefono</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Pedidos" viewBox="0 0 64 64"><use href="#icono-pedidos"/></svg><figcaption>icono-pedidos</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Entrega" viewBox="0 0 64 64"><use href="#icono-entrega"/></svg><figcaption>icono-entrega</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="ReservaciÃ³n" viewBox="0 0 64 64"><use href="#icono-reservacion"/></svg><figcaption>icono-reservacion</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Pago" viewBox="0 0 64 64"><use href="#icono-pago"/></svg><figcaption>icono-pago</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Promociones" viewBox="0 0 64 64"><use href="#icono-promociones"/></svg><figcaption>icono-promociones</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Chef" viewBox="0 0 64 64"><use href="#icono-chef"/></svg><figcaption>icono-chef</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Ingredientes" viewBox="0 0 64 64"><use href="#icono-ingredientes"/></svg><figcaption>icono-ingredientes</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Higiene" viewBox="0 0 64 64"><use href="#icono-higiene"/></svg><figcaption>icono-higiene</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Servicio" viewBox="0 0 64 64"><use href="#icono-servicio"/></svg><figcaption>icono-servicio</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Clientes" viewBox="0 0 64 64"><use href="#icono-clientes"/></svg><figcaption>icono-clientes</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Favorito" viewBox="0 0 64 64"><use href="#icono-favorito"/></svg><figcaption>icono-favorito</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="InformaciÃ³n" viewBox="0 0 64 64"><use href="#icono-informacion"/></svg><figcaption>icono-informacion</figcaption></figure>
+    <figure class="icono-card"><svg class="icono-sticker" role="img" aria-label="Cocina" viewBox="0 0 64 64"><use href="#icono-cocina"/></svg><figcaption>icono-cocina</figcaption></figure>
+  </main>
+</body>
+</html>
+
+
