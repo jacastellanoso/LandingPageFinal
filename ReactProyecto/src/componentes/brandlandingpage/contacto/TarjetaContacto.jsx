@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import MallaDecorativa from './MallaDecorativa'
+import MallaDecorativa from '../compartidos/MallaDecorativa'
 
-function TarjetaContacto({ integrante, indice }) {
+function TarjetaContacto({ integrante, indice = 0 }) {
   const [correoCopiado, setCorreoCopiado] = useState(false)
 
   useEffect(() => {

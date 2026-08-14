@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { integrantesEquipo } from '../../data/integrantesEquipo'
+import { integrantesEquipo } from '../../../data/integrantesEquipo'
 import TarjetaEquipo from './TarjetaEquipo'
 
 function GaleriaEquipo() {

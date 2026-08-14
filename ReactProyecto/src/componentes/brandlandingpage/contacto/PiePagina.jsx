@@ -1,6 +1,6 @@
-import { integrantesEquipo } from '../../data/integrantesEquipo'
+import { integrantesEquipo } from '../../../data/integrantesEquipo'
 import TarjetaContacto from './TarjetaContacto'
-import TituloSeccion from './TituloSeccion'
+import TituloSeccion from '../compartidos/TituloSeccion'
 
 function PiePagina() {
   return (

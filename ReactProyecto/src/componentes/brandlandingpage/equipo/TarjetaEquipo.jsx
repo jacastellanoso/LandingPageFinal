@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import MallaDecorativa from './MallaDecorativa'
+import MallaDecorativa from '../compartidos/MallaDecorativa'
 
 function TarjetaEquipo({ integrante, estaVolteada, onCambiarEstado }) {
   const [imagenDisponible, setImagenDisponible] = useState(true)
-  const idFrente = `equipo-frente-${integrante.id}`
-  const idReverso = `equipo-reverso-${integrante.id}`
+  const idFrente = `equipoFrente${integrante.id}`
+  const idReverso = `equipoReverso${integrante.id}`
 
   return (
     <article className={`equipo-card${estaVolteada ? ' is-flipped' : ''}`}>

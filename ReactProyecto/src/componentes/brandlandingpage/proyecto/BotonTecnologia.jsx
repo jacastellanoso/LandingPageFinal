@@ -1,4 +1,4 @@
-import MallaDecorativa from './MallaDecorativa'
+import MallaDecorativa from '../compartidos/MallaDecorativa'
 
 function BotonTecnologia({ tecnologia, estaActiva, onActivar }) {
   return (

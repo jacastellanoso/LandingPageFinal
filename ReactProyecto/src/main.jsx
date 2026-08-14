@@ -1,23 +1,23 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import GaleriaEquipo from './componentes/brandlandingpage/GaleriaEquipo'
-import ListaContactos from './componentes/brandlandingpage/ListaContactos'
-import SelectorTecnologias from './componentes/brandlandingpage/SelectorTecnologias'
+import NavegacionEncabezado from './componentes/brandlandingpage/encabezado/NavegacionEncabezado'
+import GaleriaEquipo from './componentes/brandlandingpage/equipo/GaleriaEquipo'
+import ListaContactos from './componentes/brandlandingpage/contacto/ListaContactos'
+import SelectorTecnologias from './componentes/brandlandingpage/proyecto/SelectorTecnologias'
 
-const montajesReact = [
-  { id: 'galeriaEquipoRoot', componente: <GaleriaEquipo /> },
-  { id: 'tecnologiasRoot', componente: <SelectorTecnologias /> },
-  { id: 'contactosRoot', componente: <ListaContactos /> },
-]
+const montarComponente = (idContenedor, Componente) => {
+  const contenedor = document.getElementById(idContenedor)
 
-montajesReact.forEach(({ id, componente }) => {
-  const contenedor = document.getElementById(id)
+  if (!contenedor) return
 
-  if (contenedor) {
-    createRoot(contenedor).render(
-      <StrictMode>
-        {componente}
-      </StrictMode>,
-    )
-  }
-})
+  createRoot(contenedor).render(
+    <StrictMode>
+      <Componente />
+    </StrictMode>,
+  )
+}
+
+montarComponente('navegacionPrincipal', NavegacionEncabezado)
+montarComponente('galeriaEquipo', GaleriaEquipo)
+montarComponente('tecnologias', SelectorTecnologias)
+montarComponente('contactos', ListaContactos)

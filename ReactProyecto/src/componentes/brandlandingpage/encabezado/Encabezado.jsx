@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import MallaDecorativa from './MallaDecorativa'
+import MallaDecorativa from '../compartidos/MallaDecorativa'
 
 const enlacesNavegacion = [
   { destino: '#equipo', etiqueta: 'NUESTRO EQUIPO' },
@@ -34,7 +34,7 @@ function Encabezado() {
           className="menu-toggle"
           type="button"
           aria-expanded={menuAbierto}
-          aria-controls="navegacion-principal"
+          aria-controls="navegacionPrincipal"
           aria-label={menuAbierto ? 'Cerrar navegación principal' : 'Abrir navegación principal'}
           onClick={() => setMenuAbierto((estadoActual) => !estadoActual)}
         >
@@ -42,7 +42,7 @@ function Encabezado() {
         </button>
 
         <nav
-          id="navegacion-principal"
+          id="navegacionPrincipal"
           className={`site-nav${menuAbierto ? ' is-open' : ''}`}
           aria-label="Navegación principal"
         >

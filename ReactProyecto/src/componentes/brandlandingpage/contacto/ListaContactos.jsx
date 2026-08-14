@@ -1,4 +1,4 @@
-import { integrantesEquipo } from '../../data/integrantesEquipo'
+import { integrantesEquipo } from '../../../data/integrantesEquipo'
 import TarjetaContacto from './TarjetaContacto'
 
 function ListaContactos() {

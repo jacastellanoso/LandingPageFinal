@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { tecnologiasProyecto } from '../../data/tecnologiasProyecto'
+import { tecnologiasProyecto } from '../../../data/tecnologiasProyecto'
 import BotonTecnologia from './BotonTecnologia'
-import TituloSeccion from './TituloSeccion'
+import TituloSeccion from '../compartidos/TituloSeccion'
 
 function SeccionProyecto() {
   const [tecnologiaActiva, setTecnologiaActiva] = useState(tecnologiasProyecto[0].id)

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { integrantesEquipo } from '../../data/integrantesEquipo'
+import { integrantesEquipo } from '../../../data/integrantesEquipo'
 import TarjetaEquipo from './TarjetaEquipo'
-import TituloSeccion from './TituloSeccion'
+import TituloSeccion from '../compartidos/TituloSeccion'
 
 function SeccionEquipo() {
   const [integranteActivo, setIntegranteActivo] = useState(null)

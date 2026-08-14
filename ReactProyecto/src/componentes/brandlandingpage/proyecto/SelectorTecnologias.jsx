@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { tecnologiasProyecto } from '../../data/tecnologiasProyecto'
+import { tecnologiasProyecto } from '../../../data/tecnologiasProyecto'
 import BotonTecnologia from './BotonTecnologia'
 
 function SelectorTecnologias() {
