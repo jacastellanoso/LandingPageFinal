@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+:root {
+  --placita-vino: #5f0403;
+  --placita-claro: #fdffed;
+  --placita-blanco: #ffffff;
+  --placita-fuente-comedor: "Product Sans Local", Arial, sans-serif;
+  --placita-fuente-logo: "Luckiest Guy", sans-serif;
+}
+
+@font-face {
+  font-family: "Product Sans Local";
+  src: local("Product Sans"), local("ProductSans-Regular");
+  font-style: normal;
+  font-weight: 400;
+}
+
+html.placita-intro-activa,
+html.placita-intro-activa body {
+  overflow: hidden;
+}
+
+.pagina-placita {
+  min-height: 100vh;
+  background: var(--placita-blanco);
+  overflow-x: clip;
+}
+
+.introduccion-placita {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--placita-vino);
+}
+
+.animacion-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--placita-vino);
+}
+
+.encabezado-placita {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 20%) minmax(0, 80%);
+  width: 100%;
+  min-height: clamp(5rem, 12svh, 7rem);
+  padding: clamp(0.45rem, 1.2vw, 0.8rem) clamp(0.75rem, 2.5vw, 2rem);
+  align-items: center;
+  overflow: visible;
+  background: var(--placita-vino);
+  color: var(--placita-claro);
+}
+
+.encabezado-placita__marca {
+  display: grid;
+  width: 100%;
+  max-width: 15rem;
+  min-width: 0;
+  justify-self: start;
+  color: inherit;
+  opacity: 1;
+  text-decoration: none;
+  transform: none;
+}
+
+.encabezado-placita__marca:focus-visible {
+  border-radius: 0.25rem;
+  outline: 3px solid var(--placita-claro);
+  outline-offset: 0.3rem;
+}
+
+.pagina-placita--introduccion .encabezado-placita,
+.pagina-placita--introduccion .contenido-placita,
+.pagina-placita--introduccion .pie-placita {
+  visibility: hidden;
+}
+
+.pagina-placita--transicion .introduccion-placita {
+  visibility: hidden;
+}
+
+.pagina-placita--transicion .encabezado-placita__marca {
+  visibility: hidden;
+}
+
+.pagina-placita--transicion .contenido-placita,
+.pagina-placita--transicion .pie-placita {
+  visibility: visible;
+  animation: revelar-pagina 320ms ease-out 300ms both;
+}
+
+.pagina-placita--transicion .encabezado-placita {
+  animation: revelar-franja 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.pagina-placita--transicion .navegacion-placita {
+  animation: revelar-navegacion 280ms cubic-bezier(0.16, 1, 0.3, 1) 160ms both;
+}
+
+.logo-placita {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.logo-placita__letra {
+  font-family: var(--placita-fuente-logo);
+  font-size: 144px;
+  font-weight: 400;
+  text-anchor: middle;
+}
+
+.logo-placita__comedor {
+  fill: var(--placita-claro);
+  font-family: var(--placita-fuente-comedor);
+  font-size: 74px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.logo-placita__contorno .logo-placita__letra {
+  fill: var(--placita-claro);
+  stroke: var(--placita-claro);
+  stroke-width: 28px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  paint-order: stroke fill;
+}
+
+.logo-placita__relleno .logo-placita__letra {
+  fill: var(--placita-vino);
+  stroke: none;
+}
+
+.navegacion-placita {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.navegacion-placita__boton {
+  display: none;
+}
+
+.navegacion-placita__lista {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(0.5rem, 1.4vw, 1rem);
+  list-style: none;
+}
+
+.navegacion-placita__lista a {
+  display: inline-flex;
+  min-height: 2.75rem;
+  padding: 0.65rem clamp(0.8rem, 1.8vw, 1.2rem);
+  border: 1px solid rgb(253 255 237 / 55%);
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  color: var(--placita-claro);
+  font-family: var(--placita-fuente-comedor);
+  font-size: clamp(0.7rem, 1vw, 0.85rem);
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.navegacion-placita__lista a:focus-visible,
+.navegacion-placita__boton:focus-visible {
+  outline: 3px solid var(--placita-claro);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navegacion-placita__lista a:hover {
+    background: var(--placita-claro);
+    color: var(--placita-vino);
+    transform: translateY(-1px);
+  }
+}
+
+.transicion-logo {
+  position: fixed;
+  z-index: 1100;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  pointer-events: none;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.transicion-logo__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.contenido-placita {
+  min-height: 60svh;
+  background: var(--placita-blanco);
+}
+
+.pie-placita {
+  min-height: 12rem;
+  background: var(--placita-vino);
+}
+
+@keyframes revelar-franja {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+}
+
+@keyframes revelar-navegacion {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes revelar-pagina {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 700px) {
+  .encabezado-placita {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 4.5rem;
+    padding-inline:
+      max(0.75rem, env(safe-area-inset-left))
+      max(0.75rem, env(safe-area-inset-right));
+  }
+
+  .encabezado-placita__marca {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    width: min(42vw, 9rem);
+    max-width: calc(100% - 7rem);
+    justify-self: auto;
+    transform: translateX(-50%);
+  }
+
+  .navegacion-placita {
+    grid-column: 1;
+    justify-content: flex-end;
+  }
+
+  .navegacion-placita__boton {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.62rem;
+    border: 1px solid rgb(253 255 237 / 65%);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--placita-claro);
+    cursor: pointer;
+    place-items: center;
+  }
+
+  .navegacion-placita__boton svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 1.8;
+  }
+
+  .navegacion-placita__lista {
+    position: absolute;
+    top: calc(100% + 0.65rem);
+    right: 0;
+    display: flex;
+    visibility: hidden;
+    width: min(20rem, calc(100vw - 1.5rem));
+    padding: 0.75rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.55rem;
+    border: 1px solid rgb(253 255 237 / 30%);
+    border-radius: 0.85rem;
+    background: var(--placita-vino);
+    box-shadow: 0 1rem 2.5rem rgb(0 0 0 / 28%);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-0.4rem) scale(0.98);
+    transform-origin: top right;
+    transition:
+      opacity 180ms ease,
+      transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0s linear 180ms;
+  }
+
+  .navegacion-placita--abierta .navegacion-placita__lista {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+    transition-delay: 0s;
+  }
+
+  .navegacion-placita__lista a {
+    width: 100%;
+    min-height: 2.75rem;
+  }
+
+  .contenido-placita {
+    min-height: 50svh;
+  }
+
+  .pie-placita {
+    min-height: 9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pagina-placita--transicion .encabezado-placita,
+  .pagina-placita--transicion .navegacion-placita,
+  .pagina-placita--transicion .contenido-placita,
+  .pagina-placita--transicion .pie-placita,
+  .navegacion-placita__lista,
+  .navegacion-placita__lista a {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+    transition-duration: 1ms;
+  }
+}

@@ -2249,11 +2249,11 @@
       </div>
 
       <button
-        id="menu-toggle"
+        id="menuToggle"
         class="menu-toggle"
         type="button"
         aria-expanded="false"
-        aria-controls="navegacion-principal"
+        aria-controls="navegacionPrincipal"
         aria-label="Abrir navegación principal"
       >
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -2261,43 +2261,7 @@
         </svg>
       </button>
 
-      <nav id="navegacion-principal" class="site-nav" aria-label="Navegación principal">
-        <ul class="site-nav__list">
-        <li class="nav-button">
-          <a href="#equipo">
-            <svg class="nav-button__mesh" viewBox="0 0 180 54" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M-8 8 L25 1 L49 19 L79 -5 L109 15 L145 3 L188 24 M-5 43 L25 1 M-5 43 L49 19 L75 50 L109 15 L137 46 L188 24 M49 19 L109 15 M75 50 L137 46 M145 3 L137 46" />
-            </svg>
-            <svg class="nav-button__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-            </svg>
-            <span class="nav-button__label">NUESTRO EQUIPO</span>
-          </a>
-        </li>
-        <li class="nav-button">
-          <a href="#proyecto">
-            <svg class="nav-button__mesh" viewBox="0 0 180 54" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M-8 8 L25 1 L49 19 L79 -5 L109 15 L145 3 L188 24 M-5 43 L25 1 M-5 43 L49 19 L75 50 L109 15 L137 46 L188 24 M49 19 L109 15 M75 50 L137 46 M145 3 L137 46" />
-            </svg>
-            <svg class="nav-button__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="m8 9-4 3 4 3M16 9l4 3-4 3M14 5l-4 14" />
-            </svg>
-            <span class="nav-button__label">NUESTRO PROYECTO</span>
-          </a>
-        </li>
-        <li class="nav-button">
-          <a href="#contacto">
-            <svg class="nav-button__mesh" viewBox="0 0 180 54" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M-8 8 L25 1 L49 19 L79 -5 L109 15 L145 3 L188 24 M-5 43 L25 1 M-5 43 L49 19 L75 50 L109 15 L137 46 L188 24 M49 19 L109 15 M75 50 L137 46 M145 3 L137 46" />
-            </svg>
-            <svg class="nav-button__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2ZM22 6l-10 7L2 6" />
-            </svg>
-            <span class="nav-button__label">CONTACTO</span>
-          </a>
-        </li>
-        </ul>
-      </nav>
+      <nav id="navegacionPrincipal" class="site-nav" aria-label="Navegación principal"></nav>
     </div>
   </header>
 
@@ -2316,7 +2280,7 @@
       </h2>
 
       <div class="equipo-layout">
-      <div id="galeriaEquipoRoot" class="equipo-grid" aria-label="Integrantes del equipo"></div>
+        <div id="galeriaEquipo" class="equipo-grid" aria-label="Integrantes del equipo"></div>
       </div>
     </section>
 
@@ -2335,7 +2299,7 @@
           <p class="proyecto-minimalista__descripcion">
             Como estudiantes de Ingeniería en Informática y Sistemas de la Universidad Rafael Landívar, construimos esta plataforma enfocándonos en un código semántico, estructurado y de alto rendimiento. Nuestro objetivo es dominar la arquitectura frontend asegurando escalabilidad y diseño responsive.
           </p>
-          <div id="tecnologiasRoot"></div>
+          <div id="tecnologias"></div>
         </div>
       </div>
     </section>
@@ -2359,7 +2323,7 @@
           <svg class="band-title__bracket" viewBox="0 0 20 42" aria-hidden="true"><path d="M0 0 L20 21 L0 42" /></svg>
         </h2>
 
-        <ul id="contactosRoot" class="contact-grid" aria-label="Contacto de cada integrante del equipo"></ul>
+          <ul id="contactos" class="contact-grid" aria-label="Contacto de cada integrante del equipo"></ul>
       </div>
     </div>
   </footer>
@@ -2384,9 +2348,9 @@
     const introCursor = document.getElementById("intro-cursor");
     const officialLogoContainer = document.getElementById("official-logo-container");
     const footerLogoContainer = document.getElementById("footer-logo-container");
-    const menuToggle = document.getElementById("menu-toggle");
-    const primaryNavigation = document.getElementById("navegacion-principal");
-    const navigationLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')];
+    const menuToggle = document.getElementById("menuToggle");
+    const primaryNavigation = document.getElementById("navegacionPrincipal");
+    const getNavigationLinks = () => [...primaryNavigation.querySelectorAll('a[href^="#"]')];
     const compactNavigationQuery = window.matchMedia("(max-width: 700px)");
     let navigationAnimationFrame = null;
     const elementIds = [
@@ -2903,7 +2867,7 @@
     }
 
     function setActiveNavigation(activeLink) {
-      navigationLinks.forEach((link) => {
+      getNavigationLinks().forEach((link) => {
         if (link === activeLink) {
           link.setAttribute("aria-current", "location");
         } else {
@@ -2922,6 +2886,7 @@
       const documentHeight = document.documentElement.scrollHeight;
       const viewportBottom = window.scrollY + window.innerHeight;
       const isAtPageBottom = viewportBottom >= documentHeight - 2;
+      const navigationLinks = getNavigationLinks();
       const contactLink = navigationLinks.find(
         (link) => link.getAttribute("href") === "#contacto"
       );
@@ -3301,11 +3266,14 @@
 
     menuToggle.addEventListener("click", toggleMobileNavigation);
 
-    navigationLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        setActiveNavigation(link);
-        setMobileNavigation(false);
-      });
+    primaryNavigation.addEventListener("click", (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link || !primaryNavigation.contains(link)) {
+        return;
+      }
+
+      setActiveNavigation(link);
+      setMobileNavigation(false);
     });
 
     document.addEventListener("keydown", (event) => {

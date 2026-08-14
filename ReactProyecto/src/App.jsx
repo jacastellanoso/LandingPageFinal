@@ -1,8 +1,8 @@
-import Encabezado from './componentes/brandlandingpage/Encabezado'
-import LogoOficial from './componentes/brandlandingpage/LogoOficial'
-import PiePagina from './componentes/brandlandingpage/PiePagina'
-import SeccionEquipo from './componentes/brandlandingpage/SeccionEquipo'
-import SeccionProyecto from './componentes/brandlandingpage/SeccionProyecto'
+import Encabezado from './componentes/brandlandingpage/encabezado/Encabezado'
+import LogoOficial from './componentes/brandlandingpage/identidad/LogoOficial'
+import PiePagina from './componentes/brandlandingpage/contacto/PiePagina'
+import SeccionEquipo from './componentes/brandlandingpage/equipo/SeccionEquipo'
+import SeccionProyecto from './componentes/brandlandingpage/proyecto/SeccionProyecto'
 import './App.css'
 
 function App() {
