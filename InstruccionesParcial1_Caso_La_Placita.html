@@ -475,38 +475,38 @@ button:hover{border-color:var(--synth);color:var(--synth);}
 </div>
 <script>
 gsap.registerPlugin(MotionPathPlugin);
-const ns='http://www.w3.org/2000/svg';
+const svgNamespace='http://www.w3.org/2000/svg';
 const svg=document.querySelector('svg');
-document.querySelectorAll('.edge').forEach(function(e){var L=e.getTotalLength();e.style.strokeDasharray=L;e.style.strokeDashoffset=L;});
-function packet(color){var g=document.createElementNS(ns,'g');g.setAttribute('class','pkt');g.style.color=color;var c=document.createElementNS(ns,'circle');c.setAttribute('r','6');c.setAttribute('fill',color);g.appendChild(c);svg.appendChild(g);return g;}
-function hop(tl,edgeId,color,onEnd){
-  var edge=document.querySelector('#'+edgeId);
-  tl.to(edge,{strokeDashoffset:0,duration:0.4,ease:'power1.inOut'});
-  var p=packet(color);
-  tl.fromTo(p,{opacity:0},{opacity:1,duration:0.7,ease:'none',motionPath:{path:edge,align:edge,alignOrigin:[0.5,0.5]},onComplete:function(){p.remove();if(onEnd)onEnd();}},'<');
-  tl.to({},{duration:0.15});
+document.querySelectorAll('.edge').forEach(function(edge){const pathLength=edge.getTotalLength();edge.style.strokeDasharray=pathLength;edge.style.strokeDashoffset=pathLength;});
+function packet(color){const packetGroup=document.createElementNS(svgNamespace,'g');packetGroup.setAttribute('class','pkt');packetGroup.style.color=color;const packetCircle=document.createElementNS(svgNamespace,'circle');packetCircle.setAttribute('r','6');packetCircle.setAttribute('fill',color);packetGroup.appendChild(packetCircle);svg.appendChild(packetGroup);return packetGroup;}
+function hop(timeline,edgeId,color,onEnd){
+  const edge=document.querySelector('#'+edgeId);
+  timeline.to(edge,{strokeDashoffset:0,duration:0.4,ease:'power1.inOut'});
+  const packetElement=packet(color);
+  timeline.fromTo(packetElement,{opacity:0},{opacity:1,duration:0.7,ease:'none',motionPath:{path:edge,align:edge,alignOrigin:[0.5,0.5]},onComplete:function(){packetElement.remove();if(onEnd)onEnd();}},'<');
+  timeline.to({},{duration:0.15});
 }
 function light(id){document.querySelector('#'+id).classList.add('on');}
 function show(id){document.querySelector('#'+id).classList.add('on');}
 function reset(){
-  document.querySelectorAll('.box').forEach(function(b){b.classList.remove('on');});
-  document.querySelectorAll('.lbl').forEach(function(l){l.classList.remove('on');});
-  document.querySelectorAll('.edge').forEach(function(e){gsap.set(e,{strokeDashoffset:e.getTotalLength()});});
-  document.querySelectorAll('.pkt').forEach(function(p){p.remove();});
+  document.querySelectorAll('.box').forEach(function(box){box.classList.remove('on');});
+  document.querySelectorAll('.lbl').forEach(function(label){label.classList.remove('on');});
+  document.querySelectorAll('.edge').forEach(function(edge){gsap.set(edge,{strokeDashoffset:edge.getTotalLength()});});
+  document.querySelectorAll('.pkt').forEach(function(packetElement){packetElement.remove();});
   document.querySelector('#payoff').classList.remove('show');
 }
 function play(){
   reset();
-  var tl=gsap.timeline({delay:0.3});
-  tl.add(function(){light('n1');});
-  tl.add(function(){show('l1');},'+=0.15');
-  hop(tl,'e1','#FF9F5A',function(){light('n2');});
-  tl.add(function(){show('l2');});
-  hop(tl,'e2','#00F0C8',function(){light('n3');});
-  tl.add(function(){show('l3');});
-  hop(tl,'e3','#8B7CFF',function(){light('n4');});
-  hop(tl,'e4','#7FD9A0',function(){light('n5');});
-  tl.add(function(){document.querySelector('#payoff').classList.add('show');},'+=0.2');
+  const timeline=gsap.timeline({delay:0.3});
+  timeline.add(function(){light('n1');});
+  timeline.add(function(){show('l1');},'+=0.15');
+  hop(timeline,'e1','#FF9F5A',function(){light('n2');});
+  timeline.add(function(){show('l2');});
+  hop(timeline,'e2','#00F0C8',function(){light('n3');});
+  timeline.add(function(){show('l3');});
+  hop(timeline,'e3','#8B7CFF',function(){light('n4');});
+  hop(timeline,'e4','#7FD9A0',function(){light('n5');});
+  timeline.add(function(){document.querySelector('#payoff').classList.add('show');},'+=0.2');
 }
 document.querySelector('#play').addEventListener('click',play);
 reset();
@@ -528,13 +528,13 @@ Reveal.initialize({
 // ── inyectar el artefacto embebido a su iframe (deck de un solo archivo) ──
 function llenar(frame){
   if(!frame) return;
-  var tpl=document.getElementById(frame.dataset.tpl);
-  if(tpl) frame.srcdoc=tpl.innerHTML;
+  const template=document.getElementById(frame.dataset.tpl);
+  if(template) frame.srcdoc=template.innerHTML;
 }
 document.querySelectorAll('iframe[data-tpl]').forEach(llenar);
-Reveal.on('slidechanged', function(e){
-  var f=e.currentSlide.querySelector('iframe[data-tpl]');
-  llenar(f);
+Reveal.on('slidechanged', function(event){
+  const currentFrame=event.currentSlide.querySelector('iframe[data-tpl]');
+  llenar(currentFrame);
 });
 
 // ── fondo 3D (partículas + grilla), idéntico al resto del curso ──
@@ -548,22 +548,22 @@ Reveal.on('slidechanged', function(e){
   const camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,100);
   camera.position.z=5;
 
-  const geo=new THREE.BufferGeometry();
-  const N=220, pos=new Float32Array(N*3);
-  for(let i=0;i<N*3;i++) pos[i]=(Math.random()-.5)*22;
-  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  scene.add(new THREE.Points(geo,new THREE.PointsMaterial({color:0x1e3050,size:0.07,transparent:true,opacity:0.9})));
+  const geometry=new THREE.BufferGeometry();
+  const particleCount=220, positions=new Float32Array(particleCount*3);
+  for(let index=0;index<particleCount*3;index++) positions[index]=(Math.random()-.5)*22;
+  geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
+  scene.add(new THREE.Points(geometry,new THREE.PointsMaterial({color:0x1e3050,size:0.07,transparent:true,opacity:0.9})));
 
   const grid=new THREE.GridHelper(32,32,0x162235,0x162235);
   grid.position.y=-4;
   grid.material.transparent=true; grid.material.opacity=0.35;
   scene.add(grid);
 
-  let t=0;
+  let elapsedTime=0;
   function animate(){
-    requestAnimationFrame(animate); t+=0.003;
-    camera.position.x=Math.sin(t*.25)*.35;
-    camera.position.y=Math.cos(t*.18)*.18;
+    requestAnimationFrame(animate); elapsedTime+=0.003;
+    camera.position.x=Math.sin(elapsedTime*.25)*.35;
+    camera.position.y=Math.cos(elapsedTime*.18)*.18;
     renderer.render(scene,camera);
   }
   animate();
