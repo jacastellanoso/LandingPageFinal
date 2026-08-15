@@ -16,7 +16,7 @@ function AnimacionLogo({ alTerminar }) {
     if (!marcaAnimada || !logoAnimado) return
 
     const manejarFinal = (eventoAnimacion) => {
-      if (eventoAnimacion.animationName !== 'acomodar-marca') return
+      if (eventoAnimacion.animationName !== 'finalizar-introduccion') return
 
       marcaAnimada.removeEventListener('animationend', manejarFinal)
       alTerminar(logoAnimado.getBoundingClientRect())

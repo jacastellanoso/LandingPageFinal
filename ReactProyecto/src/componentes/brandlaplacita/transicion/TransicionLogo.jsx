@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import LogoPlacita from '../encabezado/LogoPlacita'
 
-const DURACION_TRANSICION = 650
+const DURACION_TRANSICION = 450
 const DURACION_REAJUSTE = 240
 const CURVA_FLUIDA = 'cubic-bezier(0.16, 1, 0.3, 1)'
 
