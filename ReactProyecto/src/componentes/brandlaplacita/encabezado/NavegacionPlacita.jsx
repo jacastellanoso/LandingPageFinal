@@ -2,12 +2,72 @@ import { useEffect, useRef, useState } from 'react'
 
 const enlacesNavegacion = [
   { destino: '#inicio', etiqueta: 'INICIO' },
+  { destino: '#promocionesPlacita', etiqueta: 'PROMOCIONES' },
+  { destino: '#menuPlacita', etiqueta: 'MENÚ' },
+  { destino: '#contactoPlacita', etiqueta: 'CONTACTO' },
 ]
 
 function NavegacionPlacita() {
   const [menuAbierto, setMenuAbierto] = useState(false)
+  const [seccionActiva, setSeccionActiva] = useState('inicio')
   const navegacionRef = useRef(null)
   const botonRef = useRef(null)
+
+  useEffect(() => {
+    const encabezado = navegacionRef.current?.closest('.encabezado-placita')
+    const secciones = enlacesNavegacion
+      .map(({ destino }) => document.getElementById(destino.slice(1)))
+      .filter((seccion) => seccion && seccion.id !== 'inicio')
+
+    if (!encabezado || secciones.length === 0) return undefined
+
+    let observadorSecciones
+
+    const configurarObservador = () => {
+      observadorSecciones?.disconnect()
+
+      const alturaEncabezado = Math.ceil(encabezado.getBoundingClientRect().height)
+      document.documentElement.style.setProperty(
+        '--alturaEncabezadoPlacita',
+        `${alturaEncabezado}px`,
+      )
+
+      observadorSecciones = new IntersectionObserver(
+        (entradas) => {
+          const entradaActiva = entradas
+            .filter((entrada) => entrada.isIntersecting)
+            .sort((entradaA, entradaB) => entradaB.boundingClientRect.top - entradaA.boundingClientRect.top)[0]
+
+          if (entradaActiva) {
+            setSeccionActiva(entradaActiva.target.id)
+            return
+          }
+
+          const ultimaSeccionSuperada = [...secciones]
+            .reverse()
+            .find((seccion) => seccion.getBoundingClientRect().top <= alturaEncabezado)
+
+          setSeccionActiva(ultimaSeccionSuperada?.id ?? 'inicio')
+        },
+        {
+          rootMargin: `-${alturaEncabezado}px 0px -65% 0px`,
+          threshold: 0,
+        },
+      )
+
+      secciones.forEach((seccion) => observadorSecciones.observe(seccion))
+    }
+
+    configurarObservador()
+    const observadorEncabezado = new ResizeObserver(configurarObservador)
+    observadorEncabezado.observe(encabezado)
+
+    return () => {
+      observadorSecciones?.disconnect()
+      observadorEncabezado.disconnect()
+      document.documentElement.style.removeProperty('--alturaEncabezadoPlacita')
+    }
+  }, [])
 
   useEffect(() => {
     const cerrarConEscape = (evento) => {
@@ -55,7 +115,15 @@ function NavegacionPlacita() {
       <ul id="enlaces-placita" className="navegacion-placita__lista">
         {enlacesNavegacion.map((enlace) => (
           <li key={enlace.destino}>
-            <a href={enlace.destino} onClick={() => setMenuAbierto(false)}>
+            <a
+              href={enlace.destino}
+              className={seccionActiva === enlace.destino.slice(1) ? 'navegacionActiva' : undefined}
+              aria-current={seccionActiva === enlace.destino.slice(1) ? 'location' : undefined}
+              onClick={() => {
+                setSeccionActiva(enlace.destino.slice(1))
+                setMenuAbierto(false)
+              }}
+            >
               {enlace.etiqueta}
             </a>
           </li>
