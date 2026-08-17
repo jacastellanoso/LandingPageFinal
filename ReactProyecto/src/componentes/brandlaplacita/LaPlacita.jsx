@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import AnimacionLogo from './animacion/AnimacionLogo'
+import CarruselPromociones from './promociones/CarruselPromociones'
 import TituloSeccionPlacita from './compartidos/TituloSeccionPlacita'
 import EncabezadoPlacita from './encabezado/EncabezadoPlacita'
 import PiePlacita from './pie/PiePlacita'
@@ -75,6 +76,7 @@ function LaPlacita() {
           <TituloSeccionPlacita id="tituloPromocionesPlacita">
             Promociones
           </TituloSeccionPlacita>
+          <CarruselPromociones />
         </section>
         <section
           id="menuPlacita"

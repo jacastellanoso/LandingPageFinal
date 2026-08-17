@@ -244,6 +244,112 @@ html.placita-intro-activa body {
   color: var(--placita-claro);
 }
 
+.carruselPromociones {
+  position: relative;
+  width: min(100%, 56rem);
+  margin-top: clamp(1rem, 4vw, 2rem);
+}
+
+.carruselPromociones__pista {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--placita-vino);
+}
+
+.carruselPromociones__imagen {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: revelarPromocion 420ms ease-out both;
+}
+
+.carruselPromociones__leyenda {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: clamp(1rem, 4vw, 1.75rem) clamp(1rem, 4vw, 1.75rem) clamp(0.85rem, 3vw, 1.25rem);
+  background: linear-gradient(to top, rgb(0 0 0 / 65%), rgb(0 0 0 / 0%));
+}
+
+.carruselPromociones__leyendaTitulo {
+  margin: 0;
+  color: var(--placita-claro);
+  font-family: var(--placita-fuente-comedor);
+  font-size: clamp(1rem, 3.4vw, 1.4rem);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.carruselPromociones__flecha {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  width: clamp(2.25rem, 6vw, 2.75rem);
+  height: clamp(2.25rem, 6vw, 2.75rem);
+  border: 1px solid rgb(253 255 237 / 55%);
+  border-radius: 50%;
+  background: rgb(95 4 3 / 55%);
+  color: var(--placita-claro);
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+  place-items: center;
+  transform: translateY(-50%);
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.carruselPromociones__flecha:focus-visible {
+  outline: 3px solid var(--placita-claro);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .carruselPromociones__flecha:hover {
+    background: rgb(95 4 3 / 80%);
+  }
+}
+
+.carruselPromociones__flecha--anterior {
+  left: clamp(0.5rem, 2vw, 1rem);
+}
+
+.carruselPromociones__flecha--siguiente {
+  right: clamp(0.5rem, 2vw, 1rem);
+}
+
+.carruselPromociones__puntos {
+  display: flex;
+  margin-top: 0.85rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.carruselPromociones__punto {
+  width: 0.65rem;
+  height: 0.65rem;
+  border: 1px solid rgb(253 255 237 / 55%);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.carruselPromociones__punto:focus-visible {
+  outline: 3px solid var(--placita-claro);
+  outline-offset: 3px;
+}
+
+.carruselPromociones__punto--activo {
+  background: var(--placita-claro);
+  transform: scale(1.15);
+}
+
 .franjaMenu {
   background: var(--placita-blanco);
 }
@@ -393,6 +499,16 @@ html.placita-intro-activa body {
 
   50% {
     transform: translateY(-0.25rem);
+  }
+}
+
+@keyframes revelarPromocion {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }
 
@@ -604,6 +720,7 @@ html.placita-intro-activa body {
   .pagina-placita--transicion .contenido-placita,
   .pagina-placita--transicion .piePlacita,
   .pagina-placita--transicion .derechosPlacita,
+  .carruselPromociones__imagen,
   .navegacion-placita__lista,
   .navegacion-placita__lista a {
     animation-duration: 1ms;
