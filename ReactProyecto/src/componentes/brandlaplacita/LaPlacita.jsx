@@ -6,6 +6,7 @@ import EncabezadoPlacita from './encabezado/EncabezadoPlacita'
 import PiePlacita from './pie/PiePlacita'
 import TransicionLogo from './transicion/TransicionLogo'
 import './laPlacita.css'
+import GaleriaMenu from './menu/GaleriaMenu'
 
 const introVistaClave = 'laPlacitaIntroSeen'
 
@@ -84,6 +85,7 @@ function LaPlacita() {
           aria-labelledby="tituloMenuPlacita"
         >
           <TituloSeccionPlacita id="tituloMenuPlacita">Menú</TituloSeccionPlacita>
+          <GaleriaMenu />
         </section>
       </main>
 
