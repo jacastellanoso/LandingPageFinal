@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
 function TarjetaPlatillo({ platillo }) {
-  const [errorImagen, setErrorImagen] = useState(false)
+  const [errorImagen, setErrorImagen] =
+    useState(false)
 
   const precio = Number(
     String(platillo.precio || '0')
@@ -30,7 +31,10 @@ function TarjetaPlatillo({ platillo }) {
           <img
             className="fotoPlatillo"
             src={platillo.foto}
-            alt={platillo.nombrePlatillo || 'Platillo'}
+            alt={
+              platillo.nombrePlatillo ||
+              'Platillo'
+            }
             loading="lazy"
             onError={() => setErrorImagen(true)}
           />
@@ -53,10 +57,11 @@ function TarjetaPlatillo({ platillo }) {
         )}
       </div>
 
-      <div className="contenidoPlatillo">
+      <div className="contenidoPlatillo contenidoPlatilloResumen">
         <div className="cabeceraPlatillo">
           <h3 className="nombrePlatillo">
-            {platillo.nombrePlatillo || 'Sin nombre'}
+            {platillo.nombrePlatillo ||
+              'Sin nombre'}
           </h3>
 
           <div className="contenedorPrecio">
@@ -70,24 +75,6 @@ function TarjetaPlatillo({ platillo }) {
               Q{precioFinal.toFixed(2)}
             </span>
           </div>
-        </div>
-
-        <p className="descripcionPlatillo">
-          {platillo.descripcion}
-        </p>
-
-        <div className="etiquetasPlatillo">
-          {platillo.subcategoria && (
-            <span>
-              {platillo.subcategoria}
-            </span>
-          )}
-
-          {platillo.horarioDeComida && (
-            <span>
-              {platillo.horarioDeComida}
-            </span>
-          )}
         </div>
 
         {platillo.estadoActual && (
