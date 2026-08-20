@@ -51,7 +51,7 @@ function TarjetaPlatillo({ platillo }) {
               platillo.nombrePlatillo ||
               'Platillo'
             }
-            loading="lazy"
+            draggable="false"
             onError={() => setErrorImagen(true)}
           />
         ) : (
@@ -131,7 +131,11 @@ function TarjetaPlatillo({ platillo }) {
 
             <div className="modalDetalleFoto">
               {platillo.foto && !errorImagen ? (
-                <img src={platillo.foto} alt={platillo.nombrePlatillo || 'Platillo'} />
+                <img
+                  src={platillo.foto}
+                  alt={platillo.nombrePlatillo || 'Platillo'}
+                  draggable="false"
+                />
               ) : (
                 <div className="sinFotoPlatillo">Imagen no disponible</div>
               )}

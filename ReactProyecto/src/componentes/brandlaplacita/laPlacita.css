@@ -1,18 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;600;700&family=Luckiest+Guy&display=swap');
 
 :root {
   --placita-vino: #5f0403;
   --placita-claro: #fdffed;
   --placita-blanco: #ffffff;
-  --placita-fuente-comedor: "Product Sans Local", Arial, sans-serif;
+  --placita-fuente-comedor: "Google Sans Flex", Arial, sans-serif;
   --placita-fuente-logo: "Luckiest Guy", sans-serif;
-}
-
-@font-face {
-  font-family: "Product Sans Local";
-  src: local("Product Sans"), local("ProductSans-Regular");
-  font-style: normal;
-  font-weight: 400;
 }
 
 html.placita-intro-activa,
@@ -23,6 +16,7 @@ html.placita-intro-activa body {
 .pagina-placita {
   min-height: 100vh;
   background: var(--placita-blanco);
+  font-family: var(--placita-fuente-comedor);
   overflow-x: clip;
 }
 
@@ -237,24 +231,61 @@ html.placita-intro-activa body {
 }
 
 .franjaPromociones {
+  position: relative;
+  min-height: 0;
+  padding: 0;
+  overflow: hidden;
+  align-content: center;
   background: #000000;
-}
-
-.franjaPromociones .tituloSeccionPlacita {
-  color: var(--placita-claro);
 }
 
 .carruselPromociones {
   position: relative;
+  width: 100%;
+}
+
+.estadoPromociones {
+  display: grid;
   width: min(100%, 56rem);
-  margin-top: clamp(1rem, 4vw, 2rem);
+  min-height: clamp(12rem, 45vw, 31.5rem);
+  margin: 0;
+  align-content: center;
+  justify-items: center;
+  gap: 0.25rem;
+  color: var(--placita-claro);
+  text-align: center;
+}
+
+.estadoPromociones p {
+  margin: 0;
+}
+
+.estadoPromociones--error {
+  color: #ffd7d7;
+}
+
+.carruselPromociones__fondo {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  display: block;
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+  filter: blur(1.5rem);
+  pointer-events: none;
+  transform: translateX(-50%) scale(1.08);
 }
 
 .carruselPromociones__pista {
   position: relative;
+  z-index: 1;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 1rem;
+  border-radius: 0;
   background: var(--placita-vino);
 }
 
@@ -266,36 +297,18 @@ html.placita-intro-activa body {
   animation: revelarPromocion 420ms ease-out both;
 }
 
-.carruselPromociones__leyenda {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: clamp(1rem, 4vw, 1.75rem) clamp(1rem, 4vw, 1.75rem) clamp(0.85rem, 3vw, 1.25rem);
-  background: linear-gradient(to top, rgb(0 0 0 / 65%), rgb(0 0 0 / 0%));
-}
-
-.carruselPromociones__leyendaTitulo {
-  margin: 0;
-  color: var(--placita-claro);
-  font-family: var(--placita-fuente-comedor);
-  font-size: clamp(1rem, 3.4vw, 1.4rem);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-align: left;
-}
-
 .carruselPromociones__flecha {
   position: absolute;
   top: 50%;
   z-index: 2;
   display: grid;
-  width: clamp(2.25rem, 6vw, 2.75rem);
-  height: clamp(2.25rem, 6vw, 2.75rem);
+  width: clamp(3rem, 7vw, 3.5rem);
+  height: clamp(3rem, 7vw, 3.5rem);
   border: 1px solid rgb(253 255 237 / 55%);
   border-radius: 50%;
   background: rgb(95 4 3 / 55%);
   color: var(--placita-claro);
   cursor: pointer;
-  font-size: 1.4rem;
   line-height: 1;
   place-items: center;
   transform: translateY(-50%);
@@ -314,16 +327,31 @@ html.placita-intro-activa body {
 }
 
 .carruselPromociones__flecha--anterior {
-  left: clamp(0.5rem, 2vw, 1rem);
+  left: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+.carruselPromociones__flecha svg {
+  display: block;
+  width: clamp(1.65rem, 4vw, 2rem);
+  height: clamp(1.65rem, 4vw, 2rem);
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
 }
 
 .carruselPromociones__flecha--siguiente {
-  right: clamp(0.5rem, 2vw, 1rem);
+  right: clamp(0.75rem, 2vw, 1.5rem);
 }
 
 .carruselPromociones__puntos {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: clamp(0.65rem, 2vw, 1rem);
+  left: 0;
   display: flex;
-  margin-top: 0.85rem;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
@@ -549,6 +577,29 @@ html.placita-intro-activa body {
 }
 
 @media (max-width: 700px) {
+  .piePlacita {
+    padding-block: 1rem;
+    gap: 0;
+  }
+
+  .separadorPiePlacita,
+  .navegacionPiePlacita {
+    display: none;
+  }
+
+  .identidadPiePlacita {
+    width: min(100%, 25rem);
+    gap: 0.25rem;
+  }
+
+  .logoPiePlacita {
+    width: clamp(11rem, 55vw, 15rem);
+  }
+
+  .chenteFooter {
+    width: clamp(6rem, 29vw, 8rem);
+  }
+
   .encabezado-placita {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
@@ -640,6 +691,15 @@ html.placita-intro-activa body {
     min-height: 50svh;
   }
 
+  .franjaMenu {
+    padding-top: 1rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .carruselPromociones__flecha {
+    display: none;
+  }
+
 }
 
 @media (min-width: 701px) {
@@ -649,16 +709,11 @@ html.placita-intro-activa body {
 
     grid-template-columns:
       max-content
-      var(--espacioSeparadorPiePlacita)
-      4px
-      var(--espacioSeparadorPiePlacita)
+      calc(var(--espacioPiePlacita) * 2)
       minmax(9rem, 1.4fr)
-      calc(
-        var(--espacioPiePlacita) + var(--espacioPiePlacita) + var(--espacioPiePlacita)
-        - var(--espacioSeparadorPiePlacita) - var(--espacioSeparadorPiePlacita)
-      )
-      minmax(12rem, 1fr);
-    padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 5vw, 4rem);
+      calc(var(--espacioPiePlacita) * 2)
+      minmax(20rem, 2fr);
+    padding: clamp(1rem, 2vw, 1.5rem) clamp(1rem, 5vw, 4rem);
     justify-items: stretch;
     gap: 0;
     text-align: left;
@@ -672,15 +727,11 @@ html.placita-intro-activa body {
   }
 
   .separadorPiePlacita {
-    grid-column: 3;
-    width: 4px;
-    height: auto;
-    margin-block: 0.5rem;
-    align-self: stretch;
+    display: none;
   }
 
   .logoPiePlacita {
-    width: clamp(8rem, 13vw, 11rem);
+    width: clamp(10rem, 16vw, 14rem);
   }
 
   .chenteFooter {
@@ -688,11 +739,15 @@ html.placita-intro-activa body {
   }
 
   .navegacionPiePlacita {
-    grid-column: 5;
+    grid-column: 3;
     width: max-content;
     max-width: 100%;
+    padding-left: var(--espacioSeparadorPiePlacita);
+    border-left: 4px solid #ffffff;
+    align-self: center;
     justify-self: start;
     gap: 0.75rem;
+    font-size: clamp(1rem, 1.45vw, 1.2rem);
     text-align: left;
   }
 
@@ -709,7 +764,7 @@ html.placita-intro-activa body {
   }
 
   .integracionContactoPlacita {
-    grid-column: 7;
+    grid-column: 5;
     min-height: 4rem;
   }
 }
@@ -722,6 +777,7 @@ html.placita-intro-activa body {
   padding: 1rem;
   place-items: center;
   background: rgb(0 0 0 / 65%);
+  font-family: var(--placita-fuente-comedor);
   animation: revelarPromocion 200ms ease-out both;
 }
 
@@ -761,7 +817,7 @@ html.placita-intro-activa body {
 
 .modalDetalleFoto {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1;
   overflow: hidden;
   background: var(--placita-vino);
 }
@@ -811,12 +867,83 @@ html.placita-intro-activa body {
 }
 
 @media (min-width: 701px) {
+  .franjaPromociones {
+    padding-block: clamp(1rem, 2.5vw, 2rem);
+    padding-inline:
+      max(clamp(4.25rem, 7vw, 5rem), env(safe-area-inset-left))
+      max(clamp(4.25rem, 7vw, 5rem), env(safe-area-inset-right));
+  }
+
+  .carruselPromociones {
+    width: min(100%, 56rem);
+  }
+
+  .carruselPromociones__pista {
+    border-radius: 1.25rem;
+  }
+
+  .carruselPromociones__imagen {
+    object-fit: contain;
+  }
+
+  .carruselPromociones__flecha--anterior {
+    left: -4.25rem;
+  }
+
+  .carruselPromociones__flecha--siguiente {
+    right: -4.25rem;
+  }
+
   .modalDetalleContenido {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
+}
 
-  .modalDetalleFoto {
-    aspect-ratio: auto;
+@media (max-width: 700px) {
+  .modalDetalleOverlay {
+    padding: 0.5rem;
+  }
+
+  .modalDetalleContenido {
+    max-height: calc(100svh - 1rem);
+    border-radius: 0.85rem;
+  }
+
+  .modalDetalleTexto {
+    padding: 0.75rem;
+    gap: 0.3rem;
+  }
+
+  .modalDetalleTexto h2 {
+    font-size: 1.2rem;
+    line-height: 1.1;
+  }
+
+  .modalDetalleSub {
+    font-size: 0.72rem;
+  }
+
+  .modalDetalleTexto .contenedorPrecio {
+    align-items: flex-start;
+  }
+
+  .modalDetalleTexto .estadoPlatillo {
+    margin: 0;
+    padding-top: 0.15rem;
+  }
+
+  .modalDetalleTexto section {
+    padding-top: 0.35rem;
+  }
+
+  .modalDetalleTexto section h3 {
+    margin-bottom: 0.15rem;
+    font-size: 0.9rem;
+  }
+
+  .modalDetalleTexto section p {
+    font-size: 0.85rem;
+    line-height: 1.35;
   }
 }
 

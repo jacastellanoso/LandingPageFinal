@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 const enlacesNavegacion = [
-  { destino: '#inicio', etiqueta: 'INICIO' },
+  { destino: '#inicioPlacita', etiqueta: 'INICIO' },
   { destino: '#promocionesPlacita', etiqueta: 'PROMOCIONES' },
   { destino: '#menuPlacita', etiqueta: 'MENÚ' },
   { destino: '#contactoPlacita', etiqueta: 'CONTACTO' },
@@ -9,7 +9,7 @@ const enlacesNavegacion = [
 
 function NavegacionPlacita() {
   const [menuAbierto, setMenuAbierto] = useState(false)
-  const [seccionActiva, setSeccionActiva] = useState('inicio')
+  const [seccionActiva, setSeccionActiva] = useState('inicioPlacita')
   const navegacionRef = useRef(null)
   const botonRef = useRef(null)
 
@@ -17,53 +17,58 @@ function NavegacionPlacita() {
     const encabezado = navegacionRef.current?.closest('.encabezado-placita')
     const secciones = enlacesNavegacion
       .map(({ destino }) => document.getElementById(destino.slice(1)))
-      .filter((seccion) => seccion && seccion.id !== 'inicio')
+      .filter((seccion) => seccion && seccion.id !== 'inicioPlacita')
+    const pie = document.getElementById('contactoPlacita')?.closest('footer')
 
-    if (!encabezado || secciones.length === 0) return undefined
+    if (!encabezado || !pie || secciones.length === 0) return undefined
 
-    let observadorSecciones
+    let cuadroAnimacion
 
-    const configurarObservador = () => {
-      observadorSecciones?.disconnect()
-
+    const actualizarSeccionActiva = () => {
       const alturaEncabezado = Math.ceil(encabezado.getBoundingClientRect().height)
       document.documentElement.style.setProperty(
         '--alturaEncabezadoPlacita',
         `${alturaEncabezado}px`,
       )
 
-      observadorSecciones = new IntersectionObserver(
-        (entradas) => {
-          const entradaActiva = entradas
-            .filter((entrada) => entrada.isIntersecting)
-            .sort((entradaA, entradaB) => entradaB.boundingClientRect.top - entradaA.boundingClientRect.top)[0]
+      if (window.scrollY <= 10) {
+        setSeccionActiva('inicioPlacita')
+        return
+      }
 
-          if (entradaActiva) {
-            setSeccionActiva(entradaActiva.target.id)
-            return
-          }
+      if (pie.getBoundingClientRect().top < window.innerHeight) {
+        setSeccionActiva('contactoPlacita')
+        return
+      }
 
-          const ultimaSeccionSuperada = [...secciones]
-            .reverse()
-            .find((seccion) => seccion.getBoundingClientRect().top <= alturaEncabezado)
+      const ultimaSeccionSuperada = [...secciones]
+        .filter((seccion) => seccion.id !== 'contactoPlacita')
+        .reverse()
+        .find((seccion) => seccion.getBoundingClientRect().top <= alturaEncabezado + 1)
 
-          setSeccionActiva(ultimaSeccionSuperada?.id ?? 'inicio')
-        },
-        {
-          rootMargin: `-${alturaEncabezado}px 0px -65% 0px`,
-          threshold: 0,
-        },
-      )
-
-      secciones.forEach((seccion) => observadorSecciones.observe(seccion))
+      setSeccionActiva(ultimaSeccionSuperada?.id ?? 'inicioPlacita')
     }
 
-    configurarObservador()
-    const observadorEncabezado = new ResizeObserver(configurarObservador)
+    const solicitarActualizacion = () => {
+      if (cuadroAnimacion) return
+
+      cuadroAnimacion = window.requestAnimationFrame(() => {
+        cuadroAnimacion = undefined
+        actualizarSeccionActiva()
+      })
+    }
+
+    actualizarSeccionActiva()
+    window.addEventListener('scroll', solicitarActualizacion, { passive: true })
+    window.addEventListener('resize', solicitarActualizacion)
+
+    const observadorEncabezado = new ResizeObserver(solicitarActualizacion)
     observadorEncabezado.observe(encabezado)
 
     return () => {
-      observadorSecciones?.disconnect()
+      window.removeEventListener('scroll', solicitarActualizacion)
+      window.removeEventListener('resize', solicitarActualizacion)
+      if (cuadroAnimacion) window.cancelAnimationFrame(cuadroAnimacion)
       observadorEncabezado.disconnect()
       document.documentElement.style.removeProperty('--alturaEncabezadoPlacita')
     }
@@ -119,8 +124,30 @@ function NavegacionPlacita() {
               href={enlace.destino}
               className={seccionActiva === enlace.destino.slice(1) ? 'navegacionActiva' : undefined}
               aria-current={seccionActiva === enlace.destino.slice(1) ? 'location' : undefined}
-              onClick={() => {
-                setSeccionActiva(enlace.destino.slice(1))
+              onClick={(evento) => {
+                evento.preventDefault()
+                const destinoId = enlace.destino.slice(1)
+                const reducirMovimiento = window.matchMedia(
+                  '(prefers-reduced-motion: reduce)',
+                ).matches
+
+                if (
+                  enlace.destino === '#contactoPlacita' &&
+                  window.matchMedia('(max-width: 700px)').matches
+                ) {
+                  window.dispatchEvent(new Event('abrir-contacto-placita'))
+                } else if (enlace.destino === '#inicioPlacita') {
+                  window.scrollTo({
+                    top: 0,
+                    behavior: reducirMovimiento ? 'instant' : 'smooth',
+                  })
+                } else {
+                  document.getElementById(destinoId)?.scrollIntoView({
+                    behavior: reducirMovimiento ? 'instant' : 'smooth',
+                    block: 'start',
+                  })
+                }
+                setSeccionActiva(destinoId)
                 setMenuAbierto(false)
               }}
             >

@@ -5,10 +5,28 @@ import {
 } from 'react'
 
 import TarjetaPlatillo from './TarjetaPlatillo'
+import CargadorPlacita from '../compartidos/CargadorPlacita'
 import './GaleriaMenu.css'
 
 const appScriptUrl =
   'https://script.google.com/macros/s/AKfycbwf3NoJXnRCxikGEWfpER4UEjTtmmZvqGvCUvqijC0r-BGjF8_MuIe3IchWwVStT7lqRA/exec'
+const tiempoMaximoImagen = 10000
+const tiempoMaximoSolicitud = 12000
+
+function precargarImagen(url) {
+  return new Promise((resolver) => {
+    const imagen = new Image()
+    const temporizador = window.setTimeout(resolver, tiempoMaximoImagen)
+    const finalizar = () => {
+      window.clearTimeout(temporizador)
+      resolver()
+    }
+
+    imagen.onload = finalizar
+    imagen.onerror = finalizar
+    imagen.src = url
+  })
+}
 
 function SelectorCategoria({
   categorias,
@@ -168,7 +186,7 @@ function SelectorCategoria({
   )
 }
 
-function GaleriaMenu() {
+function GaleriaMenu({ alCompletarCarga }) {
   const [platillos, setPlatillos] = useState([])
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
@@ -179,24 +197,47 @@ function GaleriaMenu() {
   })
 
   useEffect(() => {
+    let cancelada = false
+    let solicitudFinalizada = false
     const callbackName =
       `recibirPlatillos_${Date.now()}`
 
     const script = document.createElement('script')
+    const temporizadorSolicitud = window.setTimeout(() => {
+      if (cancelada || solicitudFinalizada) return
 
-    window[callbackName] = (datos) => {
+      solicitudFinalizada = true
+      setError('La carga del menú tardó demasiado tiempo.')
+      setCargando(false)
+      alCompletarCarga()
+    }, tiempoMaximoSolicitud)
+
+    window[callbackName] = async (datos) => {
+      if (solicitudFinalizada) return
+      solicitudFinalizada = true
+      window.clearTimeout(temporizadorSolicitud)
+
       console.log('Platillos recibidos:', datos)
 
       if (Array.isArray(datos)) {
+        const fotos = datos
+          .map((platillo) => platillo?.foto)
+          .filter((foto) => typeof foto === 'string' && foto.trim())
+
+        await Promise.all(fotos.map(precargarImagen))
+        if (cancelada) return
+
         setPlatillos(datos)
         setError('')
       } else {
+        if (cancelada) return
         setError(
           'La información recibida del menú no es válida.'
         )
       }
 
       setCargando(false)
+      alCompletarCarga()
     }
 
     script.src =
@@ -207,6 +248,9 @@ function GaleriaMenu() {
     script.async = true
 
     script.onerror = () => {
+      if (cancelada || solicitudFinalizada) return
+      solicitudFinalizada = true
+      window.clearTimeout(temporizadorSolicitud)
       console.error(
         'No fue posible cargar la API de platillos:',
         script.src
@@ -217,18 +261,21 @@ function GaleriaMenu() {
       )
 
       setCargando(false)
+      alCompletarCarga()
     }
 
     document.body.appendChild(script)
 
     return () => {
+      cancelada = true
+      window.clearTimeout(temporizadorSolicitud)
       if (script.parentNode) {
         script.parentNode.removeChild(script)
       }
 
       delete window[callbackName]
     }
-  }, [])
+  }, [alCompletarCarga])
 
   const seleccionarHorario = (
     horarioDeComida
@@ -275,7 +322,7 @@ function GaleriaMenu() {
   if (cargando) {
     return (
       <div className="estadoMenu">
-        <div className="cargadorMenu"></div>
+        <CargadorPlacita etiqueta="Cargando platillos" />
 
         <p>Cargando platillos...</p>
       </div>
