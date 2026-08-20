@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
+import ErrorImagenChente from '../errores/ErrorImagenChente'
 
 function TarjetaPlatillo({ platillo }) {
   const [errorImagen, setErrorImagen] =
@@ -55,9 +56,7 @@ function TarjetaPlatillo({ platillo }) {
             onError={() => setErrorImagen(true)}
           />
         ) : (
-          <div className="sinFotoPlatillo">
-            Imagen no disponible
-          </div>
+          <ErrorImagenChente />
         )}
 
         {platillo.categoria && (
@@ -137,7 +136,7 @@ function TarjetaPlatillo({ platillo }) {
                   draggable="false"
                 />
               ) : (
-                <div className="sinFotoPlatillo">Imagen no disponible</div>
+                <ErrorImagenChente />
               )}
               {platillo.categoria && (
                 <span className="categoriaPlatillo">{platillo.categoria}</span>
