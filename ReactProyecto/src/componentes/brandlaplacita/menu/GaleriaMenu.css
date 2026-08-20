@@ -54,7 +54,7 @@
   position: relative;
 
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1;
 
   overflow: hidden;
 
@@ -164,7 +164,9 @@
 
   color: #3b1a12;
 
+  font-family: var(--placita-fuente-logo);
   font-size: 1.25rem;
+  font-weight: 400;
   line-height: 1.2;
 }
 
@@ -269,25 +271,66 @@
 }
 
 
-.cargadorMenu {
-  width: 42px;
-  height: 42px;
+.cargadorIconosPlacita {
+  --loader-size: clamp(3.25rem, 10vw, 4.5rem);
+  --loader-step: 0.8s;
+  --loader-cycle: 6.4s;
 
-  margin-bottom: 15px;
+  display: grid;
+  width: var(--loader-size);
+  height: var(--loader-size);
+  margin-bottom: 0.75rem;
+  place-items: center;
+}
 
+.cargadorIconosPlacita .loader {
+  position: relative;
+  width: var(--loader-size);
+  height: var(--loader-size);
+  user-select: none;
+}
+
+.cargadorIconosPlacita .loader__icon {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(0deg) scale(0.96);
+  transform-origin: center;
+  animation: cargadorMenuTransform var(--loader-cycle) linear infinite;
+}
+
+.cargadorIconosPlacita .loader__icon:nth-of-type(1) { animation-delay: calc(var(--loader-step) * 0); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(2) { animation-delay: calc(var(--loader-step) * 1); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(3) { animation-delay: calc(var(--loader-step) * 2); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(4) { animation-delay: calc(var(--loader-step) * 3); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(5) { animation-delay: calc(var(--loader-step) * 4); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(6) { animation-delay: calc(var(--loader-step) * 5); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(7) { animation-delay: calc(var(--loader-step) * 6); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(8) { animation-delay: calc(var(--loader-step) * 7); }
+
+.cargadorIconosPlacita__alternativo {
+  width: 2.5rem;
+  height: 2.5rem;
   border: 4px solid #eadada;
   border-top-color: #790000;
   border-radius: 50%;
-
-  animation:
-    girarMenu 0.8s linear infinite;
+  animation: girarMenu 0.8s linear infinite;
 }
 
+@keyframes cargadorMenuTransform {
+  0% { opacity: 0; transform: rotate(0deg) scale(0.96); }
+  1.25% { opacity: 1; transform: rotate(0deg) scale(1); }
+  8.75% { opacity: 1; transform: rotate(0deg) scale(1); }
+  12.5% { opacity: 0; transform: rotate(270deg) scale(0.94); }
+  100% { opacity: 0; transform: rotate(270deg) scale(0.94); }
+}
 
 @keyframes girarMenu {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 
@@ -591,8 +634,9 @@
 @media (max-width: 650px) {
   .filtrosMenu {
     width: calc(100% - 30px);
-
+    margin-top: 1rem;
     align-items: stretch;
+    gap: 0.75rem;
   }
 
   .grupoHorarios,
@@ -602,19 +646,76 @@
 
   .botonesHorarios {
     display: grid;
-
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.35rem;
   }
 
   .filtrosMenu .botonFiltroHorario {
     width: 100%;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.2rem;
+    font-size: clamp(0.62rem, 2.7vw, 0.75rem);
+    letter-spacing: 0;
+  }
+
+  .resultadoFiltros {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
   }
 
   .galeriaMenu {
-    grid-template-columns: 1fr;
-
-    padding-left: 15px;
-    padding-right: 15px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 1rem;
+    padding: 0 0.5rem 1rem;
+    gap: 0.6rem;
   }
+
+  .contenidoPlatillo {
+    padding: 0.65rem;
+  }
+
+  .cabeceraPlatillo {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .nombrePlatillo {
+    font-size: 0.95rem;
+  }
+
+  .contenidoPlatilloResumen .contenedorPrecio {
+    align-items: flex-start;
+  }
+
+  .precioPlatillo {
+    font-size: 0.95rem;
+  }
+
+  .estadoPlatillo {
+    margin-bottom: 0.6rem;
+    padding-top: 0.6rem;
+    font-size: 0.7rem;
+  }
+
+  .botonPlatillo {
+    padding: 0.65rem 0.35rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cargadorIconosPlacita .loader__icon {
+    transform: none;
+    animation-name: cargadorMenuDisolver;
+  }
+
+  .cargadorIconosPlacita__alternativo {
+    animation: none;
+  }
+}
+
+@keyframes cargadorMenuDisolver {
+  0% { opacity: 0; }
+  1.25%, 8.75% { opacity: 1; }
+  12.5%, 100% { opacity: 0; }
 }

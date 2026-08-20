@@ -1,9 +1,9 @@
 import { useLayoutEffect, useRef } from 'react'
 import LogoPlacita from '../encabezado/LogoPlacita'
 
-const DURACION_TRANSICION = 450
-const DURACION_REAJUSTE = 240
-const CURVA_FLUIDA = 'cubic-bezier(0.16, 1, 0.3, 1)'
+const duracionTransicion = 450
+const duracionReajuste = 240
+const curvaFluida = 'cubic-bezier(0.16, 1, 0.3, 1)'
 
 function rectanguloCambio(rectanguloAnterior, rectanguloNuevo) {
   if (!rectanguloAnterior) return true
@@ -53,7 +53,7 @@ function TransicionLogo({ rectanguloOrigen, destinoRef, alTerminar }) {
         ],
         {
           duration: reducirMovimiento ? 1 : duracion,
-          easing: CURVA_FLUIDA,
+          easing: curvaFluida,
           fill: 'both',
         },
       )
@@ -67,7 +67,7 @@ function TransicionLogo({ rectanguloOrigen, destinoRef, alTerminar }) {
     const preparar = async () => {
       await document.fonts.ready
       if (cancelada) return
-      animarHaciaDestino(rectanguloOrigen, DURACION_TRANSICION)
+      animarHaciaDestino(rectanguloOrigen, duracionTransicion)
     }
 
     const reajustar = () => {
@@ -77,7 +77,7 @@ function TransicionLogo({ rectanguloOrigen, destinoRef, alTerminar }) {
       if (!rectanguloCambio(rectanguloDestinoAnterior, destinoActual)) return
 
       const posicionActual = capa.getBoundingClientRect()
-      animarHaciaDestino(posicionActual, DURACION_REAJUSTE)
+      animarHaciaDestino(posicionActual, duracionReajuste)
     }
 
     const observador = new ResizeObserver(reajustar)

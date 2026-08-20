@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
   <style>
     @font-face{font-family:"Product Sans Local";src:local("Product Sans"),local("ProductSans-Regular");font-style:normal;font-weight:400}
-    :root{--vino:#5f0403;--claro:#fdffed;--duracion:9s;--duracion-final:5.1s;--loader-size:clamp(2.75rem,7vw,3.5rem);--loader-step:.8s;--loader-cycle:6.4s;--comedor:"Product Sans Local",Arial,sans-serif;--placita:"Luckiest Guy",sans-serif}
+    :root{--vino:#5f0403;--claro:#fdffed;--duracion:9s;--duracion-final:6.3s;--loader-size:clamp(2.75rem,7vw,3.5rem);--loader-step:.8s;--loader-cycle:6.4s;--comedor:"Product Sans Local",Arial,sans-serif;--placita:"Luckiest Guy",sans-serif}
     *,*::before,*::after{box-sizing:border-box}
     html,body{width:100%;min-width:320px;min-height:100%;margin:0;background:var(--vino);overflow:hidden}
     body{font-family:var(--comedor)}
@@ -42,7 +42,7 @@
     @keyframes chente-final{0%,31%{opacity:0;transform:translateY(10px) scale(.9)}34%,41%{opacity:1;transform:translateY(0) scale(1)}48%,56.5%{opacity:1;transform:translateY(-5%) scale(1)}67%,100%{opacity:1;transform:translateY(calc(100% + clamp(3rem,6vh,5rem))) scale(1)}}
     @keyframes ocultar-chentes{0%,67.5%{visibility:visible}68%,100%{visibility:hidden}}
     @keyframes mostrar-placita{0%,44%{opacity:0;transform:none}47%,100%{opacity:1;transform:none}}
-    @keyframes mostrar-comedor{0%,48%{opacity:0;transform:translateY(8px)}50%{opacity:.58;transform:translateY(4px)}53%,100%{opacity:1;transform:translateY(0)}}
+    @keyframes mostrar-comedor{0%,58%{opacity:0;transform:translateY(8px)}61%{opacity:.58;transform:translateY(4px)}66%,100%{opacity:1;transform:translateY(0)}}
     @keyframes acomodar-marca{0%,100%{transform:translateY(clamp(.85rem,2.7vh,1.7rem)) scale(.76)}}
     @keyframes finalizar-introduccion{0%,100%{opacity:1}}
     @keyframes activar-oclusor{0%,56.49%{visibility:hidden}56.5%,68.5%{visibility:visible}69%,100%{visibility:hidden}}

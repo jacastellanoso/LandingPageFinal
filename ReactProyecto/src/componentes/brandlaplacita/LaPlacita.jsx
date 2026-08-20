@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import AnimacionLogo from './animacion/AnimacionLogo'
 import CarruselPromociones from './promociones/CarruselPromociones'
 import TituloSeccionPlacita from './compartidos/TituloSeccionPlacita'
@@ -21,6 +21,12 @@ function obtenerFaseInicial() {
 function LaPlacita() {
   const [fase, setFase] = useState(obtenerFaseInicial)
   const [rectanguloOrigen, setRectanguloOrigen] = useState(null)
+  const rectanguloPendienteRef = useRef(null)
+  const transicionSolicitadaRef = useRef(false)
+  const recursosListosRef = useRef({
+    promociones: false,
+    menu: false,
+  })
   const logoDestinoRef = useRef(null)
 
   useEffect(() => {
@@ -30,15 +36,43 @@ function LaPlacita() {
     return () => document.documentElement.classList.remove('placita-intro-activa')
   }, [fase])
 
-  const terminarIntroduccion = (rectangulo) => {
-    setRectanguloOrigen({
+  const iniciarTransicionSiCorresponde = useCallback(() => {
+    const recursosListos = recursosListosRef.current
+    const rectanguloPendiente = rectanguloPendienteRef.current
+
+    if (
+      transicionSolicitadaRef.current ||
+      !rectanguloPendiente ||
+      !recursosListos.promociones ||
+      !recursosListos.menu
+    ) {
+      return
+    }
+
+    transicionSolicitadaRef.current = true
+    setRectanguloOrigen(rectanguloPendiente)
+    setFase('transicion')
+  }, [])
+
+  const terminarIntroduccion = useCallback((rectangulo) => {
+    rectanguloPendienteRef.current = {
       top: rectangulo.top,
       left: rectangulo.left,
       width: rectangulo.width,
       height: rectangulo.height,
-    })
-    setFase('transicion')
-  }
+    }
+    iniciarTransicionSiCorresponde()
+  }, [iniciarTransicionSiCorresponde])
+
+  const marcarPromocionesListas = useCallback(() => {
+    recursosListosRef.current.promociones = true
+    iniciarTransicionSiCorresponde()
+  }, [iniciarTransicionSiCorresponde])
+
+  const marcarMenuListo = useCallback(() => {
+    recursosListosRef.current.menu = true
+    iniciarTransicionSiCorresponde()
+  }, [iniciarTransicionSiCorresponde])
 
   const terminarTransicion = () => {
     try {
@@ -72,12 +106,9 @@ function LaPlacita() {
         <section
           id="promocionesPlacita"
           className="franjaPlacita franjaPromociones"
-          aria-labelledby="tituloPromocionesPlacita"
+          aria-label="Promociones"
         >
-          <TituloSeccionPlacita id="tituloPromocionesPlacita">
-            Promociones
-          </TituloSeccionPlacita>
-          <CarruselPromociones />
+          <CarruselPromociones alCompletarCarga={marcarPromocionesListas} />
         </section>
         <section
           id="menuPlacita"
@@ -85,7 +116,7 @@ function LaPlacita() {
           aria-labelledby="tituloMenuPlacita"
         >
           <TituloSeccionPlacita id="tituloMenuPlacita">Menú</TituloSeccionPlacita>
-          <GaleriaMenu />
+          <GaleriaMenu alCompletarCarga={marcarMenuListo} />
         </section>
       </main>
 

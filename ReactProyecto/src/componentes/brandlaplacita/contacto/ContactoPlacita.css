@@ -1,0 +1,87 @@
+.contactoPlacita { display: grid; width: 100%; gap: 0; scroll-margin-top: calc(var(--alturaEncabezadoPlacita, 7rem) + .75rem); }
+.contactoPlacita__presentacion { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(7rem, .42fr); min-height: 8rem; margin-bottom: -.25rem; align-items: center; overflow: visible; isolation: isolate; }
+.contactoPlacita__textos { position: relative; z-index: 2; display: grid; width: min(100%, 19rem); justify-self: end; align-content: center; gap: .5rem; }
+.contactoPlacita__instruccion { margin: 0; color: var(--placita-claro); font-weight: 600; line-height: 1.35; text-align: center; text-wrap: balance; }
+.contactoPlacita__chenteMarco { position: relative; z-index: 0; display: grid; width: min(10rem, 135%); min-height: 8rem; justify-self: start; align-self: stretch; align-items: end; pointer-events: none; transform: translateX(-1.8rem); }
+.contactoPlacita__chente { width: 100%; opacity: 0; transform: translateY(110%) scale(.2); transform-origin: 50% 100%; }
+.contactoPlacita__chente svg { display: block; width: 100%; height: auto; }
+.pagina-placita--completa .contactoPlacita__chente--visible { animation: aparecerChenteTaza 900ms cubic-bezier(.16, 1, .3, 1) forwards; }
+.contactoPlacita__ingreso { position: relative; z-index: 3; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .5rem; padding: .45rem; border: 1px solid rgb(253 255 237 / 55%); border-radius: 999px; background: var(--placita-claro); }
+.contactoPlacita__icono { display: grid; width: 2.7rem; height: 2.7rem; border-radius: 50%; background: var(--placita-vino); color: var(--placita-claro); place-items: center; }
+.contactoPlacita__icono svg, .contactoPlacita__flotante svg { width: 1.45rem; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.contactoPlacita__ingreso input { min-width: 0; width: 100%; border: 0; outline: 0; background: transparent; color: #3b1a12; font: inherit; }
+.contactoPlacita__ingreso input:focus { box-shadow: inset 0 -2px var(--placita-vino); }
+.contactoPlacita button, .contactoModal button { border: 0; border-radius: 999px; background: var(--placita-vino); color: var(--placita-claro); font: inherit; font-weight: 700; cursor: pointer; }
+.contactoPlacita__ingreso button { min-height: 2.7rem; padding-inline: 1rem; }
+.contactoPlacita__flotante { display: none; border: 0; border-radius: 50%; background: var(--placita-vino); color: var(--placita-claro); font-family: var(--placita-fuente-comedor); cursor: pointer; }
+.soloLectoresPlacita { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.contactoModal { position: fixed; z-index: 3000; inset: 0; display: grid; padding: 1rem; overflow-y: auto; place-items: center; background: rgb(32 16 13 / 58%); backdrop-filter: blur(8px); font-family: var(--placita-fuente-comedor); }
+.contactoModal input, .contactoModal textarea, .contactoModal button { font-family: inherit; }
+.contactoModal__ventana { position: relative; width: min(100%, 53rem); max-height: calc(100svh - 2rem); overflow-y: auto; border: 1px solid #eadfda; border-radius: 1.35rem; background: #fff; color: #3b1a12; box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 28%); }
+.contactoModal__cerrar { position: absolute; z-index: 2; top: 1rem; right: 1rem; display: grid; width: 2.65rem; height: 2.65rem; padding: 0; place-items: center; font-size: 1.5rem; }
+.contactoModal__inicio, .contactoModal__resultado { display: grid; padding: clamp(2rem, 6vw, 3.5rem); justify-items: center; gap: .8rem; text-align: center; }
+.contactoModal__inicio h2, .contactoModal__inicio p, .contactoModal__resultado h2, .contactoModal__resultado p { margin: 0; }
+.contactoModal__inicio .contactoPlacita__ingreso { width: min(100%, 38rem); border-color: rgb(95 4 3 / 35%); }
+.contactoModal__encabezado { padding: 2rem 5rem 1.4rem 2rem; border-bottom: 1px solid #eadfda; }
+.contactoModal__encabezado span { display: inline-flex; padding: .4rem .8rem; border-radius: 999px; background: var(--placita-vino); color: var(--placita-claro); font-size: .8rem; font-weight: 700; }
+.contactoModal__encabezado h2 { margin: .7rem 0 0; font-family: var(--placita-fuente-logo); font-weight: 400; color: var(--placita-vino); }
+.contactoModal__encabezado p { margin: .4rem 0 0; color: #665c58; }
+.contactoModal__formulario { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; padding: 1.6rem 2rem 2rem; }
+.contactoModal__formulario > label { display: grid; gap: .4rem; font-weight: 700; }
+.contactoModal__formulario small { color: #887b76; font-weight: 400; }
+.contactoModal__formulario input, .contactoModal__formulario textarea { width: 100%; min-height: 3rem; padding: .75rem .9rem; border: 1px solid #eadfda; border-radius: .7rem; outline: 0; font: inherit; }
+.contactoModal__formulario input:focus, .contactoModal__formulario textarea:focus { border-color: var(--placita-vino); box-shadow: 0 0 0 3px rgb(95 4 3 / 10%); }
+.contactoModal__formulario input[readonly] { background: #f5eee8; }
+.contactoModal__formulario textarea { min-height: 8rem; resize: vertical; }
+.contactoModal__ancho, .contactoModal__motivos, .contactoModal__acciones, .contactoModal__error { grid-column: 1 / -1; }
+.contactoModal__motivos { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin: 0; padding: 0; border: 0; }
+.contactoModal__motivos legend { margin-bottom: .5rem; font-weight: 700; }
+.contactoModal__motivos label { position: relative; }
+.contactoModal__motivos input { position: absolute; opacity: 0; pointer-events: none; }
+.contactoModal__motivos span { display: grid; min-height: 3rem; padding: .6rem; border: 1px solid #eadfda; border-radius: .7rem; background: #f5eee8; color: #604840; place-items: center; text-align: center; font-weight: 700; cursor: pointer; }
+.contactoModal__motivos input:checked + span { border-color: var(--placita-vino); background: var(--placita-vino); color: var(--placita-claro); }
+.contactoModal__motivos input:focus-visible + span { outline: 3px solid rgb(95 4 3 / 25%); outline-offset: 2px; }
+.contactoModal__acciones { display: grid; gap: .55rem; }
+.contactoModal__acciones button, .contactoModal__resultado button { min-height: 3rem; }
+.contactoModal .contactoModal__secundario { background: #f5eee8; color: #604840; }
+.contactoModal__error { margin: 0; padding: .75rem; border: 1px solid #eadada; border-radius: .6rem; background: #fff3f3; color: var(--placita-vino); }
+.contactoModal__inicio + .contactoModal__error { margin: 0 2rem 2rem; }
+.contactoModal__resultado > span { display: grid; width: 4rem; height: 4rem; border-radius: 50%; background: var(--placita-vino); color: #fff; place-items: center; font-size: 1.8rem; }
+.contactoModal__resultadoAcciones { display: grid; width: min(100%, 22rem); gap: .55rem; }
+.contactoModal button:focus-visible, .contactoPlacita button:focus-visible { outline: 3px solid var(--placita-claro); outline-offset: 3px; }
+.contactoModal button:disabled { opacity: .6; cursor: wait; }
+.contactoModal__trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+@keyframes aparecerChenteTaza {
+  0% { opacity: 0; transform: translateY(110%) scale(.2); }
+  35% { opacity: 1; }
+  75% { transform: translateY(10%) scale(1.03); }
+  100% { opacity: 1; transform: translateY(14%) scale(1); }
+}
+
+@media (max-width: 700px) {
+  .contactoPlacita__presentacion, .contactoPlacita > .contactoPlacita__ingreso { display: none; }
+  .contactoPlacita { min-height: 0; }
+  .contactoPlacita__flotante { position: fixed; z-index: 900; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); display: grid; width: 3.6rem; height: 3.6rem; padding: 0; border: 2px solid var(--placita-claro); box-shadow: 0 .5rem 1.5rem rgb(0 0 0 / 28%); place-items: center; }
+  .contactoPlacita__flotante:focus-visible { outline: 3px solid var(--placita-vino); outline-offset: 3px; }
+  .contactoModal { align-items: center; padding: .75rem; }
+  .contactoModal__ventana { max-height: calc(100svh - 1.5rem); border-radius: 1rem; }
+  .contactoModal__inicio { padding: 4rem 1rem 1.5rem; }
+  .contactoModal__inicio .contactoPlacita__ingreso { grid-template-columns: auto minmax(0, 1fr); border-radius: 1rem; }
+  .contactoModal__inicio .contactoPlacita__ingreso button { grid-column: 1 / -1; width: 100%; }
+  .contactoModal__encabezado { padding: 1.5rem 4rem 1rem 1rem; }
+  .contactoModal__formulario { grid-template-columns: 1fr; gap: .75rem; padding: 1rem; }
+  .contactoModal__ancho, .contactoModal__motivos, .contactoModal__acciones, .contactoModal__error { grid-column: 1; }
+  .contactoModal__motivos { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 701px) {
+  .contactoPlacita__presentacion { min-height: 8rem; }
+  .contactoPlacita__textos { align-self: center; gap: .35rem; transform: translateY(-.2rem); }
+  .contactoPlacita__textos .tituloSeccionPlacita { font-size: clamp(2rem, 3.2vw, 2.8rem); }
+  .contactoPlacita__instruccion { font-size: clamp(1rem, 1.4vw, 1.15rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pagina-placita--completa .contactoPlacita__chente--visible { opacity: 1; transform: translateY(14%); animation: none; }
+}
