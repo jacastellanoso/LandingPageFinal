@@ -1,4 +1,7 @@
 .galeriaMenu {
+  --anchoMinimoTarjeta: 260px;
+  --anchoMaximoTarjeta: 320px;
+
   width: 100%;
   max-width: 1250px;
 
@@ -8,9 +11,10 @@
   display: grid;
 
   grid-template-columns:
-    repeat(auto-fill, minmax(280px, 1fr));
+    repeat(auto-fill, minmax(min(100%, var(--anchoMinimoTarjeta)), var(--anchoMaximoTarjeta)));
 
   gap: 24px;
+  justify-content: center;
 }
 
 
@@ -19,6 +23,8 @@
 ========================= */
 
 .tarjetaPlatillo {
+  width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 
@@ -110,6 +116,29 @@
 
   font-size: 0.78rem;
   font-weight: 700;
+  max-width: calc(100% - 30px);
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.fotoPlatillo--cargando {
+  opacity: 0;
+}
+
+.estadoCargaImagen {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  padding: 1rem;
+  place-items: center;
+  color: #790000;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.contenedorFotoPlatillo--error .ph11ErrorImagen {
+  padding-bottom: 4rem;
 }
 
 
@@ -360,6 +389,7 @@
 
 
 .grupoHorarios {
+  min-width: 0;
   display: flex;
   flex-direction: column;
 
@@ -383,6 +413,7 @@
   flex-wrap: wrap;
 
   gap: 10px;
+  justify-content: center;
 }
 
 
@@ -445,7 +476,8 @@
 .selectorCategoriaPersonalizado {
   position: relative;
 
-  width: 260px;
+  width: min(100%, 260px);
+  min-width: 0;
 
   display: flex;
   flex-direction: column;
@@ -619,6 +651,8 @@
 ========================= */
 
 .resultadoFiltros {
+  width: 100%;
+  padding-inline: 1rem;
   margin: 20px auto 0;
 
   color: #665c58;
@@ -647,15 +681,21 @@
   .botonesHorarios {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.35rem;
+    width: 100%;
+    min-width: 0;
+    gap: clamp(0.15rem, 0.8vw, 0.35rem);
   }
 
   .filtrosMenu .botonFiltroHorario {
     width: 100%;
+    min-width: 0;
     min-height: 2.5rem;
-    padding: 0.5rem 0.2rem;
-    font-size: clamp(0.62rem, 2.7vw, 0.75rem);
+    box-sizing: border-box;
+    padding: 0.5rem clamp(0.1rem, 1.2vw, 0.35rem);
+    font-size: clamp(0.58rem, 2.6vw, 0.75rem);
     letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
   }
 
   .resultadoFiltros {
@@ -664,10 +704,22 @@
   }
 
   .galeriaMenu {
+    --espacioTarjetasTelefono: 0.6rem;
+
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 1rem;
     padding: 0 0.5rem 1rem;
-    gap: 0.6rem;
+    gap: var(--espacioTarjetasTelefono);
+  }
+
+  .galeriaMenu > .tarjetaPlatillo {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .contenidoPlatillo {
@@ -700,6 +752,12 @@
   .botonPlatillo {
     padding: 0.65rem 0.35rem;
     font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 1240px) {
+  .galeriaMenu {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 

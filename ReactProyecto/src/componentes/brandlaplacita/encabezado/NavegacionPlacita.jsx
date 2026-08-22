@@ -44,7 +44,17 @@ function NavegacionPlacita() {
       const ultimaSeccionSuperada = [...secciones]
         .filter((seccion) => seccion.id !== 'contactoPlacita')
         .reverse()
-        .find((seccion) => seccion.getBoundingClientRect().top <= alturaEncabezado + 1)
+        .find((seccion) => {
+          const margenDesplazamiento = Number.parseFloat(
+            window.getComputedStyle(seccion).scrollMarginTop,
+          )
+          const lineaActivacion = Math.max(
+            alturaEncabezado,
+            Number.isFinite(margenDesplazamiento) ? margenDesplazamiento : 0,
+          )
+
+          return seccion.getBoundingClientRect().top <= lineaActivacion + 1
+        })
 
       setSeccionActiva(ultimaSeccionSuperada?.id ?? 'inicioPlacita')
     }
