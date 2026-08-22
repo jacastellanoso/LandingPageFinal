@@ -3,8 +3,9 @@ import { createPortal } from 'react-dom'
 import ErrorImagenChente from '../errores/ErrorImagenChente'
 
 function TarjetaPlatillo({ platillo }) {
-  const [errorImagen, setErrorImagen] =
-    useState(false)
+  const [estadoImagen, setEstadoImagen] = useState(
+    platillo.foto ? 'cargando' : 'error'
+  )
 
   const [modalAbierto, setModalAbierto] = useState(false)
 
@@ -43,20 +44,25 @@ function TarjetaPlatillo({ platillo }) {
 
   return (
     <article className="tarjetaPlatillo">
-      <div className="contenedorFotoPlatillo">
-        {platillo.foto && !errorImagen ? (
+      <div className={`contenedorFotoPlatillo${estadoImagen === 'error' ? ' contenedorFotoPlatillo--error' : ''}`}>
+        {estadoImagen !== 'error' ? (
           <img
-            className="fotoPlatillo"
+            className={`fotoPlatillo${estadoImagen === 'cargando' ? ' fotoPlatillo--cargando' : ''}`}
             src={platillo.foto}
             alt={
               platillo.nombrePlatillo ||
               'Platillo'
             }
             draggable="false"
-            onError={() => setErrorImagen(true)}
+            onLoad={() => setEstadoImagen('exito')}
+            onError={() => setEstadoImagen('error')}
           />
         ) : (
           <ErrorImagenChente />
+        )}
+
+        {estadoImagen === 'cargando' && (
+          <div className="estadoCargaImagen" role="status">Cargando imagen…</div>
         )}
 
         {platillo.categoria && (
@@ -129,7 +135,7 @@ function TarjetaPlatillo({ platillo }) {
             </button>
 
             <div className="modalDetalleFoto">
-              {platillo.foto && !errorImagen ? (
+              {platillo.foto && estadoImagen !== 'error' ? (
                 <img
                   src={platillo.foto}
                   alt={platillo.nombrePlatillo || 'Platillo'}
