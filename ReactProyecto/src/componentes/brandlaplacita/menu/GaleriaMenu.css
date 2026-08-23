@@ -1,0 +1,779 @@
+.galeriaMenu {
+  --anchoMinimoTarjeta: 260px;
+  --anchoMaximoTarjeta: 320px;
+
+  width: 100%;
+  max-width: 1250px;
+
+  margin: 40px auto 0;
+  padding: 0 24px 50px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill, minmax(min(100%, var(--anchoMinimoTarjeta)), var(--anchoMaximoTarjeta)));
+
+  gap: 24px;
+  justify-content: center;
+}
+
+
+/* =========================
+   TARJETA
+========================= */
+
+.tarjetaPlatillo {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #eadfda;
+  border-radius: 18px;
+
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.08);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+.tarjetaPlatillo:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.14);
+}
+
+
+/* =========================
+   FOTO
+========================= */
+
+.contenedorFotoPlatillo {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 1;
+
+  overflow: hidden;
+
+  background: #eeeeee;
+}
+
+
+.fotoPlatillo {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.4s ease;
+}
+
+
+.tarjetaPlatillo:hover .fotoPlatillo {
+  transform: scale(1.05);
+}
+
+
+.sinFotoPlatillo {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #eeeeee;
+  color: #777777;
+
+  font-size: 0.9rem;
+}
+
+
+.categoriaPlatillo {
+  position: absolute;
+
+  left: 15px;
+  bottom: 15px;
+
+  padding: 7px 14px;
+
+  background: #790000;
+  color: #ffffff;
+
+  border-radius: 20px;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+  max-width: calc(100% - 30px);
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.fotoPlatillo--cargando {
+  opacity: 0;
+}
+
+.estadoCargaImagen {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  padding: 1rem;
+  place-items: center;
+  color: #790000;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.contenedorFotoPlatillo--error .ph11ErrorImagen {
+  padding-bottom: 4rem;
+}
+
+
+.descuentoPlatillo {
+  position: absolute;
+
+  top: 15px;
+  right: 15px;
+
+  padding: 7px 12px;
+
+  background: #fff6df;
+  color: #790000;
+
+  border: 1px solid rgba(121, 0, 0, 0.15);
+  border-radius: 20px;
+
+  box-shadow:
+    0 4px 12px rgba(59, 26, 18, 0.25);
+
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+
+/* =========================
+   CONTENIDO
+========================= */
+
+.contenidoPlatillo {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+}
+
+
+.cabeceraPlatillo {
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+
+.nombrePlatillo {
+  margin: 0;
+
+  color: #3b1a12;
+
+  font-family: var(--placita-fuente-logo);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+
+.contenedorPrecio {
+  flex-shrink: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+
+.precioAnterior {
+  color: #888888;
+
+  font-size: 0.82rem;
+
+  text-decoration: line-through;
+}
+
+
+.precioPlatillo {
+  color: #790000;
+
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+
+.estadoPlatillo {
+  margin: auto 0 14px;
+  padding-top: 20px;
+
+  color: #790000;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+
+/* =========================
+   BOTÓN DEL PLATILLO
+========================= */
+
+.botonPlatillo {
+  width: 100%;
+
+  padding: 12px 16px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: #790000;
+  color: #ffffff;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.botonPlatillo:hover {
+  background: #590000;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================
+   CARGA Y ERROR
+========================= */
+
+.estadoMenu {
+  width: 100%;
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  color: #790000;
+}
+
+
+.estadoMenuError h3 {
+  margin: 0 0 10px;
+}
+
+
+.estadoMenuError p {
+  margin: 0;
+}
+
+
+.cargadorIconosPlacita {
+  --loader-size: clamp(3.25rem, 10vw, 4.5rem);
+  --loader-step: 0.8s;
+  --loader-cycle: 6.4s;
+
+  display: grid;
+  width: var(--loader-size);
+  height: var(--loader-size);
+  margin-bottom: 0.75rem;
+  place-items: center;
+}
+
+.cargadorIconosPlacita .loader {
+  position: relative;
+  width: var(--loader-size);
+  height: var(--loader-size);
+  user-select: none;
+}
+
+.cargadorIconosPlacita .loader__icon {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(0deg) scale(0.96);
+  transform-origin: center;
+  animation: cargadorMenuTransform var(--loader-cycle) linear infinite;
+}
+
+.cargadorIconosPlacita .loader__icon:nth-of-type(1) { animation-delay: calc(var(--loader-step) * 0); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(2) { animation-delay: calc(var(--loader-step) * 1); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(3) { animation-delay: calc(var(--loader-step) * 2); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(4) { animation-delay: calc(var(--loader-step) * 3); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(5) { animation-delay: calc(var(--loader-step) * 4); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(6) { animation-delay: calc(var(--loader-step) * 5); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(7) { animation-delay: calc(var(--loader-step) * 6); }
+.cargadorIconosPlacita .loader__icon:nth-of-type(8) { animation-delay: calc(var(--loader-step) * 7); }
+
+.cargadorIconosPlacita__alternativo {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 4px solid #eadada;
+  border-top-color: #790000;
+  border-radius: 50%;
+  animation: girarMenu 0.8s linear infinite;
+}
+
+@keyframes cargadorMenuTransform {
+  0% { opacity: 0; transform: rotate(0deg) scale(0.96); }
+  1.25% { opacity: 1; transform: rotate(0deg) scale(1); }
+  8.75% { opacity: 1; transform: rotate(0deg) scale(1); }
+  12.5% { opacity: 0; transform: rotate(270deg) scale(0.94); }
+  100% { opacity: 0; transform: rotate(270deg) scale(0.94); }
+}
+
+@keyframes girarMenu {
+  to { transform: rotate(360deg); }
+}
+
+
+/* =========================
+   CONTENEDOR DE FILTROS
+========================= */
+
+.contenedorMenu {
+  width: 100%;
+}
+
+
+.filtrosMenu {
+  width: calc(100% - 48px);
+  max-width: 1250px;
+
+  margin: 35px auto 0;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  align-items: flex-end;
+  justify-content: center;
+
+  gap: 24px;
+}
+
+
+.grupoHorarios {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.tituloFiltro {
+  color: #3b1a12;
+
+  font-weight: 700;
+}
+
+
+/* =========================
+   BOTONES DE HORARIO
+========================= */
+
+.botonesHorarios {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+  justify-content: center;
+}
+
+
+.filtrosMenu .botonFiltroHorario {
+  min-height: 42px;
+
+  padding: 10px 20px;
+
+  border: 1px solid #790000;
+  border-radius: 999px;
+
+  background: #fffef0;
+  color: #790000;
+
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.filtrosMenu .botonFiltroHorario:hover {
+  background: #790000;
+  color: #ffffff;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 5px 12px rgba(121, 0, 0, 0.2);
+}
+
+
+.filtrosMenu .botonFiltroHorarioActivo {
+  background: #790000;
+  color: #ffffff;
+
+  box-shadow:
+    0 4px 10px rgba(121, 0, 0, 0.18);
+}
+
+
+.filtrosMenu .botonFiltroHorario:focus-visible {
+  outline: 3px solid rgba(121, 0, 0, 0.25);
+  outline-offset: 3px;
+}
+
+
+/* =========================
+   SELECTOR DE CATEGORÍAS
+========================= */
+
+.selectorCategoriaPersonalizado {
+  position: relative;
+
+  width: min(100%, 260px);
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  z-index: 20;
+}
+
+
+.botonSelectorCategoria {
+  width: 100%;
+  min-height: 44px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  padding: 10px 15px;
+
+  border: 1px solid #eadfda;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: #3b1a12;
+
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.botonSelectorCategoria:hover {
+  border-color: #790000;
+
+  background: #fffdf8;
+}
+
+
+.botonSelectorCategoria:focus-visible,
+.botonSelectorCategoriaAbierto {
+  border-color: #790000;
+
+  outline: none;
+
+  box-shadow:
+    0 0 0 3px rgba(121, 0, 0, 0.14);
+}
+
+
+.flechaSelectorCategoria {
+  color: #790000;
+
+  font-size: 0.7rem;
+
+  transition:
+    transform 0.25s ease;
+}
+
+
+.flechaSelectorCategoriaAbierta {
+  transform: rotate(180deg);
+}
+
+
+.listaCategorias {
+  position: absolute;
+
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+
+  max-height: 290px;
+
+  padding: 8px;
+
+  overflow-y: auto;
+
+  border: 1px solid #eadfda;
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 14px 32px rgba(59, 26, 18, 0.16);
+}
+
+
+.opcionCategoria {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  padding: 11px 13px;
+
+  border: 0;
+  border-radius: 9px;
+
+  background: transparent;
+  color: #3b1a12;
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+
+.opcionCategoria:hover,
+.opcionCategoria:focus-visible {
+  background: #f5eee8;
+  color: #790000;
+
+  outline: none;
+}
+
+
+.opcionCategoriaSeleccionada {
+  background: #790000;
+  color: #ffffff;
+
+  font-weight: 700;
+}
+
+
+.opcionCategoriaSeleccionada:hover,
+.opcionCategoriaSeleccionada:focus-visible {
+  background: #590000;
+  color: #ffffff;
+}
+
+
+.listaCategorias::-webkit-scrollbar {
+  width: 8px;
+}
+
+
+.listaCategorias::-webkit-scrollbar-track {
+  background: #f5eee8;
+
+  border-radius: 10px;
+}
+
+
+.listaCategorias::-webkit-scrollbar-thumb {
+  background: #790000;
+
+  border-radius: 10px;
+}
+
+
+/* =========================
+   CONTADOR
+========================= */
+
+.resultadoFiltros {
+  width: 100%;
+  padding-inline: 1rem;
+  margin: 20px auto 0;
+
+  color: #665c58;
+
+  text-align: center;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 650px) {
+  .filtrosMenu {
+    width: calc(100% - 30px);
+    margin-top: 1rem;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .grupoHorarios,
+  .selectorCategoriaPersonalizado {
+    width: 100%;
+  }
+
+  .botonesHorarios {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%;
+    min-width: 0;
+    gap: clamp(0.15rem, 0.8vw, 0.35rem);
+  }
+
+  .filtrosMenu .botonFiltroHorario {
+    width: 100%;
+    min-width: 0;
+    min-height: 2.5rem;
+    box-sizing: border-box;
+    padding: 0.5rem clamp(0.1rem, 1.2vw, 0.35rem);
+    font-size: clamp(0.58rem, 2.6vw, 0.75rem);
+    letter-spacing: 0;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .resultadoFiltros {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .galeriaMenu {
+    --espacioTarjetasTelefono: 0.6rem;
+
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 1rem;
+    padding: 0 0.5rem 1rem;
+    gap: var(--espacioTarjetasTelefono);
+  }
+
+  .galeriaMenu > .tarjetaPlatillo {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .contenidoPlatillo {
+    padding: 0.65rem;
+  }
+
+  .cabeceraPlatillo {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .nombrePlatillo {
+    font-size: 0.95rem;
+  }
+
+  .contenidoPlatilloResumen .contenedorPrecio {
+    align-items: flex-start;
+  }
+
+  .precioPlatillo {
+    font-size: 0.95rem;
+  }
+
+  .estadoPlatillo {
+    margin-bottom: 0.6rem;
+    padding-top: 0.6rem;
+    font-size: 0.7rem;
+  }
+
+  .botonPlatillo {
+    padding: 0.65rem 0.35rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 1240px) {
+  .galeriaMenu {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cargadorIconosPlacita .loader__icon {
+    transform: none;
+    animation-name: cargadorMenuDisolver;
+  }
+
+  .cargadorIconosPlacita__alternativo {
+    animation: none;
+  }
+}
+
+@keyframes cargadorMenuDisolver {
+  0% { opacity: 0; }
+  1.25%, 8.75% { opacity: 1; }
+  12.5%, 100% { opacity: 0; }
+}
